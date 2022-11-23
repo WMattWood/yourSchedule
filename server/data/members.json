@@ -1,0 +1,72 @@
+[
+	{
+		"name": "Imani Yang",
+		"phone": "215-637-7258",
+		"email": "posuere@aol.com",
+		"address": "P.O. Box 813, 1053 Per Avenue",
+		"postalZip": "9662"
+	},
+	{
+		"name": "John Sawyer",
+		"phone": "643-915-3658",
+		"email": "neque.sed@yahoo.edu",
+		"address": "Ap #473-1309 Non, Av.",
+		"postalZip": "57179-62811"
+	},
+	{
+		"name": "Dorian Richard",
+		"phone": "465-134-1767",
+		"email": "donec.dignissim@hotmail.com",
+		"address": "571-5559 Tellus. Rd.",
+		"postalZip": "2578"
+	},
+	{
+		"name": "Rinah Herrera",
+		"phone": "612-529-4827",
+		"email": "vulputate.velit@protonmail.org",
+		"address": "Ap #854-969 Nec, Av.",
+		"postalZip": "817751"
+	},
+	{
+		"name": "Catherine Moody",
+		"phone": "888-725-9252",
+		"email": "montes.nascetur.ridiculus@google.org",
+		"address": "908-417 Et Av.",
+		"postalZip": "868932"
+	},
+  {
+		"name": "Lani Huber",
+		"phone": "443-547-3254",
+		"email": "vestibulum@aol.couk",
+		"address": "148-4597 Nunc Road",
+		"postalZip": "29241"
+	},
+	{
+		"name": "Sybil Underwood",
+		"phone": "376-128-3843",
+		"email": "malesuada.integer@icloud.net",
+		"address": "P.O. Box 594, 8906 Mauris St.",
+		"postalZip": "1423"
+	},
+	{
+		"name": "Alexa Pratt",
+		"phone": "793-868-6504",
+		"email": "dictum.ultricies.ligula@hotmail.org",
+		"address": "813-8094 Dictum St.",
+		"postalZip": "4730"
+	},
+	{
+		"name": "Paula Henry",
+		"phone": "454-232-4862",
+		"email": "dapibus.quam.quis@outlook.com",
+		"address": "Ap #239-9582 Sed Street",
+		"postalZip": "50068-57579"
+	},
+	{
+		"name": "Merrill Ferguson",
+		"phone": "586-614-6480",
+		"email": "a@yahoo.couk",
+		"address": "Ap #996-5703 Est, St.",
+		"postalZip": "844183"
+	}
+]
