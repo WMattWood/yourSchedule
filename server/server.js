@@ -24,14 +24,14 @@ express()
   })
 
   ////////// EVENT ENDPOINTS
+  // insert new event into db
+  .post('/calendar/insert', insertEvent)
+
   // get all events from database 
   .get('/calendar/allevents', getAllEvents)
 
   // get specific event from db
   .get('/calendar/:eventId', getEvent)
-
-  // insert new event into db
-  .post('/calendar/insert', insertEvent)
 
   // update a specific event from db
   .patch('/calendar/:eventId', updateEvent)
