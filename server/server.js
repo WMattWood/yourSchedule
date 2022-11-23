@@ -19,9 +19,6 @@ express()
     res.status(200).json({status: 200, message: "Hello World!" })
   })
 
-  .listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-  })
 
   ////////// EVENT ENDPOINTS
   // insert new event into db
@@ -46,3 +43,9 @@ express()
 
   //// insert a new member into the db
   // .post('/members/insert')
+
+  // Node spins up server and sets it to listen on specified port
+  .listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+  
