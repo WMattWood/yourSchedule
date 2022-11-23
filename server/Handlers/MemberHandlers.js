@@ -11,7 +11,7 @@ const options = {
     useUnifiedTopology: true,
   }
 
-const database = "yourSchedule"
+const DATABASE_NAME = "yourSchedule"
 
 const getAllMembers = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options)
@@ -20,7 +20,7 @@ const getAllMembers = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // do stuff
 
@@ -48,7 +48,7 @@ const getMember = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // do stuff
 

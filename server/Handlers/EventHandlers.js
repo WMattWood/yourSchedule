@@ -11,7 +11,7 @@ const options = {
     useUnifiedTopology: true,
   }
   
-const database = "yourSchedule"
+const DATABASE_NAME = "yourSchedule"
 
 const addNewEvent = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options)
@@ -20,7 +20,7 @@ const addNewEvent = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // format data to add
     const newEvent = {  _id: uuidv4(),
@@ -57,7 +57,7 @@ const getAllEvents = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // do stuff
 
@@ -85,7 +85,7 @@ const getEvent = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // do stuff
 
@@ -113,7 +113,7 @@ const updateEvent = async (req, res) => {
     // Connect client
     await client.connect()
     console.log("Connected")
-    const db = client.db(database)
+    const db = client.db(DATABASE_NAME)
 
     // do stuff
 
