@@ -18,10 +18,10 @@ function App() {
       {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
-        {/* <Route path="/about" element={<AboutPage/>} />
-        <Route path="/items/id/:itemId" element={<ItemPage/>} />
-        <Route path="/cart" element={<DisplayCart/>} />
-        <Route path="/confirmation" element={<Confirmation/>} /> */}
+        {/* <Route path="/about" element={<AboutPage/>} /> */}
+        {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
+        {/* <Route path="/cart" element={<DisplayCart/>} /> */}
+        {/* <Route path="/confirmation" element={<Confirmation/>} /> */}
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
