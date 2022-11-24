@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
+import EventDetailsPage from "./EventDetailsPage";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calendar" element={<CalendarPage/>} />
+        <Route path="/event/:eventId" element={<EventDetailsPage/>} />
         <Route path="/roster" element={<RosterPage/>} />
         {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
         {/* <Route path="/cart" element={<DisplayCart/>} /> */}
