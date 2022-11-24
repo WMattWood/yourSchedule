@@ -22,12 +22,12 @@ const getAllMembers = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const allMembers = await db.collection("Members").find().toArray()
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: allMembers
     })
   } catch(err) {
     res.status(400).json({
@@ -50,12 +50,13 @@ const getMember = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const memberId = req.params.memberId
+    const specificMember = await db.collection("Members").findOne( { _id: memberId })
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: specificMember
     })
   } catch(err) {
     res.status(400).json({
