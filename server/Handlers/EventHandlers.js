@@ -10,7 +10,7 @@ const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-  
+
 const DATABASE_NAME = "yourSchedule"
 
 const insertEvent = async (req, res) => {
@@ -22,16 +22,13 @@ const insertEvent = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
+    const formData = req.body.data
+
     // format data to add
-    const newEvent = {  _id: uuidv4(),
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        address: "",
-                      } 
+    const newEvent = {  ...formData, _id: uuidv4() } 
 
     // insert formatted order to db Orders collection
-    await db.collection("Orders").insertOne( newEvent )
+    await db.collection("Events").insertOne( newEvent )
 
     res.status(200).json({
       status: 200,
@@ -59,12 +56,12 @@ const getAllEvents = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const allEvents = await db.collection("Events").find().toArray()
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: allEvents
     })
   } catch(err) {
     res.status(400).json({
@@ -87,12 +84,14 @@ const getAllEventsByMonth = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const month = req.body.month
+    const year = req.body.year
+    const arrayOfEvents = await db.collection("Events").find( { dateMonth: month, dateYear: year} ).toArray()
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: arrayOfEvents
     })
   } catch(err) {
     res.status(400).json({
@@ -115,12 +114,13 @@ const getEventById = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const eventId = req.params.eventId
+    const specificEvent = await db.collection("Events").findOne( { _id: eventId })
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: specificEvent
     })
   } catch(err) {
     res.status(400).json({
@@ -143,12 +143,14 @@ const updateEvent = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // do stuff
+    const eventId = req.params.eventId
+    const formData = req.body.data
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: {...formData} })
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: newEvent
+      data: formData
     })
   } catch(err) {
     res.status(400).json({
