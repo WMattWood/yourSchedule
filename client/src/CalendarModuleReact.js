@@ -26,22 +26,19 @@ const CalendarModuleReact = () => {
   const getHeader = () => {
     return (
       <HeaderWrapper>
-        <TodayButton
-            className="todayButton"
+        {/* <TodayButton
             onClick={() => {
               setSelectedDate(new Date());
               setActiveDate(new Date());
             }}
-            > Today </TodayButton>
-        <LeftNavIcon
-            className="navIcon"
-            onClick={() => setActiveDate(subMonths(activeDate, 1))}
-            />
-        <RightNavIcon
-            className="navIcon"
-            onClick={() => setActiveDate(addMonths(activeDate, 1))}
-            />
-        <MonthTitle>{format(activeDate, "MMMM yyyy")}</MonthTitle>
+            > Today </TodayButton> */}
+        <NavIcon>
+          <AiOutlineLeft onClick={() => setActiveDate(subMonths(activeDate, 1))}  />
+        </NavIcon>
+        <NavIcon>
+          <AiOutlineRight onClick={() => setActiveDate(addMonths(activeDate, 1))} />
+        </NavIcon>
+        <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
       </HeaderWrapper>
     );
   };
@@ -65,9 +62,9 @@ const CalendarModuleReact = () => {
       
       week.push(
         <Day
-          className={`day ${ isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"} 
-                          ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
-                          ${isSameDay(currentDate, new Date()) ? "today" : ""}`
+          className={`${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"} 
+                      ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
+                      ${isSameDay(currentDate, new Date()) ? "today" : ""}`
                     }
           onClick={ () => setSelectedDate(cloneDate) }
         >
@@ -118,48 +115,28 @@ const HeaderWrapper = styled.div `
   display: flex;
   align-items: center;
 `
-const TodayButton = styled.div `
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 8px 16px;
-  cursor: pointer;
-  margin-right: 8px;
-
-  &:hover {
-    background: #efefef;
-  }
-`
-const LeftNavIcon = styled(AiOutlineLeft) `
-  width: 20px;
-  height: 20px;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    border-radius: 50%;
-    background: #efefee;
-  }
-`
-const RightNavIcon = styled(AiOutlineRight) `
-  width: 20px;
-  height: 20px;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    border-radius: 50%;
-    background: #efefee;
-  }
-`
 const MonthTitle = styled.h2 `
   margin-left: 24px;
   font-size: 24px;
 `
+const NavIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 50%;
+    background: #efefee;
+  }
+`
+
 
 const WeekContainer = styled.div `
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-`
+  width: 700px;
+  grid-template-columns: repeat(7, 100px);
+` 
 const Day = styled.div `
   margin: 12px;
   height: 30px;
@@ -169,7 +146,8 @@ const Day = styled.div `
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-
+  /* box-sizing: border-box;
+  border: 2px solid red; */
   .inactiveDay {
     color: #9e9e9e;
   }
@@ -183,6 +161,10 @@ const Day = styled.div `
     color: white;
     background: #3366ff;
     border-radius: 50%;
+  }
+
+  &:hover {
+    background-color: #9e9e9e;
   }
 `
 
