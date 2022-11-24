@@ -78,7 +78,35 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-const getEvent = async (req, res) => {
+const getAllEventsByMonth = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options)
+  
+  try {
+    // Connect client
+    await client.connect()
+    console.log("Connected")
+    const db = client.db(DATABASE_NAME)
+
+    // do stuff
+
+    res.status(200).json({
+      status: 200,
+      message: "SUCCESS",
+      data: newEvent
+    })
+  } catch(err) {
+    res.status(400).json({
+      status: 400, 
+      message: "ERROR"
+    })
+  } finally {
+    // disconnect from database 
+    client.close()
+    console.log("Disconnected")
+  }
+};
+
+const getEventById = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options)
   
   try {
@@ -134,4 +162,4 @@ const updateEvent = async (req, res) => {
   }
 };
 
-module.exports = { insertEvent, getAllEvents, getEvent, updateEvent }
+module.exports = { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent }

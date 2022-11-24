@@ -3,7 +3,7 @@ const helmet = require('helmet')
 const morgan = require("morgan");
 const port = 8000
 
-const { getAllEvents, getEvent, insertEvent, updateEvent} = require('./Handlers/EventHandlers')
+const { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent} = require('./Handlers/EventHandlers')
 const { getAllMembers, getMember } = require('./Handlers/MemberHandlers')
 
 express()
@@ -27,8 +27,11 @@ express()
   // get all events from database 
   .get('/calendar/allevents', getAllEvents)
 
+  // get all events for a given month
+  .get(`/calendar/month`, getAllEventsByMonth)
+
   // get specific event from db
-  .get('/calendar/:eventId', getEvent)
+  .get('/calendar/:eventId', getEventById)
 
   // update a specific event from db
   .patch('/calendar/:eventId', updateEvent)
