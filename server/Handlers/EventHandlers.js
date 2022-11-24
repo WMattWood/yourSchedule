@@ -13,7 +13,7 @@ const options = {
   
 const DATABASE_NAME = "yourSchedule"
 
-const addNewEvent = async (req, res) => {
+const insertEvent = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options)
   
   try {
@@ -134,4 +134,4 @@ const updateEvent = async (req, res) => {
   }
 };
 
-module.exports = { addNewEvent, getAllEvents, getEvent, updateEvent }
+module.exports = { insertEvent, getAllEvents, getEvent, updateEvent }

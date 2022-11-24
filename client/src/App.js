@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from 'styled-components'
 import Homepage from "./Homepage"
+import CalendarPage from "./CalendarPage"
+
+
 function App() {
 
   // ~~~~ Structure of the App:
@@ -18,7 +22,7 @@ function App() {
       {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
-        {/* <Route path="/about" element={<AboutPage/>} /> */}
+        <Route path="/calendar" element={<CalendarPage/>} />
         {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
         {/* <Route path="/cart" element={<DisplayCart/>} /> */}
         {/* <Route path="/confirmation" element={<Confirmation/>} /> */}
@@ -27,5 +31,12 @@ function App() {
     </BrowserRouter>
   );
 }
+
+// GlobalStyles???
+// const App = styled.div`
+//   font-family: sans-serif;
+//   text-align: center;
+//   color: #212121;
+// `
 
 export default App;

@@ -68,3 +68,5 @@ const getMember = async (req, res) => {
     console.log("Disconnected")
   }
 };
+
+module.exports = { getAllMembers, getMember }
