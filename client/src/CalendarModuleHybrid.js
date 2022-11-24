@@ -1,39 +1,24 @@
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 import React, { useState } from "react";
-import {
-  format,
-  startOfWeek,
-  addDays,
-  startOfMonth,
-  endOfMonth,
-  endOfWeek,
-  isSameMonth,
-  isSameDay,
-  subMonths,
-  addMonths
-} from "date-fns";
+import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-
-
-const CalendarModuleReact = () => {
+const CalendarModuleHybrid = () => {
   
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
 
   let selectYear = document.getElementById("year")
   let selectMonth = document.getElementById("month")
+  
   // Jump To Specific Month
   const jump = () => {
-    // currentYear = parseInt(selectYear.value);
-    // currentMonth = parseInt(selectMonth.value);
     console.log(selectYear.value)
     console.log(selectMonth.value)
     setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
     
-
   let today = new Date();
   let currentMonth = today.getMonth();
   let currentYear = today.getFullYear();
@@ -71,7 +56,7 @@ const CalendarModuleReact = () => {
                 name="month"
                 id="month"
                 onChange={ () => jump() }
-                > {months.map( (month, idx) => <MonthOption value={idx}>{month}</MonthOption>)}
+                > {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
             </MonthSelect>
             <label htmlFor="year" />
             <YearSelect
@@ -79,7 +64,7 @@ const CalendarModuleReact = () => {
                 name="year"
                 id="year"
                 onChange={ () => jump() }
-                > {years.map( (year) => <YearOption value={year}>{year}</YearOption>)}
+                > {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
             </YearSelect>
           </JumpSectionForm>
       </HeaderWrapper>
@@ -95,81 +80,36 @@ const CalendarModuleReact = () => {
     )
   }
 
-  // const getOneWeek = (date, selectedDate, activeDate) => {
-  //   let currentDate = date
-  //   const week = []
-  //   for (let day = 0; day < 7; day++) {
-  //     const cloneDate = currentDate;
-      
-  //     week.push(
-  //       <Day
-  //         className={`${isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"} 
-  //                     ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
-  //                     ${isSameDay(currentDate, new Date()) ? "today" : ""}`
-  //                   }
-  //         onClick={ () => setSelectedDate(cloneDate) }
-  //       >
-  //         {format(currentDate, "d")}
-  //       </Day>
-  //     );
-  //     currentDate = addDays(currentDate, 1);
-  //   }
-  //   return <>{week}</>;
-  // };
-
-  // const getDates = () => {
-  //   const startOfTheSelectedMonth = startOfMonth(activeDate);
-  //   const endOfTheSelectedMonth = endOfMonth(activeDate);
-  //   const startDate = startOfWeek(startOfTheSelectedMonth);
-  //   const endDate = endOfWeek(endOfTheSelectedMonth);
-
-  //   let currentDate = startDate;
-
-  //   const arrayOfWeeks = [];
-
-  //   while (currentDate <= endDate) {
-  //     arrayOfWeeks.push(
-  //       getOneWeek(currentDate, selectedDate, activeDate)
-  //     );
-  //     currentDate = addDays(currentDate, 7);
-  //   }
-
-  //   return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>;
-  // };
-
   const getCalendar = (year, month) => {
-
+    // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
     let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
-    
-   
-  
+    // initialize "currentDate" count
     let currentDate = 1
     let arrayOfWeeks = []
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-  
-        let blankSquare = <Day></Day>
-        let dateSquare = <Day>{currentDate}</Day>
-        let todaySquare = <Day className="today">{currentDate} Today</Day>
+        // 
+        let blankSquare = <Day key={uuidv4()}></Day>
+        let dateSquare = <Day key={uuidv4()}>{currentDate}</Day>
+        let todaySquare = <Day className="today" key={uuidv4()}>{currentDate}</Day>
         let isToday = ( currentDate === today.getDate() && 
                         year === today.getFullYear() && 
                         month === today.getMonth() ) 
   
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
-        }
-        else if (currentDate > daysInMonth) {
+        } else if (currentDate > daysInMonth) {
           break;
-        }
-        else {
+        } else {
           isToday ? week.push(todaySquare) : week.push(dateSquare)
           currentDate++;
         }
       }
       arrayOfWeeks.push(week)
     }
+    console.log(arrayOfWeeks)
     return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
   }
 
@@ -178,20 +118,10 @@ const CalendarModuleReact = () => {
     <section>
       {getHeader()}
       {getWeekDayNames()}
-      {/* {getDates()} */}
       {getCalendar(currentYear, currentMonth)}
     </section>
   );
 };
-
-
-
-// const changeMonth styled. `
-//   margin: 0px 20px;
-// `
-
-
-
 
 const CalendarGrid = styled.div `
   display: grid;
@@ -282,4 +212,4 @@ const YearSelect = styled.select`
 const YearOption = styled.option`
 ` 
 
-export default CalendarModuleReact;
+export default CalendarModuleHybrid;

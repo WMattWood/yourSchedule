@@ -1,4 +1,5 @@
 import CalendarModuleHybrid from "./CalendarModuleHybrid";
+import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
 
@@ -6,6 +7,7 @@ const CalendarPage = () => {
     <>
       <h1>Welcome to my CalendarPage!</h1>
       <CalendarModuleHybrid></CalendarModuleHybrid>
+      <AddEventModal></AddEventModal>
     </>
   )
 }
