@@ -4,7 +4,7 @@ import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
 import EventDetailsPage from "./EventDetailsPage";
-
+import GlobalStyle from "./GlobalStyles";
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <BrowserRouter>
-    {/* <GlobalStyle /> */}
+    <GlobalStyle />
       {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
