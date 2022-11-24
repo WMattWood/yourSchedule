@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from 'styled-components'
 import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
+import RosterPage from "./RosterPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calendar" element={<CalendarPage/>} />
+        <Route path="/roster" element={<RosterPage/>} />
         {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
         {/* <Route path="/cart" element={<DisplayCart/>} /> */}
         {/* <Route path="/confirmation" element={<Confirmation/>} /> */}
