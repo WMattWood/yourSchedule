@@ -18,9 +18,13 @@ const Navbar = () => {
     navigate("/roster");
   };
 
+  const linkToHome = () => {
+    navigate("/");
+  };
+
   return (
     <>
-      <Title>yourSchedule</Title>
+      <Title onClick={linkToHome}>yourSchedule</Title>
       <NavbarContainer>
         <LeftSide>
           <Link onClick={linkToCalendar}>Calendar</Link>
@@ -38,6 +42,10 @@ const Title = styled.div`
   padding-top: 30px;
   padding-bottom: 10px;
   font-size: 48px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const NavbarContainer = styled.div`
@@ -65,11 +73,11 @@ const RightSide = styled.div`
 `
 const Link = styled.div`
   font-size: 24px;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
   transition: border-bottom 0.2s, color 0.2s;
   &:hover {
     cursor: pointer;
-    border-bottom: 2px solid goldenrod;
+    border-bottom: 3px solid goldenrod;
     color: goldenrod;
     transition: border-bottom 0.1s ;
   }
