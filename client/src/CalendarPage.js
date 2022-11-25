@@ -20,7 +20,7 @@ const CalendarPage = () => {
         : <AddEventModal/>
       }
       </ModalHolder>
-      <button onClick={toggleModal}>Beep.</button>
+      <AddEventButton onClick={toggleModal}>+ Add Event</AddEventButton>
     </>
   )
 }
@@ -29,6 +29,13 @@ const ModalHolder = styled.div`
   position: absolute;
   left: 800px;
   top: 240px;
+`
+const AddEventButton = styled.button`
+  height: 40px;
+  width: 140px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 10px;
 `
 
 export default CalendarPage
