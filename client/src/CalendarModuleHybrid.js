@@ -5,7 +5,7 @@ import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'
 
-const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate}) => {
+const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate, modalVisibility, setModalVisibility}) => {
   
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [monthlyCalendar, setMonthlyCalendar] = useState([])

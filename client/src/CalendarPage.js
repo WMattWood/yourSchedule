@@ -5,18 +5,23 @@ import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
 
-  const [ visible, setVisible ] = useState(false)
+  const [ modalVisibility, setModalVisibility ] = useState(false)
   const [ activeDate, setActiveDate ] = useState(new Date());
   console.log("This is what the activeDate looks like", activeDate)
-  const toggleModal = () => { setVisible(!visible) }
+  
+  const toggleModal = () => { setModalVisibility(!modalVisibility) }
 
   return(
     <>
       <h1>Welcome to my CalendarPage!</h1>
-      <CalendarModuleHybrid toggleModal={toggleModal} activeDate={activeDate} setActiveDate={setActiveDate}></CalendarModuleHybrid>
+      <CalendarModuleHybrid toggleModal={toggleModal} 
+                            activeDate={activeDate} 
+                            setActiveDate={setActiveDate} 
+                            modalVisibility={modalVisibility} 
+                            setModalVisibility={setModalVisibility}></CalendarModuleHybrid>
       <ModalHolder>
       { 
-        ! visible 
+        ! modalVisibility 
         ? null
         : <AddEventModal toggleModal={toggleModal} activeDate={activeDate} setActiveDate={setActiveDate}/>
       }
