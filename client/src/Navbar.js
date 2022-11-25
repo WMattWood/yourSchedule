@@ -26,8 +26,8 @@ const Navbar = () => {
           <Link onClick={linkToCalendar}>Calendar</Link>
         </LeftSide>
         <RightSide>
-          <Link onClick={linkToEventDetails}>Roster</Link>
-          <Link onClick={linkToRoster}>temp.</Link>
+          <Link onClick={linkToRoster}>Roster</Link>
+          <Link onClick={linkToEventDetails}>.temp</Link>
         </RightSide>
       </NavbarContainer>
     </>
@@ -35,7 +35,8 @@ const Navbar = () => {
 }
 
 const Title = styled.div`
-  padding: 30px 0px;
+  padding-top: 30px;
+  padding-bottom: 10px;
   font-size: 48px;
 `
 
@@ -45,7 +46,7 @@ const NavbarContainer = styled.div`
   align-items: end;
   border-bottom: 4px solid black;
   width: 100%;
-  height: 60px;
+  height: 50px;
   /* margin: 0px 5px; */
   * {
     margin: 2px 0px;
