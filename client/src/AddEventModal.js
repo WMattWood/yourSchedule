@@ -7,18 +7,17 @@ import { v4 as uuidv4 } from 'uuid'
 
 const AddEventModal = () => {
 
-  const { modalVisibility, setModalVisibility, activeDate, setActiveDate, formData, setFormData } = useContext(CalendarContext)
-  const closeModal = () => { setModalVisibility(false) }
-  // const [ formData, setFormData ] = useState( { name: "", 
-  //                                               location: "",
-  //                                               dateMonth: activeDate.getMonth(),
-  //                                               dateDay: activeDate.getDay(),
-  //                                               dateYear: activeDate.getFullYear()
-  //                                             })
+  const { setModalVisibility, 
+          activeDate, 
+          setActiveDate, 
+          formData, setFormData 
+        } = useContext(CalendarContext)
 
-  let today = new Date();
-  let currentMonth = activeDate.getMonth();
-  let currentYear = activeDate.getFullYear();                                            
+  const closeModal = () => { setModalVisibility(false) }
+
+  // let today = new Date();
+  // let currentMonth = activeDate.getMonth();
+  // let currentYear = activeDate.getFullYear();                                            
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
@@ -30,8 +29,6 @@ const AddEventModal = () => {
     days.push(i)
   }
   
-
-
   const submitHandler = (ev) => {
     ev.preventDefault();
     console.log(formData)
@@ -54,6 +51,11 @@ const AddEventModal = () => {
   ///// can be used to make it so choosing a date here in the modal
   ///// automatically jumps the calendar to that date.  (DO USERS LIKE THIS?)
 
+  ///// CHOICE MADE
+  ///// the code below ONLY lets the eventModal change the active day... the 
+  ///// active year and month can only be changed using the calendar header
+  ///// navigation buttons.
+  
   let selectDay = document.getElementById("modalDay")
   // let selectYear = document.getElementById("modalYear")
   // let selectMonth = document.getElementById("modalMonth")
@@ -99,7 +101,6 @@ const AddEventModal = () => {
               <EventDateSelect  type="select" 
                                 name="day"
                                 id="modalDay" 
-                                // value={activeDate.getDate()} 
                                 value={formData.dateDay}
                                 onChange={ (ev) => selectHandler(ev, "dateDay") }  
                                 required 

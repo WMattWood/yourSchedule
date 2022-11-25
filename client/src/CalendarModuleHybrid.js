@@ -9,9 +9,9 @@ import DayCell from './DayCell'
 
 const CalendarModuleHybrid = () => {
   
-  const { modalVisibility, setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext)
+  const { activeDate, setActiveDate } = useContext(CalendarContext)
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
   const [monthlyCalendar, setMonthlyCalendar] = useState([])
 
   let selectYear = document.getElementById("year")
@@ -34,17 +34,16 @@ const CalendarModuleHybrid = () => {
     setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
 
+  const jumpToday = () => {
+    setActiveDate( new Date() )
+  }
+
   // Generate Header
   const getHeader = () => {
 
     return (
       <HeaderWrapper>
-        {/* <TodayButton
-            onClick={() => {
-              setSelectedDate(new Date());
-              setActiveDate(new Date());
-            }}
-            > Today </TodayButton> */}
+        {/* <TodayButton onClick={ () => jumpToday() }>Today</TodayButton> */}
         <NavWrapper>
           <NavIcon>
             <AiOutlineLeft onClick={() => setActiveDate(subMonths(activeDate, 1))}  />
@@ -104,10 +103,13 @@ const CalendarModuleHybrid = () => {
           let todaySquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"noevent"} isThisSquareToday={"today"}></DayCell>
           let eventPendingSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventPending"}></DayCell>
           let eventFullSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventFull"}></DayCell>
-        let isToday = ( currentDate === today.getDate() && 
-                        year === today.getFullYear() && 
-                        month === today.getMonth() ) 
-       
+        let isToday = ( activeDate.getFullYear() === new Date().getFullYear() &&
+                        activeDate.getMonth() === new Date().getMonth() &&
+                        activeDate.getDate() === currentDate ) 
+        console.log("Active Date", activeDate)
+        console.log("New Date", new Date() )
+        let msg = ( isToday ? "yes" : "no" )
+        console.log("Is it today yet? ", msg )
         let hasEvent = ( monthlyCalendar.filter( event => event.dateDay === currentDate ).length > 0 ) 
   
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {

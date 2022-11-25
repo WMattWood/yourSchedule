@@ -7,13 +7,18 @@ const DayCell = (props) => {
   const { modalVisibility, setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
 
   const clickHandler = () => {
+    // onClick - make modal visible and set the modal's date to match the currently displayed calendar date
+    // but only do this if you click on a box that actually has a number.
+    //..... also makes the current active date into that selected day
     setModalVisibility(true)
-
-
     if ( parseInt(props.num) ) {
-      setFormData( {...formData, dateYear: activeDate.getFullYear(), dateMonth: activeDate.getMonth(), dateDay: props.num }) 
+      setFormData( { ...formData, 
+                        dateYear: activeDate.getFullYear(), 
+                        dateMonth: activeDate.getMonth(), 
+                        dateDay: props.num 
+                    }) 
+      setActiveDate( new Date(activeDate.getFullYear(), activeDate.getMonth(), props.num ) ) 
     }
-
   }
 
   return (
