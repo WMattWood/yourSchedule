@@ -8,7 +8,15 @@ export const CalendarContext = createContext(null);
 
 export const CalendarProvider = ({ children }) => {
 
-    // const [cartId, setCartId] = useState(sessionStorage.getItem("cartId")); // Receives an Id to be used to set the cart ID for the website
+    const [ modalVisibility, setModalVisibility ] = useState(false)
+    const [ activeDate, setActiveDate ] = useState(new Date());
+
+    const [ formData, setFormData ] = useState( { name: "", 
+                                                    location: "",
+                                                    dateMonth: activeDate.getMonth(),
+                                                    dateDay: activeDate.getDay(),
+                                                    dateYear: activeDate.getFullYear()
+                                                })
 
     // if (!cartId) {      //When the website loads it generates a random ID for the cart and assigns it to the Session Storage
     //     let newId = uuidv4();
@@ -29,8 +37,12 @@ export const CalendarProvider = ({ children }) => {
     return (
         <CalendarContext.Provider //A provider to pass the cart ID and the method to set it
             value={{
-                currentDate,
-                setCurrentDate
+                modalVisibility,
+                setModalVisibility,
+                activeDate,
+                setActiveDate,
+                formData,
+                setFormData
             }}
             >
                 {children}

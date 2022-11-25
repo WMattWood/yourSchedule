@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import { CalendarContext } from "./CalendarContext";
 import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'
 
-const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate, modalVisibility, setModalVisibility}) => {
+const CalendarModuleHybrid = () => {
   
+  const { modalVisibility, setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext)
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [monthlyCalendar, setMonthlyCalendar] = useState([])
 
@@ -95,11 +99,11 @@ const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate, modalVisi
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-          let blankSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={""} eventStatus={"noevent"}></DayCell>
-          let dateSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
-          let todaySquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"noevent"} className="today"></DayCell>
-          let eventPendingSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"eventPending"}></DayCell>
-          let eventFullSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"eventFull"}></DayCell>
+          let blankSquare = <DayCell key={uuidv4()} num={""} eventStatus={"noevent"}></DayCell>
+          let dateSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"noevent"}></DayCell>
+          let todaySquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"noevent"} isThisSquareToday={"today"}></DayCell>
+          let eventPendingSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventPending"}></DayCell>
+          let eventFullSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventFull"}></DayCell>
         let isToday = ( currentDate === today.getDate() && 
                         year === today.getFullYear() && 
                         month === today.getMonth() ) 
