@@ -57,6 +57,7 @@ const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate}) => {
                 className="form-control col-sm-4"
                 name="month"
                 id="month"
+                value={activeDate.getMonth()} 
                 onChange={ () => jump() }
                 > {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
             </MonthSelect>
@@ -65,6 +66,7 @@ const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate}) => {
                 className="form-control col-sm-4"
                 name="year"
                 id="year"
+                value={activeDate.getFullYear()} 
                 onChange={ () => jump() }
                 > {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
             </YearSelect>
