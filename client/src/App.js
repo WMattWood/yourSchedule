@@ -5,6 +5,7 @@ import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
 import EventDetailsPage from "./EventDetailsPage";
 import GlobalStyle from "./GlobalStyles";
+import Navbar from "./Navbar";
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
   return (
     <BrowserRouter>
     <GlobalStyle />
-      {/* <Header /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/calendar" element={<CalendarPage/>} />
