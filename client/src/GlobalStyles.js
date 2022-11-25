@@ -18,4 +18,22 @@ const GlobalStyle = createGlobalStyle`
 
 // #243317
 
+
+//Tints
+// 7A9961
+// Transparent 8BA674
+// 8BA674
+// Transparent 9BB388
+// 9BB388
+// Transparent ACC09C
+// ACC09C
+// Transparent BDCCB0
+// BDCCB0
+// Transparent CDD9C4
+// CDD9C4
+// Transparent DEE6D7
+// DEE6D7
+// Transparent EEF2EB
+// EEF2EB
+
 export default GlobalStyle
