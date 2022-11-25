@@ -52,9 +52,9 @@ const Container = styled.div`
   transition: border 1.6s ease-out, background-color 1.6s ease-out;
 
   &.today {
+    border: 2px solid black;
     background-color: #F5D2D4 !important;
-    transition: background-color 0.2s;
-    /* border-radius: 50%; */
+    transition: border 0.2s, background-color 0.2s;
   }
 `
 
