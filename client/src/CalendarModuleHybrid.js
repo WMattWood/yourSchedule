@@ -11,7 +11,7 @@ const CalendarModuleHybrid = () => {
 
   let selectYear = document.getElementById("year")
   let selectMonth = document.getElementById("month")
-  
+  console.log("This is what date looks like:", activeDate)
   // Jump To Specific Month
   const jump = () => {
     console.log(selectYear.value)
@@ -20,8 +20,8 @@ const CalendarModuleHybrid = () => {
   }
     
   let today = new Date();
-  let currentMonth = today.getMonth();
-  let currentYear = today.getFullYear();
+  let currentMonth = activeDate.getMonth();
+  let currentYear = activeDate.getFullYear();
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   let years = []
