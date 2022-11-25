@@ -5,34 +5,13 @@ import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'
 
-const CalendarModuleHybrid = (props) => {
+const CalendarModuleHybrid = ({toggleModal, activeDate, setActiveDate}) => {
   
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [activeDate, setActiveDate] = useState(new Date());
   const [monthlyCalendar, setMonthlyCalendar] = useState([])
-
-  // useEffect( () => {
-  //   fetch(`/calendar/month`, {
-  //     "method": "GET",
-  //     "body": JSON.stringify({
-
-  //     })
-  //   })
-  //     .then( res)
-  // })
-
-  // const { toggleModal } = props
-
 
   let selectYear = document.getElementById("year")
   let selectMonth = document.getElementById("month")
-  console.log("This is what date looks like:", activeDate)
-  // Jump To Specific Month
-  const jump = () => {
-    console.log(selectYear.value)
-    console.log(selectMonth.value)
-    setActiveDate(new Date(selectYear.value, selectMonth.value))
-  }
     
   let today = new Date();
   let currentMonth = activeDate.getMonth();
@@ -44,8 +23,16 @@ const CalendarModuleHybrid = (props) => {
     years.push(i)
   }
  
+  // Jump To Specific Month
+  const jump = () => {
+    console.log(selectYear.value)
+    console.log(selectMonth.value)
+    setActiveDate(new Date(selectYear.value, selectMonth.value))
+  }
+
   // Generate Header
   const getHeader = () => {
+
     return (
       <HeaderWrapper>
         {/* <TodayButton
@@ -86,7 +73,7 @@ const CalendarModuleHybrid = (props) => {
     );
   };
 
-  // Generate Weekday Names Header
+  // Generate Weekday Names
   const getWeekDayNames = () => {
     return (
       <CalendarGrid>
@@ -95,6 +82,7 @@ const CalendarModuleHybrid = (props) => {
     )
   }
 
+  // Generate Calendar Grid
   const getCalendar = (year, month) => {
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
@@ -105,20 +93,16 @@ const CalendarModuleHybrid = (props) => {
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        // 
-        // let blankSquare = <Day key={uuidv4()}></Day>
-          let blankSquare = <DayCell key={uuidv4()} toggleModal={props.toggleModal} num={""} eventStatus={"noevent"}></DayCell>
-        // let dateSquare = <Day key={uuidv4()}>{currentDate}</Day>
-          let dateSquare = <DayCell key={uuidv4()} toggleModal={props.toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
-        // let todaySquare = <Day className="today" key={uuidv4()}>{currentDate}</Day>
-          let todaySquare = <DayCell className="today" key={uuidv4()} toggleModal={props.toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
+          let blankSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={""} eventStatus={"noevent"}></DayCell>
+          let dateSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
+          let todaySquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"noevent"} className="today"></DayCell>
+          let eventPendingSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"eventPending"}></DayCell>
+          let eventFullSquare = <DayCell key={uuidv4()} toggleModal={toggleModal} num={currentDate} eventStatus={"eventFull"}></DayCell>
         let isToday = ( currentDate === today.getDate() && 
                         year === today.getFullYear() && 
                         month === today.getMonth() ) 
        
-        let hasEvent = ( currentDate === today.getDate() && 
-                        year === today.getFullYear() && 
-                        month === today.getMonth() ) 
+        let hasEvent = ( monthlyCalendar.filter( event => event.dateDay === currentDate ).length > 0 ) 
   
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
@@ -126,14 +110,32 @@ const CalendarModuleHybrid = (props) => {
           break;
         } else {
           isToday ? week.push(todaySquare) : week.push(dateSquare)
+          // hasEvent ? 
           currentDate++;
         }
       }
       arrayOfWeeks.push(week)
     }
-    console.log(arrayOfWeeks)
+    // console.log(arrayOfWeeks)
     return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
   }
+
+  // Set the calendar for this month, so we can scan through it and see
+  // if a given DayCell needs to have an event on it.
+  useEffect( () => {
+    fetch(`/calendar/month`, {
+      "method": "GET",
+      "body": JSON.stringify({
+        "dateMonth": currentMonth,
+        "dateYear": currentYear
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then( res => res.json() )
+      .then( res => setMonthlyCalendar(res.data) )
+  }, [] )
 
   /// JSX RETURN
   return (

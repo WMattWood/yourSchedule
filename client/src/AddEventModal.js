@@ -1,13 +1,32 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 
-const AddEventModal = () => {
+const AddEventModal = ({toggleModal, activeDate, setActiveDate}) => {
 
   const [ formData, setFormData ] = useState( { name: "", 
                                                 location: "",
-                                                date: "" 
+                                                dateMonth: activeDate.getMonth(),
+                                                dateDay: activeDate.getDay(),
+                                                dateYear: activeDate.getFullYear()
                                               })
+
+  let today = new Date();
+  let currentMonth = activeDate.getMonth();
+  let currentYear = activeDate.getFullYear();                                            
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  let years = []
+  for ( let i = 2000; i <= 2038; i++ ) {
+    years.push(i)
+  }
+  let days = []
+  let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
+  for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
+    days.push(i)
+  }
+  
+
 
   const submitHandler = (ev) => {
     ev.preventDefault();
@@ -27,9 +46,18 @@ const AddEventModal = () => {
     setFormData({...formData, [field]: ev.currentTarget.value })
   }
 
+  let selectDay = document.getElementById("modalDay")
+  let selectYear = document.getElementById("modalYear")
+  let selectMonth = document.getElementById("modalMonth")
+  const selectHandler = (ev, field) => {
+    setFormData({...formData, [field]: ev.currentTarget.value })
+    setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
+  }
+
   return (
     <>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
+        <XButton>X</XButton>
         <AllFields>
           <label forhtml="name">Event Name</label>
           <EventDataInput type="text" 
@@ -46,9 +74,38 @@ const AddEventModal = () => {
                           name="date" 
                           value={formData.date} 
                           onChange={(ev) => inputHandler(ev, "date" )} required ></EventDataInput>
-          {/* <input type="select" name="day" value={formData.day} onChange={(ev) => setFormData({...formData, day: ev.currentTarget.value })} required ></input>
-          <input type="select" name="month" value={formData.month} onChange={(ev) => setFormData({...formData, month: ev.currentTarget.value })} required ></input>
-          <input type="select" name="year" value={formData.year} onChange={(ev) => setFormData({...formData, year: ev.currentTarget.value })} required ></input> */}
+          <DropdownMenus>
+            <DropDown>
+              <label forhtml="month">month</label>
+              <EventDateSelect  type="select" 
+                                name="month"
+                                id="modalMonth"  
+                                value={formData.dateMonth} 
+                                onChange={ (ev) => selectHandler(ev, "dateMonth") } 
+                                required 
+                                >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
+            </DropDown>
+            <DropDown>
+              <label forhtml="day">day</label>
+              <EventDateSelect  type="select" 
+                                name="day"
+                                id="modalDay" 
+                                value={formData.dateDay} 
+                                onChange={ (ev) => selectHandler(ev, "dateDay") }  
+                                required 
+                                >{days.map( (day) => <DayOption value={day} key={uuidv4()}>{day}</DayOption>)}</EventDateSelect>
+            </DropDown>
+            <DropDown>
+              <label forhtml="year">year</label>
+              <EventDateSelect  type="select" 
+                                name="year"
+                                id="modalYear" 
+                                value={formData.dateYear} 
+                                onChange={ (ev) => selectHandler(ev, "dateYear") }  
+                                required 
+                                >{years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}</EventDateSelect>
+            </DropDown>
+          </DropdownMenus>
         </AllFields>
         <EventDataSubmit type="submit">SUBMIT</EventDataSubmit>
       </EventForm>
@@ -56,6 +113,16 @@ const AddEventModal = () => {
   )
 }
 
+// FORM X BUTTON
+const XButton = styled.div`
+  height: 8px;
+  width: 8px;
+  position: relative;
+  top: 5px;
+  right: 5px;
+`
+
+// FORM CONTAINER
 const EventForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -73,13 +140,13 @@ const EventForm = styled.form`
   border-radius: 10px;
 `
 
+// FORM FIELDS
 const AllFields = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 12px;
 `
-
 const EventDataInput = styled.input`
   font-size: 16px;
   width: 200px;
@@ -87,6 +154,33 @@ const EventDataInput = styled.input`
   border-radius: 5px;
 `
 
+// FORM DROPDOWN MENUS
+const DropdownMenus = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  * {
+    font-weight: 200;
+  }
+`
+const DropDown = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const EventDateSelect = styled.select`
+  font-size: 16px;
+  width: 60px;
+  height: 22px;
+  border-radius: 5px;
+`
+const MonthOption = styled.option`
+`
+const DayOption = styled.option`
+`
+const YearOption = styled.option`
+` 
+
+// FORM SUBMIT BUTTON
 const EventDataSubmit = styled.button`
   width: 200px;
   height: 60px;
