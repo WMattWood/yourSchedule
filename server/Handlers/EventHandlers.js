@@ -84,12 +84,13 @@ const getAllEventsByMonth = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    // const month = req.body.month
-    // const year = req.body.year
-    // const arrayOfEvents = await db.collection("Events").find( { dateMonth: month, dateYear: year} ).toArray()
+    const month = req.body.month
+    const year = req.body.year
+    const arrayOfEvents = await db.collection("Events").find( { dateMonth: month, dateYear: year} ).toArray()
 
-    const date = req.body.date
-    const arrayOfEvents = await db.collection("Events").find( { date: date} ).toArray()
+    // deprecated - date has been granulized into dateMonth and dateYear
+    // const date = req.body.date
+    // const arrayOfEvents = await db.collection("Events").find( { date: date} ).toArray()
 
     res.status(200).json({
       status: 200,
