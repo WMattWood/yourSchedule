@@ -46,18 +46,22 @@ const AddEventModal = ({toggleModal, activeDate, setActiveDate}) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
   }
 
-  let selectDay = document.getElementById("modalDay")
-  let selectYear = document.getElementById("modalYear")
-  let selectMonth = document.getElementById("modalMonth")
+  ///// the below setActiveDate function call and "select" variables
+  ///// can be used to make it so choosing a date here in the modal
+  ///// automatically jumps the calendar to that date.  (DO USERS LIKE THIS?)
+  
+  // let selectDay = document.getElementById("modalDay")
+  // let selectYear = document.getElementById("modalYear")
+  // let selectMonth = document.getElementById("modalMonth")
   const selectHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
-    setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
+    // setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
   }
 
   return (
     <>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
-        <XButton>X</XButton>
+        <XButton onClick={ toggleModal }>X</XButton>
         <AllFields>
           <label forhtml="name">Event Name</label>
           <EventDataInput type="text" 
@@ -120,6 +124,10 @@ const XButton = styled.div`
   position: relative;
   top: 5px;
   right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 // FORM CONTAINER
