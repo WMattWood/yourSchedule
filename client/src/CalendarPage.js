@@ -12,7 +12,7 @@ const CalendarPage = () => {
   return(
     <>
       <h1>Welcome to my CalendarPage!</h1>
-      <CalendarModuleHybrid></CalendarModuleHybrid>
+      <CalendarModuleHybrid toggleModal={toggleModal}></CalendarModuleHybrid>
       <ModalHolder>
       { 
         ! visible 

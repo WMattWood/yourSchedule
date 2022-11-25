@@ -1,13 +1,28 @@
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import DayCell from './DayCell'
 
-const CalendarModuleHybrid = () => {
+const CalendarModuleHybrid = (props) => {
   
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
+  const [monthlyCalendar, setMonthlyCalendar] = useState([])
+
+  // useEffect( () => {
+  //   fetch(`/calendar/month`, {
+  //     "method": "GET",
+  //     "body": JSON.stringify({
+
+  //     })
+  //   })
+  //     .then( res)
+  // })
+
+  // const { toggleModal } = props
+
 
   let selectYear = document.getElementById("year")
   let selectMonth = document.getElementById("month")
@@ -91,10 +106,17 @@ const CalendarModuleHybrid = () => {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         // 
-        let blankSquare = <Day key={uuidv4()}></Day>
-        let dateSquare = <Day key={uuidv4()}>{currentDate}</Day>
-        let todaySquare = <Day className="today" key={uuidv4()}>{currentDate}</Day>
+        // let blankSquare = <Day key={uuidv4()}></Day>
+          let blankSquare = <DayCell key={uuidv4()} toggleModal={props.toggleModal} num={""} eventStatus={"noevent"}></DayCell>
+        // let dateSquare = <Day key={uuidv4()}>{currentDate}</Day>
+          let dateSquare = <DayCell key={uuidv4()} toggleModal={props.toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
+        // let todaySquare = <Day className="today" key={uuidv4()}>{currentDate}</Day>
+          let todaySquare = <DayCell className="today" key={uuidv4()} toggleModal={props.toggleModal} num={currentDate} eventStatus={"noevent"}></DayCell>
         let isToday = ( currentDate === today.getDate() && 
+                        year === today.getFullYear() && 
+                        month === today.getMonth() ) 
+       
+        let hasEvent = ( currentDate === today.getDate() && 
                         year === today.getFullYear() && 
                         month === today.getMonth() ) 
   
