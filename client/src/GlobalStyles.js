@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
   } */
   body {
     font-family: 'Inter', sans-serif;
-    background: #2D401D;
+    background: #354D22;
   }
 `
 // https://www.color-name.com/hot-pepper-green.color#color-palettes

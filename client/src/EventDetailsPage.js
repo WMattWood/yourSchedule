@@ -20,17 +20,20 @@ const EventDetailsPage = () => {
       { !event
         ?<Title>Loading event...</Title>
         : <EventWrapper>
+
+              <BigName>{event.name}</BigName>
+
             <FieldWrapper>
-              <Name>{event.name}</Name> {/* <EditButton>Edit</EditButton> */}
+              <DisplayedField>Event Name: {event.name}</DisplayedField> <EditButton>Edit</EditButton>
             </FieldWrapper>
             <FieldWrapper>
-              <Location>Location: {event.location}</Location><EditButton>Edit</EditButton>
+              <DisplayedField>Location: {event.location}</DisplayedField><EditButton>Edit</EditButton>
             </FieldWrapper>
             <FieldWrapper>
-              <Date>Date: {event.date}</Date><EditButton>Edit</EditButton>
+              <DisplayedField>Date: {event.date}</DisplayedField><EditButton>Edit</EditButton>
             </FieldWrapper>
             <FieldWrapper>
-              <CallList>CallList: TBD</CallList><EditButton>Edit</EditButton>
+              <DisplayedField>CallList: TBD</DisplayedField><EditButton>Edit</EditButton>
             </FieldWrapper>
           </EventWrapper>}
     </>
@@ -44,7 +47,7 @@ const EventWrapper = styled.div`
   display: flex;
   flex-direction: column;
   * {
-    margin: 5px;
+    margin: 5px 0px;
   }
 
   width: 400px;
@@ -54,21 +57,26 @@ const EventWrapper = styled.div`
 `
 const FieldWrapper = styled.div`
   display: flex;
+  align-items: center;
+  background: grey;
+  border-radius: 10px;
   * {
-    width: 160px;
+    width: 240px;
   }
 `
-const Name = styled.div`
+const BigName = styled.div`
   font-size: 28px;
   font-weight: bold;
 `
-const Location = styled.div`
-`
-const Date = styled.div`
-`
-const CallList = styled.div`
+const DisplayedField = styled.div`
+  /* position: relative;
+  top: 2px; */
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 200;
 `
 const EditButton = styled.button`
+  margin-left: 20px;
   width: auto;
 `
 

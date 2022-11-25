@@ -66,9 +66,12 @@ const RightSide = styled.div`
 const Link = styled.div`
   font-size: 24px;
   border-bottom: 2px solid black;
+  transition: border-bottom 0.2s, color 0.2s;
   &:hover {
     cursor: pointer;
     border-bottom: 2px solid goldenrod;
+    color: goldenrod;
+    transition: border-bottom 0.1s ;
   }
 `
 
