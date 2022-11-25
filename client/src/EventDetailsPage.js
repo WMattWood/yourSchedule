@@ -27,8 +27,6 @@ const EventDetailsPage = () => {
     navigate(0)
   }
 
-
-  console.log(eventId)
   return (
     <>
       <Title>Welcome to my EventDetails !</Title>
@@ -54,7 +52,7 @@ const EventDetailsPage = () => {
       { !eventListing
         ?<Title>Loading eventlistings...</Title>
         : <SubListing>
-            <BigName>_________________________________</BigName>
+            <BigName>___________________________</BigName>
             <IdsWrapper>
               { eventListing.map( event =>  {
                                               return (<QuickLinkWrapper key={event._id}>
@@ -119,7 +117,7 @@ const PageLeftRight = styled.div`
 
 const SubListing = styled.div`
   height: 800px;
-  width: 600px;
+  width: 450px;
 `
 const IdsWrapper = styled.div`
   margin-top: 20px;
@@ -138,7 +136,7 @@ const IdTitle = styled.div`
   width: 30px;
 `
 const TheIdItself = styled.a`
-  width: 500px;
+  width: 400px;
 `
 
 export default EventDetailsPage
