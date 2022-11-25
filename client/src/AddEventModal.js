@@ -21,12 +21,12 @@ const AddEventModal = () => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(i)
+    years.push(`${i}`)
   }
   let days = []
   let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
-    days.push(i)
+    days.push(`${i}`)
   }
   
   const submitHandler = (ev) => {

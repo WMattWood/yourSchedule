@@ -98,18 +98,15 @@ const CalendarModuleHybrid = () => {
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-          let blankSquare = <DayCell key={uuidv4()} num={""} eventStatus={"noevent"}></DayCell>
-          let dateSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"noevent"}></DayCell>
-          let todaySquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"noevent"} isThisSquareToday={"today"}></DayCell>
-          let eventPendingSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventPending"}></DayCell>
-          let eventFullSquare = <DayCell key={uuidv4()} num={currentDate} eventStatus={"eventFull"}></DayCell>
+          let blankSquare = <DayCell key={uuidv4()} numberMarker={""} eventStatus={"noevent"}></DayCell>
+          let dateSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"}></DayCell>
+          let todaySquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"} selectedStatus={"selected"}></DayCell>
+          let eventPendingSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventPending"}></DayCell>
+          let eventFullSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventFull"}></DayCell>
         let isToday = ( activeDate.getFullYear() === new Date().getFullYear() &&
                         activeDate.getMonth() === new Date().getMonth() &&
                         activeDate.getDate() === currentDate ) 
-        console.log("Active Date", activeDate)
-        console.log("New Date", new Date() )
-        let msg = ( isToday ? "yes" : "no" )
-        console.log("Is it today yet? ", msg )
+
         let hasEvent = ( monthlyCalendar.filter( event => event.dateDay === currentDate ).length > 0 ) 
   
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
@@ -148,6 +145,7 @@ const CalendarModuleHybrid = () => {
   /// JSX RETURN
   return (
     <section>
+      {console.log(monthlyCalendar)}
       {getHeader()}
       {getWeekDayNames()}
       {getCalendar(currentYear, currentMonth)}

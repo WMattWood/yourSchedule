@@ -2,30 +2,30 @@ import styled from "styled-components"
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 
-const DayCell = (props) => {
+const DayCell = ({numberMarker, selectedStatus, eventStatus}) => {
 
-  const { modalVisibility, setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
+  const { setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
 
   const clickHandler = () => {
     // onClick - make modal visible and set the modal's date to match the currently displayed calendar date
-    // but only do this if you click on a box that actually has a number.
+    // but only do this if you click on a box that actually has a numberMarker.
     //..... also makes the current active date into that selected day
     setModalVisibility(true)
-    if ( parseInt(props.num) ) {
+    if ( parseInt(numberMarker) ) {
       setFormData( { ...formData, 
                         dateYear: activeDate.getFullYear(), 
                         dateMonth: activeDate.getMonth(), 
-                        dateDay: props.num 
+                        dateDay: numberMarker 
                     }) 
-      setActiveDate( new Date(activeDate.getFullYear(), activeDate.getMonth(), props.num ) ) 
+      setActiveDate( new Date(activeDate.getFullYear(), activeDate.getMonth(), numberMarker ) ) 
     }
   }
 
   return (
-    <Container onClick={clickHandler} className={props.isThisSquareToday}>
-      <DayCellWrapper className={props.isThisSquareToday}>
-        <NumCircle>{props.num}</NumCircle>
-        <EventBand className={props.eventStatus}></EventBand>
+    <Container onClick={clickHandler} className={selectedStatus}>
+      <DayCellWrapper>
+        <NumCircle>{numberMarker}</NumCircle>
+        <EventBand className={eventStatus}></EventBand>
       </DayCellWrapper>
     </Container>
   )
@@ -39,19 +39,18 @@ const Container = styled.div`
   height: 100px;
   width: 100px;
   cursor: pointer;
-  
   box-sizing: border-box;
-
-  &:hover {
-    border: 2px solid #59CBE8;
-    background-color: #D0EBF1;
-    transition: border 0.2s, background-color 0.2s;
-  }
   border: 2px solid white;
   background-color: white;
   transition: border 1.6s ease-out, background-color 1.6s ease-out;
 
-  &.today {
+  &:hover {
+  border: 2px solid #59CBE8;
+  background-color: #D0EBF1;
+  transition: border 0.2s, background-color 0.2s;
+  }
+
+  &.selected {
     background-color: #F5D2D4 !important;
     transition: background-color 0.2s;
   }
@@ -72,22 +71,12 @@ const NumCircle = styled.div`
   position: relative;
   top: 12px;
   left: 12px;
-  /* margin: 12px; */
   height: 30px;
   width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-
-  /* &.today {
-    background: #D3D3D3; 
-    border-radius: 50%;
-  } */
-
-  /* &:hover {
-    background-color: #9e9e9e;
-  } */
 `
 
 const EventBand = styled.div`
