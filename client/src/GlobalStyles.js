@@ -1,9 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-  /* *{
-    @import url()
-  } */
   body {
     font-family: 'Inter', sans-serif;
     background: #354D22;
