@@ -23,7 +23,7 @@ const DayCell = (props) => {
 
   return (
     <Container onClick={clickHandler} className={props.isThisSquareToday}>
-      <DayCellWrapper>
+      <DayCellWrapper className={props.isThisSquareToday}>
         <NumCircle>{props.num}</NumCircle>
         <EventBand className={props.eventStatus}></EventBand>
       </DayCellWrapper>
@@ -52,9 +52,8 @@ const Container = styled.div`
   transition: border 1.6s ease-out, background-color 1.6s ease-out;
 
   &.today {
-    border: 2px solid black;
     background-color: #F5D2D4 !important;
-    transition: border 0.2s, background-color 0.2s;
+    transition: background-color 0.2s;
   }
 `
 
