@@ -1,16 +1,20 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import { useContext } from "react";
+import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
 
-const AddEventModal = ({toggleModal, activeDate, setActiveDate}) => {
+const AddEventModal = () => {
 
-  const [ formData, setFormData ] = useState( { name: "", 
-                                                location: "",
-                                                dateMonth: activeDate.getMonth(),
-                                                dateDay: activeDate.getDay(),
-                                                dateYear: activeDate.getFullYear()
-                                              })
+  const { modalVisibility, setModalVisibility, activeDate, setActiveDate, formData, setFormData } = useContext(CalendarContext)
+  const closeModal = () => { setModalVisibility(false) }
+  // const [ formData, setFormData ] = useState( { name: "", 
+  //                                               location: "",
+  //                                               dateMonth: activeDate.getMonth(),
+  //                                               dateDay: activeDate.getDay(),
+  //                                               dateYear: activeDate.getFullYear()
+  //                                             })
 
   let today = new Date();
   let currentMonth = activeDate.getMonth();
@@ -49,19 +53,20 @@ const AddEventModal = ({toggleModal, activeDate, setActiveDate}) => {
   ///// the below setActiveDate function call and "select" variables
   ///// can be used to make it so choosing a date here in the modal
   ///// automatically jumps the calendar to that date.  (DO USERS LIKE THIS?)
-  
-  // let selectDay = document.getElementById("modalDay")
+
+  let selectDay = document.getElementById("modalDay")
   // let selectYear = document.getElementById("modalYear")
   // let selectMonth = document.getElementById("modalMonth")
   const selectHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
     // setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
+    setActiveDate(new Date(activeDate.getFullYear(), activeDate.getMonth(), selectDay.value))
   }
 
   return (
     <>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
-        <XButton onClick={ toggleModal }>X</XButton>
+        <XButton onClick={ closeModal }>X</XButton>
         <AllFields>
           <label forhtml="name">Event Name</label>
           <EventDataInput type="text" 
@@ -94,7 +99,8 @@ const AddEventModal = ({toggleModal, activeDate, setActiveDate}) => {
               <EventDateSelect  type="select" 
                                 name="day"
                                 id="modalDay" 
-                                value={formData.dateDay} 
+                                // value={activeDate.getDate()} 
+                                value={formData.dateDay}
                                 onChange={ (ev) => selectHandler(ev, "dateDay") }  
                                 required 
                                 >{days.map( (day) => <DayOption value={day} key={uuidv4()}>{day}</DayOption>)}</EventDateSelect>

@@ -1,11 +1,23 @@
 import styled from "styled-components"
+import { useContext } from "react";
+import { CalendarContext } from "./CalendarContext";
 
 const DayCell = (props) => {
 
-  // const { toggleModal, num, eventStatus } = props
+  const { modalVisibility, setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
+
+  const clickHandler = () => {
+    setModalVisibility(true)
+
+
+    if ( parseInt(props.num) ) {
+      setFormData( {...formData, dateYear: activeDate.getFullYear(), dateMonth: activeDate.getMonth(), dateDay: props.num }) 
+    }
+
+  }
 
   return (
-    <Container onClick={props.toggleModal}>
+    <Container onClick={clickHandler} className={props.isThisSquareToday}>
       <DayCellWrapper>
         <NumCircle>{props.num}</NumCircle>
         <EventBand className={props.eventStatus}></EventBand>
@@ -33,6 +45,12 @@ const Container = styled.div`
   border: 2px solid white;
   background-color: white;
   transition: border 1.6s ease-out, background-color 1.6s ease-out;
+
+  &.today {
+    background-color: #F5D2D4 !important;
+    transition: background-color 0.2s;
+    /* border-radius: 50%; */
+  }
 `
 
 const DayCellWrapper = styled.div`
@@ -58,10 +76,10 @@ const NumCircle = styled.div`
   align-items: center;
   border-radius: 50%;
 
-  &.today {
+  /* &.today {
     background: #D3D3D3; 
     border-radius: 50%;
-  }
+  } */
 
   /* &:hover {
     background-color: #9e9e9e;

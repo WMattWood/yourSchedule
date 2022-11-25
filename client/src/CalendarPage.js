@@ -1,29 +1,26 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import { useContext } from "react";
+import { CalendarContext } from "./CalendarContext";
 import CalendarModuleHybrid from "./CalendarModuleHybrid";
 import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
 
-  const [ modalVisibility, setModalVisibility ] = useState(false)
-  const [ activeDate, setActiveDate ] = useState(new Date());
-  console.log("This is what the activeDate looks like", activeDate)
+  const { modalVisibility, setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext);
+  // console.log("This is what the activeDate looks like", activeDate)
   
   const toggleModal = () => { setModalVisibility(!modalVisibility) }
 
   return(
     <>
       <h1>Welcome to my CalendarPage!</h1>
-      <CalendarModuleHybrid toggleModal={toggleModal} 
-                            activeDate={activeDate} 
-                            setActiveDate={setActiveDate} 
-                            modalVisibility={modalVisibility} 
-                            setModalVisibility={setModalVisibility}></CalendarModuleHybrid>
+      <CalendarModuleHybrid toggleModal={toggleModal}></CalendarModuleHybrid>
       <ModalHolder>
       { 
         ! modalVisibility 
         ? null
-        : <AddEventModal toggleModal={toggleModal} activeDate={activeDate} setActiveDate={setActiveDate}/>
+        : <AddEventModal toggleModal={toggleModal}/>
       }
       </ModalHolder>
       <AddEventButton onClick={toggleModal}>+ Add Event</AddEventButton>
