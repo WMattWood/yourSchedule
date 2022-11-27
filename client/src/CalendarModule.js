@@ -94,6 +94,7 @@ const CalendarModule = () => {
 
   // Generate Calendar Grid
   const getCalendar = (year, month) => {
+    console.log("Is there a monthly calendar? ", monthlyCalendar)
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
     let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
@@ -105,7 +106,7 @@ const CalendarModule = () => {
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
           let blankSquare = <DayCell key={uuidv4()} numberMarker={""} eventStatus={"noevent"}></DayCell>
           let dateSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"}></DayCell>
-          let todaySquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"} selectedStatus={"selected"}></DayCell>
+          let selectedSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"} selectedStatus={"selected"}></DayCell>
           let eventPendingSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventPending"}></DayCell>
           let eventFullSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventFull"}></DayCell>
         let isToday = ( activeDate.getDate() === currentDate ) 
@@ -117,8 +118,13 @@ const CalendarModule = () => {
         } else if (currentDate > daysInMonth) {
           break;
         } else {
-          isToday ? week.push(todaySquare) : week.push(dateSquare)
-          // hasEvent ? 
+          if ( isToday ) {
+            week.push(selectedSquare)
+          } else if (hasEvent) {
+            week.push(eventFullSquare )
+          } else {
+            week.push(dateSquare)
+          }
           currentDate++;
         }
       }
@@ -131,16 +137,7 @@ const CalendarModule = () => {
   // Set the calendar for this month, so we can scan through it and see
   // if a given DayCell needs to have an event on it.
   useEffect( () => {
-    fetch(`/calendar/month`, {
-      "method": "GET",
-      "body": JSON.stringify({
-        "dateMonth": currentMonth,
-        "dateYear": currentYear
-      }),
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    })
+    fetch(`/calendar/${currentYear}/${currentMonth}`)
       .then( res => res.json() )
       .then( res => setMonthlyCalendar(res.data) )
   }, [] )
@@ -148,10 +145,13 @@ const CalendarModule = () => {
   /// JSX RETURN
   return (
     <section>
-      {console.log(monthlyCalendar)}
+      {/* {console.log(monthlyCalendar)} */}
       {getHeader()}
       {getWeekDayNames()}
-      {getCalendar(currentYear, currentMonth)}
+      { monthlyCalendar
+        ? <>{getCalendar(currentYear, currentMonth)}</>
+        : null
+      }
     </section>
   );
 };
@@ -188,7 +188,6 @@ const MonthTitle = styled.h2 `
 `
 const NavWrapper = styled.div`
   display: flex
-  /* margin-left: 10px; */
 `
 const NavIcon = styled.div`
   width: 20px;

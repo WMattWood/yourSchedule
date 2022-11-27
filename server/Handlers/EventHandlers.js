@@ -84,8 +84,8 @@ const getAllEventsByMonth = async (req, res) => {
     console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
-    const month = req.body.month
-    const year = req.body.year
+    const month = parseInt(req.params.month)
+    const year = parseInt(req.params.year)
     const arrayOfEvents = await db.collection("Events").find( { dateMonth: month, dateYear: year} ).toArray()
 
     res.status(200).json({

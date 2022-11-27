@@ -17,10 +17,10 @@ export const CalendarProvider = ({ children }) => {
                                                   dateYear: activeDate.getFullYear()
                                                 })
 
-    console.log("Context level formData", formData)
-    console.log(new Date().getMonth())
-    console.log(new Date().getDate())
-    console.log(new Date().getFullYear())
+    // console.log("Context level formData", formData)
+    // console.log(new Date().getMonth())
+    // console.log(new Date().getDate())
+    // console.log(new Date().getFullYear())
 
     useEffect( () => {
         setFormData({...formData,

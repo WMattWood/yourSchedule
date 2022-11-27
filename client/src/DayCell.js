@@ -25,7 +25,12 @@ const DayCell = ({numberMarker, selectedStatus, eventStatus}) => {
     <Container onClick={clickHandler} className={selectedStatus}>
       <DayCellWrapper>
         <NumCircle>{numberMarker}</NumCircle>
-        <EventBand className={eventStatus}></EventBand>
+        <EventsBox>
+          <EventBand className={eventStatus}></EventBand>
+          {/* <EventBand className={eventStatus}></EventBand>
+          <EventBand className={eventStatus}></EventBand>
+          <EventBand className={eventStatus}></EventBand> */}
+        </EventsBox>
       </DayCellWrapper>
     </Container>
   )
@@ -57,9 +62,12 @@ const Container = styled.div`
 `
 
 const DayCellWrapper = styled.div`
-  display: flex;
+  /* display: flex;
+  flex-direction: column;
   align-items: start;
-  justify-content: start;
+  justify-content: start; */
+  padding-left: 2px;
+  position: relative;
   box-sizing: content-box;
   height: 96px;
   width: 96px;
@@ -68,34 +76,41 @@ const DayCellWrapper = styled.div`
 `
 
 const NumCircle = styled.div`
-  position: relative;
-  top: 12px;
-  left: 12px;
-  height: 30px;
-  width: 30px;
+  position: absolute;
+  top: 9px;
+  left: 3px;
+  /* height: 30px; */
+  /* width: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
 `
 
+const EventsBox = styled.div`
+  position: absolute;
+  top: 30px;
+  height: 70%;
+  width: 100%;
+`
 const EventBand = styled.div`
   position: relative;
   top: 0px;
-  width: 100%;
-  height: 30px;
+  width: 96%;
+  height: 30%;
+  margin-bottom: 2%;
   opacity: 0.6;
   &.noevent {
-    /* display: none; */
+    display: none;
     visibility: hidden;
   }
 
   &.eventPending {
-    color: red;
+    background-color: #80397D;
   }
 
   &.eventFull {
-    color: green;
+    background-color: green;
   }
 `
 
