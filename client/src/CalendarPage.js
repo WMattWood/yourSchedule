@@ -7,23 +7,21 @@ import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
 
-  const { modalVisibility, setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext);
+  const { modalVisibility, setModalVisibility} = useContext(CalendarContext);
   // console.log("This is what the activeDate looks like", activeDate)
-  
-  const toggleModal = () => { setModalVisibility(!modalVisibility) }
 
   return(
     <>
       <h1>Welcome to my CalendarPage!</h1>
-      <CalendarModuleHybrid toggleModal={toggleModal}></CalendarModuleHybrid>
+      <CalendarModuleHybrid></CalendarModuleHybrid>
       <ModalHolder>
       { 
         ! modalVisibility 
         ? null
-        : <AddEventModal toggleModal={toggleModal}/>
+        : <AddEventModal/>
       }
       </ModalHolder>
-      <AddEventButton onClick={toggleModal}>+ Add Event</AddEventButton>
+      <AddEventButton onClick={ () => { setModalVisibility(!modalVisibility) } }>+ Add Event</AddEventButton>
     </>
   )
 }

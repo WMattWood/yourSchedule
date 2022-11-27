@@ -12,11 +12,11 @@ const DayCell = ({numberMarker, selectedStatus, eventStatus}) => {
     //..... also makes the current active date into that selected day
     setModalVisibility(true)
     if ( parseInt(numberMarker) ) {
-      setFormData( { ...formData, 
-                        dateYear: activeDate.getFullYear(), 
-                        dateMonth: activeDate.getMonth(), 
-                        dateDay: numberMarker 
-                    }) 
+      // setFormData( { ...formData, 
+      //                   dateYear: activeDate.getFullYear(), 
+      //                   dateMonth: activeDate.getMonth(), 
+      //                   dateDay: numberMarker 
+      //               }) 
       setActiveDate( new Date(activeDate.getFullYear(), activeDate.getMonth(), numberMarker ) ) 
     }
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
@@ -10,23 +10,31 @@ const AddEventModal = () => {
   const { setModalVisibility, 
           activeDate, 
           setActiveDate, 
-          formData, setFormData 
+          formData, 
+          setFormData 
         } = useContext(CalendarContext)
 
   const closeModal = () => { setModalVisibility(false) }
 
+  useEffect( () => {
+    setFormData({ ...formData,
+                  dateMonth: activeDate.getMonth(),
+                  dateDay: activeDate.getDate(),
+                  dateYear: activeDate.getFullYear()
+              })
+  }, [activeDate])
   // let today = new Date();
   // let currentMonth = activeDate.getMonth();
   // let currentYear = activeDate.getFullYear();                                            
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(`${i}`)
+    years.push(i)
   }
   let days = []
   let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
-    days.push(`${i}`)
+    days.push(i)
   }
   
   const submitHandler = (ev) => {
@@ -57,12 +65,12 @@ const AddEventModal = () => {
   ///// navigation buttons.
   
   let selectDay = document.getElementById("modalDay")
-  // let selectYear = document.getElementById("modalYear")
-  // let selectMonth = document.getElementById("modalMonth")
+  let selectYear = document.getElementById("modalYear")
+  let selectMonth = document.getElementById("modalMonth")
   const selectHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
     // setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
-    setActiveDate(new Date(activeDate.getFullYear(), activeDate.getMonth(), selectDay.value))
+    setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
   }
 
   return (

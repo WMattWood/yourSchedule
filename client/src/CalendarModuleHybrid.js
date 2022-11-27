@@ -43,7 +43,7 @@ const CalendarModuleHybrid = () => {
 
     return (
       <HeaderWrapper>
-        {/* <TodayButton onClick={ () => jumpToday() }>Today</TodayButton> */}
+        <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
         <NavWrapper>
           <NavIcon>
             <AiOutlineLeft onClick={() => setActiveDate(subMonths(activeDate, 1))}  />
@@ -78,11 +78,11 @@ const CalendarModuleHybrid = () => {
     );
   };
 
-  // Generate Weekday Names
+  // Generate WeekdayTitles
   const getWeekDayNames = () => {
     return (
       <CalendarGrid>
-        { daysOfTheWeek.map( day => <WeekDay key={uuidv4()}>{day}</WeekDay> ) }
+        { daysOfTheWeek.map( day => <WeekDayTitle key={uuidv4()}>{day}</WeekDayTitle> ) }
       </CalendarGrid>
     )
   }
@@ -103,9 +103,7 @@ const CalendarModuleHybrid = () => {
           let todaySquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"} selectedStatus={"selected"}></DayCell>
           let eventPendingSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventPending"}></DayCell>
           let eventFullSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventFull"}></DayCell>
-        let isToday = ( activeDate.getFullYear() === new Date().getFullYear() &&
-                        activeDate.getMonth() === new Date().getMonth() &&
-                        activeDate.getDate() === currentDate ) 
+        let isToday = ( activeDate.getDate() === currentDate ) 
 
         let hasEvent = ( monthlyCalendar.filter( event => event.dateDay === currentDate ).length > 0 ) 
   
@@ -159,39 +157,10 @@ const CalendarGrid = styled.div `
   grid-template-columns: repeat(7, 100px);
   border-top: 1px solid #dfdfdf;
 ` 
-const Day = styled.div `
-  margin: 12px;
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-
-  /* .inactiveDay {
-    color: #9e9e9e;
-  } */
-
-  &.today {
-    background: #D3D3D3; 
-    border-radius: 50%;
-    /* box-sizing: border-box;
-    border: 2px solid red; */
-  }
-
-  /* .selectedDay {
-    color: white;
-    background: #3366ff;
-    border-radius: 50%;
-  } */
-
-  &:hover {
-    background-color: #9e9e9e;
-  }
+const TodayButton = styled.button`
 `
 
-const WeekDay = styled.div`
+const WeekDayTitle = styled.div`
   margin: 12px;
   height: 30px;
   width: 30px;
