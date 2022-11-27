@@ -7,7 +7,7 @@ import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'
 
-const CalendarModuleHybrid = () => {
+const CalendarModule = () => {
   
   const { activeDate, setActiveDate } = useContext(CalendarContext)
 
@@ -216,4 +216,4 @@ const YearSelect = styled.select`
 const YearOption = styled.option`
 ` 
 
-export default CalendarModuleHybrid;
+export default CalendarModule;

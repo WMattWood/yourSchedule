@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
-import CalendarModuleHybrid from "./CalendarModuleHybrid";
+import CalendarModule from "./CalendarModule";
 import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
@@ -13,7 +13,7 @@ const CalendarPage = () => {
   return(
     <>
       <h1>Welcome to my CalendarPage!</h1>
-      <CalendarModuleHybrid></CalendarModuleHybrid>
+      <CalendarModule></CalendarModule>
       <ModalHolder>
       { 
         ! modalVisibility 
