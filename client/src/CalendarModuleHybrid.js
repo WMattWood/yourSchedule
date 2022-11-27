@@ -14,9 +14,14 @@ const CalendarModuleHybrid = () => {
   // const [selectedDate, setSelectedDate] = useState(new Date());
   const [monthlyCalendar, setMonthlyCalendar] = useState([])
 
+  useEffect( () => {
+    selectYear = document.getElementById("year")
+    selectMonth = document.getElementById("month")
+  }, [])
+
   let selectYear = document.getElementById("year")
   let selectMonth = document.getElementById("month")
-    
+
   let today = new Date();
   let currentMonth = activeDate.getMonth();
   let currentYear = activeDate.getFullYear();

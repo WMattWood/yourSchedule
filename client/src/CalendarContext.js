@@ -10,10 +10,11 @@ export const CalendarProvider = ({ children }) => {
     const [ modalVisibility, setModalVisibility ] = useState(false)
     const [ activeDate, setActiveDate ] = useState(new Date());
     const [ formData, setFormData ] = useState( { name: "", 
-                                                    location: "",
-                                                    dateMonth: activeDate.getMonth(),
-                                                    dateDay: activeDate.getDate(),
-                                                    dateYear: activeDate.getFullYear()
+                                                  location: "",
+                                                  client: "",
+                                                  dateMonth: activeDate.getMonth(),
+                                                  dateDay: activeDate.getDate(),
+                                                  dateYear: activeDate.getFullYear()
                                                 })
 
     console.log("Context level formData", formData)

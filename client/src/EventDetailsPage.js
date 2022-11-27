@@ -7,7 +7,7 @@ const EventDetailsPage = () => {
   const { eventId } = useParams()
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
-  
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const navigate = useNavigate()
 
   useEffect( () => {
@@ -36,16 +36,28 @@ const EventDetailsPage = () => {
         : <EventWrapper>
             <BigName>{event.name}</BigName>
             <FieldWrapper>
-              <DisplayedField>Event Name: {event.name}</DisplayedField> <EditButton>Edit</EditButton>
+              <DisplayedField>Event Name: {event.name}</DisplayedField> <EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
             <FieldWrapper>
-              <DisplayedField>Location: {event.location}</DisplayedField><EditButton>Edit</EditButton>
+              <DisplayedField>Location: {event.location}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
             <FieldWrapper>
-              <DisplayedField>Date: {event.date}</DisplayedField><EditButton>Edit</EditButton>
+              <DisplayedField>Client: {event.client}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
             <FieldWrapper>
-              <DisplayedField>CallList: TBD</DisplayedField><EditButton>Edit</EditButton>
+              <DisplayedField>CallList: TBD</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
+            </FieldWrapper>
+            <FieldWrapper>
+              <DisplayedField>FormattedDate: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
+            </FieldWrapper>
+            <FieldWrapper>
+              <DisplayedField>Month: {months[event.dateMonth]}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
+            </FieldWrapper>
+            <FieldWrapper>
+              <DisplayedField>Day: {event.dateDay}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
+            </FieldWrapper>
+            <FieldWrapper>
+              <DisplayedField>Year: {event.dateYear}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
           </EventWrapper>
       }
@@ -107,7 +119,12 @@ const EditButton = styled.button`
   width: auto;
   border-radius: 5px;
 `
-
+const SaveButton = styled.button`
+  display: none;
+  margin-left: 10px;
+  width: auto;
+  border-radius: 5px;
+`
 
 
 const PageLeftRight = styled.div`

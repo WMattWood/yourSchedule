@@ -88,10 +88,6 @@ const getAllEventsByMonth = async (req, res) => {
     const year = req.body.year
     const arrayOfEvents = await db.collection("Events").find( { dateMonth: month, dateYear: year} ).toArray()
 
-    // deprecated - date has been granulized into dateMonth and dateYear
-    // const date = req.body.date
-    // const arrayOfEvents = await db.collection("Events").find( { date: date} ).toArray()
-
     res.status(200).json({
       status: 200,
       message: "SUCCESS",

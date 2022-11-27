@@ -23,9 +23,7 @@ const AddEventModal = () => {
                   dateYear: activeDate.getFullYear()
               })
   }, [activeDate])
-  // let today = new Date();
-  // let currentMonth = activeDate.getMonth();
-  // let currentYear = activeDate.getFullYear();                                            
+                                          
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
@@ -39,7 +37,6 @@ const AddEventModal = () => {
   
   const submitHandler = (ev) => {
     ev.preventDefault();
-    console.log(formData)
     fetch('/calendar/insert', {
       "method": "POST",
       "body": JSON.stringify({
@@ -49,27 +46,28 @@ const AddEventModal = () => {
         "Content-Type": "application/json"
       }
     })
+
+    document.getElementById("name").value = ""
+    document.getElementById("location").value = ""
+    document.getElementById("client").value = ""
+    setFormData({ name: "", 
+                  location: "",
+                  client: "",
+                  dateMonth: activeDate.getMonth(),
+                  dateDay: activeDate.getDate(),
+                  dateYear: activeDate.getFullYear()
+                })
   }
 
   const inputHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
   }
-
-  ///// the below setActiveDate function call and "select" variables
-  ///// can be used to make it so choosing a date here in the modal
-  ///// automatically jumps the calendar to that date.  (DO USERS LIKE THIS?)
-
-  ///// CHOICE MADE
-  ///// the code below ONLY lets the eventModal change the active day... the 
-  ///// active year and month can only be changed using the calendar header
-  ///// navigation buttons.
   
   let selectDay = document.getElementById("modalDay")
   let selectYear = document.getElementById("modalYear")
   let selectMonth = document.getElementById("modalMonth")
   const selectHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
-    // setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
     setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
   }
 
@@ -80,19 +78,22 @@ const AddEventModal = () => {
         <AllFields>
           <label forhtml="name">Event Name</label>
           <EventDataInput type="text" 
-                          name="name" 
+                          name="name"
+                          id="name" 
                           value={formData.name} 
                           onChange={(ev) => inputHandler(ev, "name" )} required ></EventDataInput>
           <label forhtml="location">Event Location</label>
           <EventDataInput type="text" 
                           name="location" 
+                          id="location" 
                           value={formData.location} 
                           onChange={(ev) => inputHandler(ev, "location" )} required ></EventDataInput>
-          <label forhtml="date">Event Date</label>
+          <label forhtml="client">Name of Client</label>
           <EventDataInput type="text" 
-                          name="date" 
-                          value={formData.date} 
-                          onChange={(ev) => inputHandler(ev, "date" )} required ></EventDataInput>
+                          name="client" 
+                          id="client"
+                          value={formData.client} 
+                          onChange={(ev) => inputHandler(ev, "client" )} required ></EventDataInput>
           <DropdownMenus>
             <DropDown>
               <label forhtml="month">month</label>
@@ -150,7 +151,7 @@ const EventForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 360px;
+  height: 600px;
   width: 260px;
   * {
     font-weight: 600;
