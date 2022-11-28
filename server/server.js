@@ -28,7 +28,7 @@ express()
   .get('/calendar/allevents', getAllEvents)
 
   // get all events for a given month
-  .get(`/calendar/:year/:month`, getAllEventsByMonth)
+  .get('/calendar/:year/:month', getAllEventsByMonth)
 
   // get specific event from db
   .get('/calendar/:eventId', getEventById)

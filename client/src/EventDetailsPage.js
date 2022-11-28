@@ -9,6 +9,7 @@ const EventDetailsPage = () => {
   const { eventId } = useParams()
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
+  const [ memberList, setMemberList ] = useState(null)
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const navigate = useNavigate()
 
@@ -22,6 +23,14 @@ const EventDetailsPage = () => {
     fetch(`/calendar/allEvents`)
       .then( res => res.json() )
       .then( res => setEventListing(res.data))
+  }, [] )
+
+  useEffect( () => { 
+    fetch(`/members/allmembers`)
+      .then(res => res.json() )
+      .then(res => {
+        setMemberList(res.data)
+      })
   }, [] )
 
   const handleIdNav = (id) => {
@@ -67,7 +76,8 @@ const EventDetailsPage = () => {
                                                                   position={position.position}
                                                                   id={position._id}
                                                                   eventId={event._id}
-                                                                  callList={event.callList}
+                                                                  eventCallList={event.callList}
+                                                                  memberList={memberList}
                                                                   event={event}
                                                                   idx={idx}
                                                                   key={uuidv4()}/>) }

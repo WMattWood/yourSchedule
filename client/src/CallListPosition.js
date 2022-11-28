@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({name, position, id, eventId, callList, event, idx}) => {
+const CallListPosition = ({name, position, id, eventId, eventCallList, event, idx, memberList}) => {
   
-  const [ memberList, setMemberList ] = useState(null)
+  
   const [ showAddMember, setShowAddMember ] = useState(false)
-  const [ modifiedCallList, setModifiedCallList ] = useState(callList)
+  const [ callList, setCallList ] = useState(eventCallList)
   
   const clickHandler = () => {
     setShowAddMember(!showAddMember)
@@ -14,42 +14,28 @@ const CallListPosition = ({name, position, id, eventId, callList, event, idx}) =
 
   // On change - update this specific callListPosition with a name selected from
   // the addMember dropdown.
-  const changeHandler = (ev) => {
+  const changeHandler = async (ev) => {
     console.log("When you change the thing the changehandler says this is the ev.currentTarget.value", ev.currentTarget.value)
-    let modifiedEntry = {...modifiedCallList[idx], name: ev.currentTarget.value}
-    
-    setModifiedCallList(modifiedCallList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
+    let modifiedEntry = {...callList[idx], name: ev.currentTarget.value}
+    console.log("This is the callList:", callList)
+    console.log("This is the specific idx", callList[idx])
+    console.log("This is the modified entry:", modifiedEntry)
 
-    // let meep = modifiedCallList.map( (entry, i) => {
-    //       if (i === idx) {
-    //         return modifiedEntry
-    //       } else {
-    //         return entry 
-    //       }
-    //     }
-    //   ) 
-    // setModifiedCallList(meep)
+    await setCallList(callList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
 
-    fetch(`calendar/${eventId}`, {
-      "method": "POST",
+    console.log("Look at me I am the calllist now:", callList)
+
+    console.log("event id", eventId)
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
       "body": JSON.stringify({
-        "data": {...event, callList: modifiedCallList }
+        "data": {...event, callList: callList }
       }),
       "headers": {
         "Content-Type": "application/json"
       }
     })
   }
-
-  useEffect( () => { fetch(`/members/allmembers`)
-    .then(res => res.json() )
-    .then(res => {
-      // let listToDisplay = res.data
-      // listToDisplay.shift({ name: "unfilled" })
-      // setMemberList(listToDisplay)
-      setMemberList(res.data)
-    })
-}, [modifiedCallList] )
 
   return (
     <Container key={id} >

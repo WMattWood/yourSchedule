@@ -145,6 +145,7 @@ const updateEvent = async (req, res) => {
 
     const eventId = req.params.eventId
     const formData = req.body.data
+    console.log("FORM DATA>>>>>", formData)
     await db.collection("Events").updateOne( { _id: eventId }, { $set: {...formData} })
 
     res.status(200).json({
