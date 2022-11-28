@@ -163,7 +163,7 @@ const AddEventModal = () => {
                                 value={formData.callList.length} 
                                 onChange={ (ev) => callListHandler(ev) }  
                                 required 
-                                >{staffArray.map( (number) => <CallListOption value={number} key={uuidv4()}>{number}</CallListOption>)}</CallListSelect>
+                                >{staffArray.map( (number, idx) => <CallListOption value={number} key={uuidv4()}>{number}</CallListOption>)}</CallListSelect>
             </CallListDropDown>
           </CallListDropDownMenu>
         </AllFields>

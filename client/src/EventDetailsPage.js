@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
+import CallListPosition from './CallListPosition'
 
 const EventDetailsPage = () => {
 
@@ -61,7 +63,14 @@ const EventDetailsPage = () => {
             </FieldWrapper>
 
             <CallList>
-              { event.callList.map(position => <CallListPosition>{position.name}</CallListPosition>) }
+              { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
+                                                                  position={position.position}
+                                                                  id={position._id}
+                                                                  eventId={event._id}
+                                                                  callList={event.callList}
+                                                                  event={event}
+                                                                  idx={idx}
+                                                                  key={uuidv4()}/>) }
             </CallList>
           </EventWrapper>
       }
@@ -166,16 +175,8 @@ const TheIdItself = styled.a`
 const CallList = styled.ul`
   padding-left: 0px;
   height: 200px; 
-  width: 400px;
+  width: 800px;
   overflow: hidden; 
   overflow-y: scroll;
-`
-const CallListPosition = styled.li`
-  align-content: center;
-  height: 30px;
-  width: 380px;
-  list-style: none;
-  background-color: #395980;
-  border-radius: 10px;
 `
 export default EventDetailsPage
