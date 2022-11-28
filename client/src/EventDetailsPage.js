@@ -95,7 +95,7 @@ const EventDetailsPage = () => {
               { eventListing.map( event =>  {
                                               return (<QuickLinkWrapper key={event._id}>
                                                         <SubHeadingWrapper>
-                                                          <IdTitle>{event.name} @ </IdTitle>
+                                                          <IdTitle>{`${event.name} @ `}</IdTitle>
                                                           <TheIdItself onClick={ () => handleIdNav(event._id) }>{event.location}</TheIdItself>
                                                         </SubHeadingWrapper>
                                                         <SubHeadingWrapper>
@@ -203,7 +203,7 @@ const TheIdItself = styled.a`
 const CallListWrapper = styled.div`
   background-color: white;
   height: 200px; 
-  width: 540px;
+  width: 400px;
   overflow: hidden;
 `
 

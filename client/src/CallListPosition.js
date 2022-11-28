@@ -61,8 +61,7 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList})
             ! memberList
             ? null
             : <AddMember onChange={changeHandler}>
-                {console.log("MemberList:>:", memberList)}
-                <Member value={event.callList[idx].name}></Member>
+                <Member value={event.callList[idx].name}>unfilled</Member>
                 {memberList.map ( member => <Member value={member.name} key={uuidv4()}>{member.name}</Member> ) }
               </AddMember>
           }
@@ -77,7 +76,7 @@ const Container = styled.div`
   display: flex;
   justify-content: start;
   height: 30px;
-  width: 600px;
+  width: 400px;
   * {
     margin: 5px;
   }
@@ -88,7 +87,7 @@ const CallListPositionWrapper = styled.li`
   justify-content: start;
   align-items: center;
   height: 30px;
-  width: 380px;
+  width: 290px;
   list-style: none;
   background-color: #395980;
   border-radius: 10px;
@@ -100,11 +99,15 @@ const CallListPositionWrapper = styled.li`
   }
 `
 const InnerText = styled.div`
-  margin-left: 10px;
+  padding-left: 10px;
   font-weight: 600;
 `
 
 const AddMember = styled.select`
+  position: relative;
+  top: 5px;
+  width: 80px;
+  height: 20px;
 `
 
 const Member = styled.option`
