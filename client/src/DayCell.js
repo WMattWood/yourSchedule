@@ -87,6 +87,7 @@ const NumCircle = styled.div`
   border-radius: 50%;
 `
 
+// EVENT BANDS - Green for filled, Purple for unfilled
 const EventsBox = styled.div`
   position: absolute;
   top: 30px;
@@ -100,18 +101,25 @@ const EventBand = styled.div`
   height: 30%;
   margin-bottom: 2%;
   opacity: 0.6;
+  visibility: visible;
+
   &.noevent {
     display: none;
     visibility: hidden;
+    transition: visibility 1s linear;
   }
-
+  transition: visibility 1s linear;
   &.eventPending {
     background-color: #80397D;
+    transition: background-color 1s linear;
   }
 
   &.eventFull {
     background-color: green;
+    transition: background-color 1s linear;
   }
+
+  transition: background-color 1s linear;
 `
 
 export default DayCell

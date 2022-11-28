@@ -94,7 +94,6 @@ const CalendarModule = () => {
 
   // Generate Calendar Grid
   const getCalendar = (year, month) => {
-    console.log("Is there a monthly calendar? ", monthlyCalendar)
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
     let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
@@ -104,38 +103,35 @@ const CalendarModule = () => {
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-          let blankSquare = <DayCell key={uuidv4()} numberMarker={""} eventStatus={"noevent"}></DayCell>
-          let dateSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"}></DayCell>
-          let selectedSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"noevent"} selectedStatus={"selected"}></DayCell>
-          let eventPendingSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventPending"}></DayCell>
-          let eventFullSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventFull"}></DayCell>
-        let isToday = ( activeDate.getDate() === currentDate ) 
+        // setting up different versions of DayCell component
+        // __________________________
+        // if there is an event, the eventStatus property is set to either eventPending or eventFull
+        // this property gets used to set the "className" of a styled-component Event Band
+        // __________________________
+        // if the "currentDate" count is the same value as the activeDate.getDate() value,
+        // then the selectedStatus property is set to selected which gets used as the 
+        const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
 
-        const hasFullEvent = () => {
-          let thisDaysEvents =  monthlyCalendar.filter( event => event.dateDay === currentDate )
-          thisDaysEvents = thisDaysEvents.filter( e => e.callList.every(el => el.name !== 'unfilled' ))
-          return thisDaysEvents.length > 0
-        }
-        const hasPendingEvent = () => {
-          let thisDaysEvents =  monthlyCalendar.filter( event => event.dateDay === currentDate )
-          thisDaysEvents = thisDaysEvents.filter( e => e.callList.some(el => el.name === 'unfilled' ))
-          return thisDaysEvents.length > 0
-        }
-  
+        const isToday = ( activeDate.getDate() === currentDate ) 
+
+        const hasFullEvent = monthlyCalendar.filter( event => event.dateDay === currentDate )
+                                            .filter( e => e.callList.every(el => el.name !== 'unfilled' ))
+                                            .length > 0
+        
+        const hasPendingEvent =  monthlyCalendar.filter( event => event.dateDay === currentDate )
+                                                .filter( e => e.callList.some(el => el.name === 'unfilled' ))
+                                                .length > 0
+        
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
         } else if (currentDate > daysInMonth) {
           break;
         } else {
-          if ( isToday ) {
-            week.push(selectedSquare)
-          } else if ( hasFullEvent() ) {
-            week.push(eventFullSquare )
-          } else if ( hasPendingEvent() ) {
-            week.push(eventPendingSquare )
-          } else {
-            week.push(dateSquare)
-          }
+          week.push( <DayCell key={uuidv4()}
+                            numberMarker={ currentDate }
+                            eventStatus={ hasFullEvent ? "eventFull" : hasPendingEvent ? "eventPending" : "noevent" }
+                            selectedStatus={ isToday ? "selected" : null}
+                            /> )
           currentDate++;
         }
       }
