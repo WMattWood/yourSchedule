@@ -14,7 +14,8 @@ export const CalendarProvider = ({ children }) => {
                                                   client: "",
                                                   dateMonth: activeDate.getMonth(),
                                                   dateDay: activeDate.getDate(),
-                                                  dateYear: activeDate.getFullYear()
+                                                  dateYear: activeDate.getFullYear(),
+                                                  callList: []
                                                 })
 
     // console.log("Context level formData", formData)

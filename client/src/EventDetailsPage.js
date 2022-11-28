@@ -59,6 +59,10 @@ const EventDetailsPage = () => {
             <FieldWrapper>
               <DisplayedField>Year: {event.dateYear}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
+
+            <CallList>
+              { event.callList.map(position => <CallListPosition>{position.name}</CallListPosition>) }
+            </CallList>
           </EventWrapper>
       }
       { !eventListing
@@ -82,6 +86,11 @@ const EventDetailsPage = () => {
     </>
   )
 }
+
+const PageLeftRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 const Title = styled.h1`
   /* color: white; */
@@ -127,10 +136,7 @@ const SaveButton = styled.button`
 `
 
 
-const PageLeftRight = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
+
 
 const SubListing = styled.div`
   height: 800px;
@@ -156,4 +162,20 @@ const TheIdItself = styled.a`
   width: 400px;
 `
 
+
+const CallList = styled.ul`
+  padding-left: 0px;
+  height: 200px; 
+  width: 400px;
+  overflow: hidden; 
+  overflow-y: scroll;
+`
+const CallListPosition = styled.li`
+  align-content: center;
+  height: 30px;
+  width: 380px;
+  list-style: none;
+  background-color: #395980;
+  border-radius: 10px;
+`
 export default EventDetailsPage

@@ -23,18 +23,27 @@ const AddEventModal = () => {
                   dateYear: activeDate.getFullYear()
               })
   }, [activeDate])
-                                          
+                     
+  // Generating Iterables
+  // MONTHS
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  // YEARS
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
+  // DAYS
   let days = []
   let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
     days.push(i)
   }
-  
+  // STAFF NUMBERS
+  var staffArray = [];
+  for ( let i = 1; i <= 16; i++) {
+    staffArray.push(i);
+  }
+
   const submitHandler = (ev) => {
     ev.preventDefault();
     fetch('/calendar/insert', {
@@ -55,7 +64,8 @@ const AddEventModal = () => {
                   client: "",
                   dateMonth: activeDate.getMonth(),
                   dateDay: activeDate.getDate(),
-                  dateYear: activeDate.getFullYear()
+                  dateYear: activeDate.getFullYear(),
+                  callList: []
                 })
   }
 
@@ -63,12 +73,30 @@ const AddEventModal = () => {
     setFormData({...formData, [field]: ev.currentTarget.value })
   }
   
+  // Selecting date options here updates the CalendarContext state as well as
+  // updating the formData object which gets submitted onSubmit by the form
+  // selectDay,Year,Month draw their values from the current element value of 
+  // each select input "dropdown"
+  // THIS CAN PROBABLY BE REFINED TO REMOVE THE USE OF GETELEMENTBYID
   let selectDay = document.getElementById("modalDay")
   let selectYear = document.getElementById("modalYear")
   let selectMonth = document.getElementById("modalMonth")
-  const selectHandler = (ev, field) => {
+  const dateHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
     setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
+  }
+
+  // This handler generates a list of empty "position" items
+  const callListHandler = (ev) => {
+    let number = ev.currentTarget.value
+    let x = 0
+    let newCallList = []
+    while (x < number) {
+      newCallList.push({ name: "unfilled", position: "tech" })
+      x++;
+    }
+
+    setFormData({...formData, callList: newCallList})
   }
 
   return (
@@ -101,7 +129,7 @@ const AddEventModal = () => {
                                 name="month"
                                 id="modalMonth"  
                                 value={formData.dateMonth} 
-                                onChange={ (ev) => selectHandler(ev, "dateMonth") } 
+                                onChange={ (ev) => dateHandler(ev, "dateMonth") } 
                                 required 
                                 >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
             </DropDown>
@@ -111,7 +139,7 @@ const AddEventModal = () => {
                                 name="day"
                                 id="modalDay" 
                                 value={formData.dateDay}
-                                onChange={ (ev) => selectHandler(ev, "dateDay") }  
+                                onChange={ (ev) => dateHandler(ev, "dateDay") }  
                                 required 
                                 >{days.map( (day) => <DayOption value={day} key={uuidv4()}>{day}</DayOption>)}</EventDateSelect>
             </DropDown>
@@ -121,11 +149,23 @@ const AddEventModal = () => {
                                 name="year"
                                 id="modalYear" 
                                 value={formData.dateYear} 
-                                onChange={ (ev) => selectHandler(ev, "dateYear") }  
+                                onChange={ (ev) => dateHandler(ev, "dateYear") }  
                                 required 
                                 >{years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}</EventDateSelect>
             </DropDown>
           </DropdownMenus>
+          <CallListDropDownMenu>
+            <CallListDropDown>
+              <label forhtml="year">CallList</label>
+              <CallListSelect  type="select" 
+                                name="callList"
+                                id="callList" 
+                                value={formData.callList.length} 
+                                onChange={ (ev) => callListHandler(ev) }  
+                                required 
+                                >{staffArray.map( (number) => <CallListOption value={number} key={uuidv4()}>{number}</CallListOption>)}</CallListSelect>
+            </CallListDropDown>
+          </CallListDropDownMenu>
         </AllFields>
         <EventDataSubmit type="submit">SUBMIT</EventDataSubmit>
       </EventForm>
@@ -202,6 +242,28 @@ const MonthOption = styled.option`
 const DayOption = styled.option`
 `
 const YearOption = styled.option`
+` 
+
+// CALLLIST DROPDOWN MENU
+const CallListDropDownMenu = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  * {
+    font-weight: 200;
+  }
+`
+const CallListDropDown = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const CallListSelect = styled.select`
+  font-size: 16px;
+  width: 60px;
+  height: 22px;
+  border-radius: 5px;
+`
+const CallListOption = styled.option`
 ` 
 
 // FORM SUBMIT BUTTON
