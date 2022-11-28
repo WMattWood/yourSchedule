@@ -31,7 +31,7 @@ const Navbar = () => {
         </LeftSide>
         <RightSide>
           <Link onClick={linkToRoster}>Roster</Link>
-          <Link onClick={linkToEventDetails}>.temp</Link>
+          <Link onClick={linkToEventDetails}>events</Link>
         </RightSide>
       </NavbarContainer>
     </>

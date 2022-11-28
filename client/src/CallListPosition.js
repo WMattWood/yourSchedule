@@ -100,6 +100,8 @@ const CallListPositionWrapper = styled.li`
   }
 `
 const InnerText = styled.div`
+  margin-left: 10px;
+  font-weight: 600;
 `
 
 const AddMember = styled.select`

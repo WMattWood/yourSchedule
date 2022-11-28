@@ -61,7 +61,7 @@ const EventDetailsPage = () => {
             <FieldWrapper>
               <DisplayedField>FormattedDate: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
-            <FieldWrapper>
+            {/* <FieldWrapper>
               <DisplayedField>Month: {months[event.dateMonth]}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
             <FieldWrapper>
@@ -69,30 +69,39 @@ const EventDetailsPage = () => {
             </FieldWrapper>
             <FieldWrapper>
               <DisplayedField>Year: {event.dateYear}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
+            </FieldWrapper> */}
 
-            <CallList>
-              { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
-                                                                  position={position.position}
-                                                                  id={position._id}
-                                                                  eventId={event._id}
-                                                                  eventCallList={event.callList}
-                                                                  memberList={memberList}
-                                                                  event={event}
-                                                                  idx={idx}
-                                                                  key={uuidv4()}/>) }
-            </CallList>
+            <CallListWrapper>
+              <CallList>
+                { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
+                                                                    position={position.position}
+                                                                    id={position._id}
+                                                                    eventId={event._id}
+                                                                    eventCallList={event.callList}
+                                                                    memberList={memberList}
+                                                                    event={event}
+                                                                    idx={idx}
+                                                                    key={uuidv4()}/>) }
+               <SpaceHolderDiv/>
+              </CallList>
+            </CallListWrapper>
           </EventWrapper>
       }
       { !eventListing
         ?<Title>Loading eventlistings...</Title>
         : <SubListing>
-            <BigName>___________________________</BigName>
+            <BigName>Upcoming Events...</BigName>
             <IdsWrapper>
               { eventListing.map( event =>  {
                                               return (<QuickLinkWrapper key={event._id}>
-                                                        <IdTitle>id:</IdTitle>
-                                                        <TheIdItself onClick={ () => handleIdNav(event._id) }>{event._id}</TheIdItself>
+                                                        <SubHeadingWrapper>
+                                                          <IdTitle>{event.name} @ </IdTitle>
+                                                          <TheIdItself onClick={ () => handleIdNav(event._id) }>{event.location}</TheIdItself>
+                                                        </SubHeadingWrapper>
+                                                        <SubHeadingWrapper>
+                                                          <IdTitle>id:</IdTitle>
+                                                          <TheIdItself onClick={ () => handleIdNav(event._id) }>{event._id}</TheIdItself>
+                                                        </SubHeadingWrapper>
                                                       </QuickLinkWrapper>
                                               )
                                             }
@@ -135,6 +144,10 @@ const FieldWrapper = styled.div`
 const BigName = styled.div`
   font-size: 28px;
   font-weight: bold;
+  width: 75%;
+  margin: 5px 0px;
+  border-bottom: 2px solid black;
+  padding-bottom: 2px;
 `
 const DisplayedField = styled.div`
   padding: 4px 12px;
@@ -166,6 +179,7 @@ const IdsWrapper = styled.div`
 `
 const QuickLinkWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   margin-bottom: 8px;
   &:hover {
     cursor: pointer;
@@ -173,20 +187,39 @@ const QuickLinkWrapper = styled.div`
     transition: color 0.1s ;
   }
 `
+const SubHeadingWrapper = styled.div`
+  display: flex;
+  margin-bottom: 2px;
+`
 const IdTitle = styled.div`
   font-weight: bold;
-  width: 30px;
+  white-space: nowrap;
+  width: auto;
 `
 const TheIdItself = styled.a`
   width: 400px;
 `
 
+const CallListWrapper = styled.div`
+  background-color: white;
+  height: 200px; 
+  width: 540px;
+  overflow: hidden;
+`
 
 const CallList = styled.ul`
+  margin: 5px;
+  margin-bottom: 40px;
   padding-left: 0px;
   height: 200px; 
-  width: 800px;
-  overflow: hidden; 
+  width: 540px;
+  overflow-x: hidden; 
   overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box;
+`
+
+const SpaceHolderDiv = styled.div`
+  height: 50px;
 `
 export default EventDetailsPage
