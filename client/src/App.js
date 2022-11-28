@@ -6,9 +6,11 @@ import RosterPage from "./RosterPage";
 import EventDetailsPage from "./EventDetailsPage";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
 
+  const { user, isAuthenticated, isLoading } = useAuth0()
   // ~~~~ Structure of the App:
   // "HEADER/NAVBAR"
   // "Path: HOME"
@@ -23,15 +25,22 @@ function App() {
     <BrowserRouter>
     <GlobalStyle />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/calendar" element={<CalendarPage/>} />
-        <Route path="/event/:eventId" element={<EventDetailsPage/>} />
-        <Route path="/roster" element={<RosterPage/>} />
+      
+      { !isAuthenticated
+        ? <Routes>
+            <Route path="*" element={<Homepage />} />
+          </Routes>
+        : <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/calendar" element={<CalendarPage/>} />
+            <Route path="/event/:eventId" element={<EventDetailsPage/>} />
+            <Route path="/roster" element={<RosterPage/>} />
+          </Routes>
+      }
         {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
         {/* <Route path="/cart" element={<DisplayCart/>} /> */}
         {/* <Route path="/confirmation" element={<Confirmation/>} /> */}
-      </Routes>
+      
       {/* <Footer /> */}
     </BrowserRouter>
   );

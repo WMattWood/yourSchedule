@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import RosterPage from './RosterPage';
+import LogoutButton from './logout';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = () => {
 
   const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0()
 
   const linkToCalendar = () => {
     navigate("/calendar");
@@ -33,6 +36,10 @@ const Navbar = () => {
           <Link onClick={linkToRoster}>Roster</Link>
           <Link onClick={linkToEventDetails}>events</Link>
         </RightSide>
+        { isAuthenticated 
+          ? <LogoutButton/>
+          : null
+        }
       </NavbarContainer>
     </>
   )
