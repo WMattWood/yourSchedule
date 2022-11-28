@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({name, position, id, eventId, eventCallList, event, idx, memberList}) => {
+const CallListPosition = ({name, position, id, eventId, event, idx, memberList}) => {
   
   
   const [ showAddMember, setShowAddMember ] = useState(false)
-  const [ callList, setCallList ] = useState(eventCallList)
+  const [ callList, setCallList ] = useState(event.callList)
   
   const clickHandler = () => {
     setShowAddMember(!showAddMember)
@@ -15,33 +15,45 @@ const CallListPosition = ({name, position, id, eventId, eventCallList, event, id
   // On change - update this specific callListPosition with a name selected from
   // the addMember dropdown.
   const changeHandler = async (ev) => {
-    console.log("When you change the thing the changehandler says this is the ev.currentTarget.value", ev.currentTarget.value)
-    let modifiedEntry = {...callList[idx], name: ev.currentTarget.value}
-    console.log("This is the callList:", callList)
-    console.log("This is the specific idx", callList[idx])
+    const chosenName = ev.currentTarget.value
+    console.log("This is the name:", chosenName)
+
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
+    console.log("This is the moseUpToDateList:", mostUpToDateList)
+
+    let modifiedEntry = {...mostUpToDateList[idx], name: chosenName}
     console.log("This is the modified entry:", modifiedEntry)
 
-    await setCallList(callList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
+    mostUpToDateList[idx] = modifiedEntry
+    console.log("This is the UPDATED moseUpToDateList:", mostUpToDateList)
 
-    console.log("Look at me I am the calllist now:", callList)
+    // await setCallList(callList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
 
-    console.log("event id", eventId)
     fetch(`/calendar/${eventId}`, {
       "method": "PATCH",
       "body": JSON.stringify({
-        "data": {...event, callList: callList }
+        "data": {...event, callList: mostUpToDateList }
       }),
       "headers": {
         "Content-Type": "application/json"
       }
     })
+      .then(res => res.json() )
+      .then(res => setCallList(res.data.callList))
+
+    setShowAddMember(!showAddMember)
   }
 
   return (
     <Container key={id} >
-      <CallListPositionWrapper onClick={clickHandler}>
-        <InnerText>{`${position}: ${name}`}</InnerText>
-      </CallListPositionWrapper>
+      { ! callList
+        ? null
+        : <CallListPositionWrapper onClick={clickHandler}>
+           <InnerText>{`${callList[idx].position}: ${callList[idx].name}`}</InnerText>
+          </CallListPositionWrapper>
+      }
       { ! showAddMember
         ? null
         : <>
@@ -50,7 +62,7 @@ const CallListPosition = ({name, position, id, eventId, eventCallList, event, id
             ? null
             : <AddMember onChange={changeHandler}>
                 {console.log("MemberList:>:", memberList)}
-                <Member value={"unfilled"}></Member>
+                <Member value={event.callList[idx].name}></Member>
                 {memberList.map ( member => <Member value={member.name} key={uuidv4()}>{member.name}</Member> ) }
               </AddMember>
           }
