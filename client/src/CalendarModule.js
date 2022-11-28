@@ -106,10 +106,9 @@ const CalendarModule = () => {
         // setting up different versions of DayCell component
         // __________________________
         // if there is an event, the eventStatus property is set to either eventPending or eventFull
-        // this property gets used to set the "className" of a styled-component Event Band
-        // __________________________
-        // if the "currentDate" count is the same value as the activeDate.getDate() value,
-        // then the selectedStatus property is set to selected which gets used as the 
+        // this property gets used to set the EVENT BAND that displays on each cell
+        // if the currentDate iterator is equal to the Calendar State "activeDate" then a "selected"
+        // status is applied to the  component which render a red background for the cell
         const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
 
         const isToday = ( activeDate.getDate() === currentDate ) 
