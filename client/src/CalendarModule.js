@@ -111,7 +111,16 @@ const CalendarModule = () => {
           let eventFullSquare = <DayCell key={uuidv4()} numberMarker={currentDate} eventStatus={"eventFull"}></DayCell>
         let isToday = ( activeDate.getDate() === currentDate ) 
 
-        let hasEvent = ( monthlyCalendar.filter( event => event.dateDay === currentDate ).length > 0 ) 
+        const hasFullEvent = () => {
+          let thisDaysEvents =  monthlyCalendar.filter( event => event.dateDay === currentDate )
+          thisDaysEvents = thisDaysEvents.filter( e => e.callList.every(el => el.name !== 'unfilled' ))
+          return thisDaysEvents.length > 0
+        }
+        const hasPendingEvent = () => {
+          let thisDaysEvents =  monthlyCalendar.filter( event => event.dateDay === currentDate )
+          thisDaysEvents = thisDaysEvents.filter( e => e.callList.some(el => el.name === 'unfilled' ))
+          return thisDaysEvents.length > 0
+        }
   
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
@@ -120,8 +129,10 @@ const CalendarModule = () => {
         } else {
           if ( isToday ) {
             week.push(selectedSquare)
-          } else if (hasEvent) {
+          } else if ( hasFullEvent() ) {
             week.push(eventFullSquare )
+          } else if ( hasPendingEvent() ) {
+            week.push(eventPendingSquare )
           } else {
             week.push(dateSquare)
           }
