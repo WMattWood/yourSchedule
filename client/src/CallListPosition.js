@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 const CallListPosition = ({name, position, id, eventId, callList, event, idx}) => {
@@ -15,6 +15,7 @@ const CallListPosition = ({name, position, id, eventId, callList, event, idx}) =
   // On change - update this specific callListPosition with a name selected from
   // the addMember dropdown.
   const changeHandler = (ev) => {
+    console.log("When you change the thing the changehandler says this is the ev.currentTarget.value", ev.currentTarget.value)
     let modifiedEntry = {...modifiedCallList[idx], name: ev.currentTarget.value}
     
     setModifiedCallList(modifiedCallList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
@@ -40,9 +41,15 @@ const CallListPosition = ({name, position, id, eventId, callList, event, idx}) =
     })
   }
 
-  fetch(`/members/allmembers`)
+  useEffect( () => { fetch(`/members/allmembers`)
     .then(res => res.json() )
-    .then(res => setMemberList(res.data))
+    .then(res => {
+      // let listToDisplay = res.data
+      // listToDisplay.shift({ name: "unfilled" })
+      // setMemberList(listToDisplay)
+      setMemberList(res.data)
+    })
+}, [modifiedCallList] )
 
   return (
     <Container key={id} >
@@ -56,6 +63,7 @@ const CallListPosition = ({name, position, id, eventId, callList, event, idx}) =
             ! memberList
             ? null
             : <AddMember onChange={changeHandler}>
+                {console.log("MemberList:>:", memberList)}
                 <Member value={"unfilled"}></Member>
                 {memberList.map ( member => <Member value={member.name} key={uuidv4()}>{member.name}</Member> ) }
               </AddMember>

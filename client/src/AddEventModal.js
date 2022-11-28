@@ -11,18 +11,19 @@ const AddEventModal = () => {
           activeDate, 
           setActiveDate, 
           formData, 
-          setFormData 
+          setFormData,
         } = useContext(CalendarContext)
 
   const closeModal = () => { setModalVisibility(false) }
 
-  useEffect( () => {
-    setFormData({ ...formData,
-                  dateMonth: activeDate.getMonth(),
-                  dateDay: activeDate.getDate(),
-                  dateYear: activeDate.getFullYear()
-              })
-  }, [activeDate])
+  // I think we don't need this because it already happens in the CalendarContext
+  // useEffect( () => {
+  //   setFormData({ ...formData,
+  //                 dateMonth: activeDate.getMonth(),
+  //                 dateDay: activeDate.getDate(),
+  //                 dateYear: activeDate.getFullYear()
+  //             })
+  // }, [activeDate])
                      
   // Generating Iterables
   // MONTHS

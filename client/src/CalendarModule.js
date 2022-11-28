@@ -137,10 +137,10 @@ const CalendarModule = () => {
   // Set the calendar for this month, so we can scan through it and see
   // if a given DayCell needs to have an event on it.
   useEffect( () => {
-    fetch(`/calendar/${currentYear}/${currentMonth}`)
+    fetch(`/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
       .then( res => setMonthlyCalendar(res.data) )
-  }, [] )
+  }, [activeDate] )
 
   /// JSX RETURN
   return (

@@ -38,7 +38,7 @@ export const CalendarProvider = ({ children }) => {
                 activeDate,
                 setActiveDate,
                 formData,
-                setFormData
+                setFormData,
             }}
             >
                 {children}
