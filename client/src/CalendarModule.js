@@ -50,11 +50,11 @@ const CalendarModule = () => {
       <HeaderWrapper>
         <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
         <NavWrapper>
-          <NavIcon>
-            <AiOutlineLeft onClick={() => setActiveDate(subMonths(activeDate, 1))}  />
+          <NavIcon onClick={() => setActiveDate(subMonths(activeDate, 1))}>
+            <AiOutlineLeft />
           </NavIcon>
-          <NavIcon>
-            <AiOutlineRight onClick={() => setActiveDate(addMonths(activeDate, 1))} />
+          <NavIcon onClick={() => setActiveDate(addMonths(activeDate, 1))}>
+            <AiOutlineRight />
           </NavIcon>
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>

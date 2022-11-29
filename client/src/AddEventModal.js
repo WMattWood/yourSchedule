@@ -285,5 +285,6 @@ const EventDataSubmit = styled.button`
   width: 200px;
   height: 60px;
   margin-top: 20px;
+  cursor: pointer;
 `
 export default AddEventModal
