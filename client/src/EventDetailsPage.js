@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import CallListPosition from './CallListPosition'
 import EventDetail from './EventDetail'
+import DateDetails from './DateDetails'
 
 const EventDetailsPage = () => {
 
@@ -51,29 +52,10 @@ const EventDetailsPage = () => {
             <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
             <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
             <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail>
+           
+            <DateDetails event={event}></DateDetails>
             {/* <FieldWrapper>
-              <DisplayedField>Event Name: {event.name}</DisplayedField> <EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            <FieldWrapper>
-              <DisplayedField>Location: {event.location}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            <FieldWrapper>
-              <DisplayedField>Client: {event.client}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            <FieldWrapper>
-              <DisplayedField>CallList: TBD</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper> */}
-            <FieldWrapper>
               <DisplayedField>FormattedDate: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            {/* <FieldWrapper>
-              <DisplayedField>Month: {months[event.dateMonth]}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            <FieldWrapper>
-              <DisplayedField>Day: {event.dateDay}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
-            <FieldWrapper>
-              <DisplayedField>Year: {event.dateYear}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper> */}
 
             <CallListWrapper>
