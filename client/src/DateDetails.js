@@ -144,8 +144,9 @@ const CloseButton = styled.button`
 const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
+  height: 40px;
   background: grey;
-  border-radius: 10px;
+  border-radius: 5px;
 `
 const DisplayedField = styled.div`
   padding: 4px 12px;

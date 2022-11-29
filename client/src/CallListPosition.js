@@ -51,7 +51,7 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList, 
       { ! callList
         ? null
         : <CallListPositionWrapper onClick={clickHandler}>
-           <InnerText>{`${callList[idx].position}: ${callList[idx].name}`}</InnerText>
+            <InnerText>{`${callList[idx].position}: ${callList[idx].name}`}</InnerText>
           </CallListPositionWrapper>
       }
       { ! showAddMember
@@ -105,6 +105,7 @@ const InnerText = styled.div`
 
 const AddMember = styled.select`
   position: relative;
+  margin-left: 5px;
   top: 5px;
   width: 80px;
   height: 20px;
