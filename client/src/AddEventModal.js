@@ -92,7 +92,7 @@ const AddEventModal = () => {
   // This handler generates a list of empty "position" items
   const callListHandler = (ev) => {
     let number = ev.currentTarget.value
-    let x = 0
+    let x = 1
     let newCallList = []
     while (x < number) {
       newCallList.push({ name: "unfilled", position: "tech" })
