@@ -51,12 +51,17 @@ const EventDetailsPage = () => {
             <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
             <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
             <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
-            <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail>
-           
+            {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
             <DateDetails event={event}></DateDetails>
-            {/* <FieldWrapper>
-              <DisplayedField>FormattedDate: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper> */}
+
+            <CallListStatus>
+              <Status>Event Status:</Status>
+              { event.callListFull
+                ? <Full>FILLED</Full> 
+                : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
+              }
+            </CallListStatus>
+
 
             <CallListWrapper>
               <CallList>
@@ -67,6 +72,7 @@ const EventDetailsPage = () => {
                                                                     eventCallList={event.callList}
                                                                     memberList={memberList}
                                                                     event={event}
+                                                                    setEvent={setEvent}
                                                                     idx={idx}
                                                                     key={uuidv4()}/>) }
                <SpaceHolderDiv/>
@@ -133,29 +139,60 @@ const BigName = styled.div`
 
 
 // MOVED TO EVENTDETAIL
-const FieldWrapper = styled.div`
+const CallListStatus = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
   background: grey;
   border-radius: 10px;
 `
-const DisplayedField = styled.div`
+// const CallListStatus = styled.div`
+//   display: flex;
+//   align-items: center;
+//   padding: 4px 12px;
+//   font-size: 18px;
+//   font-weight: 200;
+//   width: 300px;
+// `
+const Status = styled.div`
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;
+  /* width: 300px; */
+`
+const Full = styled.div`
+  /* text-shadow: 1px 1px 2px black; */
+  text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+  /* text-decoration-line: underline; */
+  /* text-decoration-style: double; */
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 600;
   width: 300px;
+  color: #1bde23;
 `
-const EditButton = styled.button`
-  margin-left: 10px;
-  width: auto;
-  border-radius: 5px;
+const NotFull = styled.div`
+  /* text-shadow: 1px 1px 2px black; */
+  text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+  /* text-decoration-line: underline; */
+  /* text-decoration-style: double; */
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 300px;
+  color: red;
 `
-const SaveButton = styled.button`
-  display: none;
-  margin-left: 10px;
-  width: auto;
-  border-radius: 5px;
-`
+// const EditButton = styled.button`
+//   margin-left: 10px;
+//   width: auto;
+//   border-radius: 5px;
+// `
+// const SaveButton = styled.button`
+//   display: none;
+//   margin-left: 10px;
+//   width: auto;
+//   border-radius: 5px;
+// `
 
 
 

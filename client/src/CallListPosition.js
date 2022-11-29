@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({name, position, id, eventId, event, idx, memberList}) => {
+const CallListPosition = ({name, position, id, eventId, event, idx, memberList, setEvent}) => {
   
   
   const [ showAddMember, setShowAddMember ] = useState(false)
@@ -41,7 +41,7 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList})
       }
     })
       .then(res => res.json() )
-      .then(res => setCallList(res.data.callList))
+      .then(res => setEvent(res.data) )
 
     setShowAddMember(!showAddMember)
   }

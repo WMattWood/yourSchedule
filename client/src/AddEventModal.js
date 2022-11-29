@@ -42,7 +42,7 @@ const AddEventModal = () => {
   }
   // STAFF NUMBERS
   var staffArray = [];
-  for ( let i = 1; i <= 16; i++) {
+  for ( let i = 0; i <= 16; i++) {
     staffArray.push(i);
   }
 
@@ -63,13 +63,15 @@ const AddEventModal = () => {
     document.getElementById("name").value = ""
     document.getElementById("location").value = ""
     document.getElementById("client").value = ""
+    //re-initialize formData state variable
     setFormData({ name: "", 
                   location: "",
                   client: "",
                   dateMonth: activeDate.getMonth(),
                   dateDay: activeDate.getDate(),
                   dateYear: activeDate.getFullYear(),
-                  callList: []
+                  callList: [],
+                  callListFull: false
                 })
 
     // // lazy hack to force the calendar to re-render after adding a new event
@@ -101,8 +103,8 @@ const AddEventModal = () => {
   // This handler generates a list of empty "position" items
   const callListHandler = (ev) => {
     let number = ev.currentTarget.value
-    let x = 1
-    let newCallList = [{ name: "unfilled", position: "tech" }]
+    let x = 0
+    let newCallList = []
     while (x < number) {
       newCallList.push({ name: "unfilled", position: "tech" })
       x++;

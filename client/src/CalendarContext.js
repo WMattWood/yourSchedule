@@ -16,8 +16,8 @@ export const CalendarProvider = ({ children }) => {
                                                   dateMonth: activeDate.getMonth(),
                                                   dateDay: activeDate.getDate(),
                                                   dateYear: activeDate.getFullYear(),
-                                                //   callList: []
-                                                  callList: [{ name: "unfilled", position: "tech" }]
+                                                  callList: [],
+                                                  callListFull: false
                                                 })
 
     // console.log("Context level formData", formData)

@@ -140,11 +140,18 @@ const updateEvent = async (req, res) => {
   try {
     // Connect client
     await client.connect()
-    console.log("Connected")
+    console.log("Bitch I Connected")
     const db = client.db(DATABASE_NAME)
 
     const eventId = req.params.eventId
     const formData = req.body.data
+
+    let callListTest = formData.callList
+    if (callListTest.every( el => el.name !== "unfilled" )) {
+      formData.callListFull = true
+    }
+    // console.log("CALLLISTTEST>>>>>", formData)
+    // console.log("Testy testy", callListTest.every( el ))
     console.log("FORM DATA>>>>>", formData)
     await db.collection("Events").updateOne( { _id: eventId }, { $set: {...formData} })
 
