@@ -9,10 +9,10 @@ import DayCell from './DayCell'
 
 const CalendarModule = () => {
   
-  const { activeDate, setActiveDate } = useContext(CalendarContext)
+  const { activeDate, setActiveDate, monthlyCalendar, setMonthlyCalendar } = useContext(CalendarContext)
 
   // const [selectedDate, setSelectedDate] = useState(new Date());
-  const [monthlyCalendar, setMonthlyCalendar] = useState([])
+  // const [monthlyCalendar, setMonthlyCalendar] = useState([])
 
   useEffect( () => {
     selectYear = document.getElementById("year")

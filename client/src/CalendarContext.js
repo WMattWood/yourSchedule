@@ -8,6 +8,7 @@ export const CalendarContext = createContext(null);
 export const CalendarProvider = ({ children }) => {
 
     const [ modalVisibility, setModalVisibility ] = useState(false)
+    const [ monthlyCalendar, setMonthlyCalendar ] = useState([])
     const [ activeDate, setActiveDate ] = useState(new Date());
     const [ formData, setFormData ] = useState( { name: "", 
                                                   location: "",
@@ -15,6 +16,7 @@ export const CalendarProvider = ({ children }) => {
                                                   dateMonth: activeDate.getMonth(),
                                                   dateDay: activeDate.getDate(),
                                                   dateYear: activeDate.getFullYear(),
+                                                //   callList: []
                                                   callList: [{ name: "unfilled", position: "tech" }]
                                                 })
 
@@ -35,6 +37,8 @@ export const CalendarProvider = ({ children }) => {
             value={{
                 modalVisibility,
                 setModalVisibility,
+                monthlyCalendar,
+                setMonthlyCalendar,
                 activeDate,
                 setActiveDate,
                 formData,

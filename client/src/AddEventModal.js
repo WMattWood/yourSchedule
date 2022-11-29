@@ -6,7 +6,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 const AddEventModal = () => {
 
-  const { setModalVisibility, 
+  const { setModalVisibility,
+          monthlyCalendar,
+          setMonthlyCalendar, 
           activeDate, 
           setActiveDate, 
           formData, 
@@ -44,9 +46,9 @@ const AddEventModal = () => {
     staffArray.push(i);
   }
 
-  const submitHandler = (ev) => {
+  const submitHandler = async (ev) => {
     ev.preventDefault();
-    fetch('/calendar/insert', {
+    let newCalendarEvent = await fetch('/calendar/insert', {
       "method": "POST",
       "body": JSON.stringify({
         data: formData
@@ -55,6 +57,8 @@ const AddEventModal = () => {
         "Content-Type": "application/json"
       }
     })
+      .then(res => res.json() )
+      .then(res => res.data )
 
     document.getElementById("name").value = ""
     document.getElementById("location").value = ""
@@ -70,6 +74,11 @@ const AddEventModal = () => {
 
     // // lazy hack to force the calendar to re-render after adding a new event
     // setActiveDate(activeDate)
+    let newMonthlyCalendar = [...monthlyCalendar, newCalendarEvent]
+    console.log("Monthly Calendar___________", newCalendarEvent)
+    console.log("New Monthly Calendar_______", newMonthlyCalendar)
+    console.log("formData", formData)
+    setMonthlyCalendar(newMonthlyCalendar)
   }
 
   const inputHandler = (ev, field) => {
@@ -93,7 +102,7 @@ const AddEventModal = () => {
   const callListHandler = (ev) => {
     let number = ev.currentTarget.value
     let x = 1
-    let newCallList = []
+    let newCallList = [{ name: "unfilled", position: "tech" }]
     while (x < number) {
       newCallList.push({ name: "unfilled", position: "tech" })
       x++;
