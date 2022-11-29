@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
-
 const AddEventModal = () => {
 
   const { setModalVisibility, 
@@ -68,6 +67,9 @@ const AddEventModal = () => {
                   dateYear: activeDate.getFullYear(),
                   callList: []
                 })
+
+    // // lazy hack to force the calendar to re-render after adding a new event
+    // setActiveDate(activeDate)
   }
 
   const inputHandler = (ev, field) => {
