@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
+import { useNavigate, useParams } from "react-router-dom";
 
-const DayCell = ({numberMarker, selectedStatus, eventStatus}) => {
+const DayCell = ({numberMarker, selectedStatus, eventStatus, eventArray}) => {
 
   const { setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
+  const navigate = useNavigate()
 
   const clickHandler = () => {
     // onClick - make modal visible and set the modal's date to match the currently displayed calendar date
@@ -21,12 +23,35 @@ const DayCell = ({numberMarker, selectedStatus, eventStatus}) => {
     }
   }
 
+  const handleNav = (ev, actualEvent) => {
+    ev.stopPropagation()
+    navigate(`/event/${actualEvent._id}`)
+  }
+
   return (
     <Container onClick={clickHandler} className={selectedStatus}>
       <DayCellWrapper>
         <NumCircle>{numberMarker}</NumCircle>
         <EventsBox>
-          <EventBand className={eventStatus}></EventBand>
+          { // map through eventArray which is any events that were found on the current day
+            ! eventArray
+            ? null
+            : eventArray.map( event => {
+                // You can modify how many chars are displayed with the splitPoint variable
+                const splitPoint = 14
+                // Set a 10 character name to display on the EventBand
+                let parsedName = event.name 
+                if (parsedName.length > splitPoint ) {
+                  parsedName = parsedName.slice(0, splitPoint) + "..."
+                }
+
+                return (
+                  <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)}>
+                    <BandSpan>{parsedName}</BandSpan>
+                  </EventBand>
+                )
+              }) 
+          }
           {/* <EventBand className={eventStatus}></EventBand>
           <EventBand className={eventStatus}></EventBand>
           <EventBand className={eventStatus}></EventBand> */}
@@ -43,7 +68,6 @@ const Container = styled.div`
   justify-content: end;
   height: 100px;
   width: 100px;
-  cursor: pointer;
   box-sizing: border-box;
   border: 2px solid white;
   background-color: white;
@@ -90,18 +114,27 @@ const NumCircle = styled.div`
 // EVENT BANDS - Green for filled, Purple for unfilled
 const EventsBox = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 30px;
   height: 70%;
   width: 100%;
 `
+const BandSpan = styled.div`
+  font-size: 12px;
+  padding-left: 3px;
+`
 const EventBand = styled.div`
+  display: flex;
+  align-items: center;
   position: relative;
   top: 0px;
   width: 96%;
   height: 30%;
   margin-bottom: 2%;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   visibility: visible;
+  cursor: pointer;
 
   &.noevent {
     display: none;
@@ -110,12 +143,12 @@ const EventBand = styled.div`
   }
   transition: visibility 1s linear;
   &.eventPending {
-    background-color: #80397D;
+    background-color: #C09CBE;
     transition: background-color 1s linear;
   }
 
   &.eventFull {
-    background-color: green;
+    background-color: #9CC09E;
     transition: background-color 1s linear;
   }
 

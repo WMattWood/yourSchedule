@@ -120,6 +120,8 @@ const CalendarModule = () => {
         const hasPendingEvent =  monthlyCalendar.filter( event => event.dateDay === currentDate )
                                                 .filter( e => e.callList.some(el => el.name === 'unfilled' ))
                                                 .length > 0
+
+        const actualEvents = monthlyCalendar.filter( event => event.dateDay === currentDate )
         
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
@@ -130,6 +132,7 @@ const CalendarModule = () => {
                             numberMarker={ currentDate }
                             eventStatus={ hasFullEvent ? "eventFull" : hasPendingEvent ? "eventPending" : "noevent" }
                             selectedStatus={ isToday ? "selected" : null}
+                            eventArray={actualEvents}
                             /> )
           currentDate++;
         }
