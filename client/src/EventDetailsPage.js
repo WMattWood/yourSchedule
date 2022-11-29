@@ -146,9 +146,11 @@ const CallListStatus = styled.div`
   display: flex;
   align-items: center;
   white-space: nowrap;
-  height: 40px;
-  background: grey;
+  /* height: 40px; */
+  width: 99%;
+  background: white;
   border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px black;
 `
 // const CallListStatus = styled.div`
 //   display: flex;

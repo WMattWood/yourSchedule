@@ -39,7 +39,7 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
-            <DisplayedField>{fieldName}</DisplayedField>
+            <DisplayedField>{`${fieldName}:`}</DisplayedField>
             <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
             <SaveButton onClick={saveClickHandler}>Save</SaveButton>
             <CloseButton onClick={toggleEditor}>Close</CloseButton>
@@ -53,7 +53,7 @@ const TextInput = styled.input`
   width: 200px;
 `
 const EditButton = styled.button`
-  margin-left: 10px;
+  margin-left: 20px;
   width: auto;
   border-radius: 5px;
 `
@@ -63,16 +63,19 @@ const SaveButton = styled.button`
   border-radius: 5px;
 `
 const CloseButton = styled.button`
-  margin-left: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
   width: auto;
   border-radius: 5px;
 `
 const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 40px;
-  background: grey;
+  /* height: 40px; */
+  width: 99%;
+  background: white;
   border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px black;
 `
 const DisplayedField = styled.div`
   padding: 4px 12px;
