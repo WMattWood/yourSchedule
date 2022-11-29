@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import CallListPosition from './CallListPosition'
+import EventDetail from './EventDetail'
 
 const EventDetailsPage = () => {
 
@@ -46,7 +47,11 @@ const EventDetailsPage = () => {
         ?<Title>Loading event...</Title>
         : <EventWrapper>
             <BigName>{event.name}</BigName>
-            <FieldWrapper>
+            <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
+            <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
+            <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
+            <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail>
+            {/* <FieldWrapper>
               <DisplayedField>Event Name: {event.name}</DisplayedField> <EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
             <FieldWrapper>
@@ -57,7 +62,7 @@ const EventDetailsPage = () => {
             </FieldWrapper>
             <FieldWrapper>
               <DisplayedField>CallList: TBD</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
-            </FieldWrapper>
+            </FieldWrapper> */}
             <FieldWrapper>
               <DisplayedField>FormattedDate: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField><EditButton>Edit</EditButton>  <SaveButton>Save</SaveButton>
             </FieldWrapper>
@@ -135,12 +140,6 @@ const EventWrapper = styled.div`
   border-radius: 5px;
   /* background-color: #598039; */
 `
-const FieldWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  background: grey;
-  border-radius: 10px;
-`
 const BigName = styled.div`
   font-size: 28px;
   font-weight: bold;
@@ -148,6 +147,15 @@ const BigName = styled.div`
   margin: 5px 0px;
   border-bottom: 2px solid black;
   padding-bottom: 2px;
+`
+
+
+// MOVED TO EVENTDETAIL
+const FieldWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background: grey;
+  border-radius: 10px;
 `
 const DisplayedField = styled.div`
   padding: 4px 12px;
