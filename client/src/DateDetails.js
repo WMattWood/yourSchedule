@@ -127,7 +127,7 @@ const DateDetails = ({event}) => {
 //   width: 200px;
 // `
 const EditButton = styled.button`
-  /* margin-left: 10px; */
+  margin-left: 20px;
   width: auto;
   border-radius: 5px;
 `
@@ -144,8 +144,11 @@ const CloseButton = styled.button`
 const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
-  background: grey;
-  border-radius: 10px;
+  /* height: 40px; */
+  width: 99%;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px black;
 `
 const DisplayedField = styled.div`
   padding: 4px 12px;

@@ -38,7 +38,7 @@ const DayCell = ({numberMarker, selectedStatus, eventStatus, eventArray}) => {
             ? null
             : eventArray.map( event => {
                 // You can modify how many chars are displayed with the splitPoint variable
-                const splitPoint = 14
+                const splitPoint = 12
                 // Set a 10 character name to display on the EventBand
                 let parsedName = event.name 
                 if (parsedName.length > splitPoint ) {

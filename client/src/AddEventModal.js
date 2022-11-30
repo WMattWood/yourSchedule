@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
-const AddEventModal = () => {
+const AddEventModal = ({ errorPopup }) => {
 
   const { setModalVisibility,
           monthlyCalendar,
@@ -46,8 +46,17 @@ const AddEventModal = () => {
     staffArray.push(i);
   }
 
+
+
   const submitHandler = async (ev) => {
     ev.preventDefault();
+
+    // error handling
+    if (formData.callList.length < 1) {
+      errorPopup()
+      return;
+    }
+
     let newCalendarEvent = await fetch('/calendar/insert', {
       "method": "POST",
       "body": JSON.stringify({
@@ -285,5 +294,6 @@ const EventDataSubmit = styled.button`
   width: 200px;
   height: 60px;
   margin-top: 20px;
+  cursor: pointer;
 `
 export default AddEventModal
