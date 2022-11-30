@@ -5,6 +5,7 @@ const port = 8000
 
 const { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent} = require('./Handlers/EventHandlers')
 const { getAllMembers, getMember } = require('./Handlers/MemberHandlers')
+const { msgServerViaWebHook, httpPostViaWebHook } = require('./discord_server/commands/DiscordHandlers')
 
 express()
  
@@ -46,6 +47,11 @@ express()
 
   //// insert a new member into the db
   // .post('/members/insert')
+
+
+  ////////// MESSAGE DISCORD
+  // .post('/discord/:eventId', httpPostViaWebHook)
+  .post('/discord/:eventId', msgServerViaWebHook)
 
   // Node spins up server and sets it to listen on specified port
   .listen(port, () => {
