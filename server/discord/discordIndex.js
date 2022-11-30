@@ -17,7 +17,7 @@ const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 // create new client
 const client = new Client({ intents: [GatewayIntentBits.Guilds,
                                       GatewayIntentBits.GuildMessages,
-                                      // GatewayIntentBits.MessageContent,
+                                      GatewayIntentBits.MessageContent,
                                     ] 
                           });
 
@@ -52,10 +52,9 @@ client.once(Events.ClientReady, c => {
 // when your bot receives a Client#event:interactionCreate event,
 // we can parse all the needed information from the interaction object.
 client.on(Events.InteractionCreate, async interaction => {
-
 	// break if the interaction object is a ChatInputCommand
 	if (!interaction.isChatInputCommand()) return;
-	// console.log(interaction);
+	
 
 	// retrieve the relevant commans from #Client.commands
 	// #Client.commands is accessed via interaction.client
@@ -67,6 +66,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
+		console.error(`we found ${interaction.commandName} was found.`);
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
@@ -75,9 +75,9 @@ client.on(Events.InteractionCreate, async interaction => {
 
 });
 
-// client.on('messageCreate', async (message) => {
-//   console.log(message)
-// })
+client.on('messageCreate', async (message) => {
+  console.log(message.content)
+})
 
 // login using the BOT_TOKEN
 client.login(BOT_TOKEN);
