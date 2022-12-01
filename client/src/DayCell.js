@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-const DayCell = ({numberMarker, selectedStatus, eventStatus, eventArray}) => {
+const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
 
   const { setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
   const navigate = useNavigate()
@@ -43,6 +43,13 @@ const DayCell = ({numberMarker, selectedStatus, eventStatus, eventArray}) => {
                 let parsedName = event.name 
                 if (parsedName.length > splitPoint ) {
                   parsedName = parsedName.slice(0, splitPoint) + "..."
+                }
+
+                let eventStatus = ""
+                if (event.callList.every(el => el.name !== 'unfilled' )){
+                  eventStatus = "eventFull"
+                } else {
+                  eventStatus = "eventPending"
                 }
 
                 return (

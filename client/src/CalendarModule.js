@@ -94,6 +94,7 @@ const CalendarModule = () => {
 
   // Generate Calendar Grid
   const getCalendar = (year, month) => {
+    console.log("I'm running...", monthlyCalendar)
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
     let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
@@ -113,13 +114,13 @@ const CalendarModule = () => {
 
         const isToday = ( activeDate.getDate() === currentDate ) 
 
-        const hasFullEvent = monthlyCalendar.filter( event => event.dateDay === currentDate )
-                                            .filter( e => e.callList.every(el => el.name !== 'unfilled' ))
-                                            .length > 0
+        // const hasFullEvent = monthlyCalendar.filter( event => event.dateDay === currentDate )
+        //                                     .filter( e => e.callList.every(el => el.name !== 'unfilled' ))
+        //                                     .length > 0
         
-        const hasPendingEvent =  monthlyCalendar.filter( event => event.dateDay === currentDate )
-                                                .filter( e => e.callList.some(el => el.name === 'unfilled' ))
-                                                .length > 0
+        // const hasPendingEvent =  monthlyCalendar.filter( event => event.dateDay === currentDate )
+        //                                         .filter( e => e.callList.some(el => el.name === 'unfilled' ))
+        //                                         .length > 0
 
         const actualEvents = monthlyCalendar.filter( event => event.dateDay === currentDate )
         
@@ -130,7 +131,7 @@ const CalendarModule = () => {
         } else {
           week.push( <DayCell key={uuidv4()}
                             numberMarker={ currentDate }
-                            eventStatus={ hasFullEvent ? "eventFull" : hasPendingEvent ? "eventPending" : "noevent" }
+                            // eventStatus={ hasFullEvent ? "eventFull" : hasPendingEvent ? "eventPending" : "noevent" }
                             selectedStatus={ isToday ? "selected" : null}
                             eventArray={actualEvents}
                             /> )
