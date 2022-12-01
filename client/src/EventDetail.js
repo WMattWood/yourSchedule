@@ -90,6 +90,7 @@ const FieldWrapper = styled.div`
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
+  margin: 5px 0px;
 `
 const DisplayedField = styled.div`
   margin: 5px 0px;

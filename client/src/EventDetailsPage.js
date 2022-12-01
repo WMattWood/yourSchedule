@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
-import CallListPosition from './CallListPosition'
+
+import CallListDetail from './CallListDetail'
 import EventDetail from './EventDetail'
 import DateDetails from './DateDetails'
 
@@ -42,7 +42,7 @@ const EventDetailsPage = () => {
 
   return (
     <>
-      <MainTitle>Welcome to my EventDetails !</MainTitle>
+      <MainTitle>Welcome to my EventDetails!</MainTitle>
       { eventId === "meep"
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>
@@ -50,45 +50,20 @@ const EventDetailsPage = () => {
               ?<Title>Loading events...</Title>
               : <EventWrapper>
                   <BigName>{event.name}</BigName>
-                  <EventDetailWrapper>
-                    <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
-                  </EventDetailWrapper>
-                  <EventDetailWrapper>
-                    <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
-                  </EventDetailWrapper>
-                  <EventDetailWrapper>
-                    <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
-                  </EventDetailWrapper>
+                  <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
+                  <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
+                  <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
                   {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
-                  <EventDetailWrapper>
-                    <DateDetails event={event}></DateDetails>
-                  </EventDetailWrapper>
-                  <EventDetailWrapper>
-                    <CallListStatus>
-                      <Status>Event Status:</Status>
-                      { event.callListFull
-                        ? <Full>FILLED</Full> 
-                        : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
-                      }
-                    </CallListStatus>
-                  </EventDetailWrapper>
-      
-                  <CallListTitle>CallList:</CallListTitle>
-                  <CallListWrapper>
-                    <CallList>
-                      { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
-                                                                          position={position.position}
-                                                                          id={position._id}
-                                                                          eventId={event._id}
-                                                                          eventCallList={event.callList}
-                                                                          memberList={memberList}
-                                                                          event={event}
-                                                                          setEvent={setEvent}
-                                                                          idx={idx}
-                                                                          key={uuidv4()}/>) }
-                    <SpaceHolderDiv/>
-                    </CallList>
-                  </CallListWrapper>
+                  <DateDetails event={event}></DateDetails>
+                  <CallListStatus>
+                    <Status>Event Status:</Status>
+                    { event.callListFull
+                      ? <Full>FILLED</Full> 
+                      : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
+                    }
+                    <EditCallListButton>Edit CallList</EditCallListButton>
+                  </CallListStatus>
+                  <CallListDetail event={event} memberList={memberList} setEvent={setEvent}/>
                 </EventWrapper>
             }
             { !eventListing
@@ -126,10 +101,8 @@ const PageLeftRight = styled.div`
   display: flex;
   justify-content: space-between;
 `
-
 const MainTitle = styled.h1`
 `
-
 const Title = styled.h1`
   width: 100%;
   margin: 0px;
@@ -152,7 +125,7 @@ const EventWrapper = styled.div`
 `
 
 const EventDetailWrapper = styled.div`
-  margin: 5px 0px;
+  /* margin: 5px 0px; */
 `
 const BigName = styled.div`
   font-size: 28px;
@@ -174,6 +147,7 @@ const CallListStatus = styled.div`
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
+  margin: 5px 0px;
 `
 // const CallListStatus = styled.div`
 //   display: flex;
@@ -258,41 +232,12 @@ const TheIdItself = styled.a`
   width: 400px;
 `
 
-const CallListTitle = styled.div`
-  font-size: 28px;
-  font-weight: bold;
-  width: 75%;
-  margin: 12px 0px 0px 0px;
-  padding: 0px;
-  /* margin: 5px 0px; */
-  border-bottom: 3px solid black;
-  margin-bottom: 5px;
-`
-
-const CallListWrapper = styled.div`
-margin: 0px;
-  background-color: white;
+const EditCallListButton = styled.button`
+  width: 90px;
+  height: 26px;
   border-radius: 5px;
-  height: 100%; 
-  width: 400px;
-  overflow: hidden;
-  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
-  border: 3px solid black;
+  margin: 6px 5px;
 `
 
-const CallList = styled.ul`
-  margin: 0px 5px;
-  margin-bottom: 40px;
-  padding-left: 0px;
-  height: 100%; 
-  width: 540px;
-  overflow-x: hidden; 
-  overflow-y: scroll;
-  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
-  box-sizing: content-box;
-`
 
-const SpaceHolderDiv = styled.div`
-  height: 50px;
-`
 export default EventDetailsPage

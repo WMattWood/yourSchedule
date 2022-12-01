@@ -77,8 +77,9 @@ const Container = styled.div`
   justify-content: start;
   height: 30px;
   width: 400px;
+  margin: 5px 0px;
   * {
-    margin: 5px;
+    margin: 5px 0px;
   }
 `
 
