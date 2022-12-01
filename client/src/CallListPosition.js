@@ -15,21 +15,15 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList, 
   // On change - update this specific callListPosition with a name selected from
   // the addMember dropdown.
   const changeHandler = async (ev) => {
-    const chosenName = ev.currentTarget.value
-    console.log("This is the name:", chosenName)
+    let name = ev.currentTarget.value
 
     let mostUpToDateList = await fetch(`/calendar/${eventId}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
-    console.log("This is the moseUpToDateList:", mostUpToDateList)
 
-    let modifiedEntry = {...mostUpToDateList[idx], name: chosenName}
-    console.log("This is the modified entry:", modifiedEntry)
+    let modifiedEntry = {...mostUpToDateList[idx], name: name}
 
     mostUpToDateList[idx] = modifiedEntry
-    console.log("This is the UPDATED moseUpToDateList:", mostUpToDateList)
-
-    // await setCallList(callList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
 
     fetch(`/calendar/${eventId}`, {
       "method": "PATCH",
@@ -78,9 +72,6 @@ const Container = styled.div`
   height: 30px;
   width: 400px;
   margin: 5px 0px;
-  * {
-    margin: 5px 0px;
-  }
 `
 
 const CallListPositionWrapper = styled.li`
@@ -106,7 +97,7 @@ const InnerText = styled.div`
 
 const AddMember = styled.select`
   position: relative;
-  padding-left: 5px;
+  margin-left: 10px;
   top: 5px;
   width: 80px;
   height: 20px;
