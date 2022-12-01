@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   const linkToEventDetails = async () => {
-    let defaultEventId = ""
+    let defaultEventId = "meep"
 
     // if (monthlyCalendar) {
     //   defaultEventId = monthlyCalendar[0]._id
@@ -32,7 +32,9 @@ const Navbar = () => {
         .then(res => res.json() )
         .then(res => res.data)
       
-    defaultEventId = availableEvents[0]._id 
+    if ( availableEvents.length  > 0 ) {
+      defaultEventId = availableEvents[0]._id 
+    } 
 
     navigate(`/event/${defaultEventId}`);
   };

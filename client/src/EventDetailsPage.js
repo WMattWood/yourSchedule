@@ -42,68 +42,73 @@ const EventDetailsPage = () => {
 
   return (
     <>
-      <Title>Welcome to my EventDetails !</Title>
-      <PageLeftRight>
-      { !event
-        ?<Title>Loading event...</Title>
-        : <EventWrapper>
-            <BigName>{event.name}</BigName>
-            <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
-            <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
-            <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
-            {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
-            <DateDetails event={event}></DateDetails>
-
-            <CallListStatus>
-              <Status>Event Status:</Status>
-              { event.callListFull
-                ? <Full>FILLED</Full> 
-                : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
-              }
-            </CallListStatus>
-
-            <CallListTitle>CallList:</CallListTitle>
-            <CallListWrapper>
-              <CallList>
-                { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
-                                                                    position={position.position}
-                                                                    id={position._id}
-                                                                    eventId={event._id}
-                                                                    eventCallList={event.callList}
-                                                                    memberList={memberList}
-                                                                    event={event}
-                                                                    setEvent={setEvent}
-                                                                    idx={idx}
-                                                                    key={uuidv4()}/>) }
-               <SpaceHolderDiv/>
-              </CallList>
-            </CallListWrapper>
-          </EventWrapper>
+      <MainTitle>Welcome to my EventDetails !</MainTitle>
+      { eventId === "meep"
+        ? <h1>No events listed yet.</h1>
+        : <PageLeftRight>
+            { !event
+              ?<Title>Loading events...</Title>
+              : <EventWrapper>
+                  <BigName>{event.name}</BigName>
+                  <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
+                  <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
+                  <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
+                  {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
+                  <DateDetails event={event}></DateDetails>
+      
+                  <CallListStatus>
+                    <Status>Event Status:</Status>
+                    { event.callListFull
+                      ? <Full>FILLED</Full> 
+                      : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
+                    }
+                  </CallListStatus>
+      
+                  <CallListTitle>CallList:</CallListTitle>
+                  <CallListWrapper>
+                    <CallList>
+                      { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
+                                                                          position={position.position}
+                                                                          id={position._id}
+                                                                          eventId={event._id}
+                                                                          eventCallList={event.callList}
+                                                                          memberList={memberList}
+                                                                          event={event}
+                                                                          setEvent={setEvent}
+                                                                          idx={idx}
+                                                                          key={uuidv4()}/>) }
+                    <SpaceHolderDiv/>
+                    </CallList>
+                  </CallListWrapper>
+                </EventWrapper>
+            }
+            { !eventListing
+              ? null
+              : <EventListings>
+                  <BigName>Upcoming Events...</BigName>
+                  <IdsWrapper>
+                    { eventListing.map( event =>  {
+                                                    return (<QuickLinkWrapper key={event._id}>
+                                                              <SubHeadingWrapper>
+                                                                <IdTitle>{`${event.name} @ `}</IdTitle>
+                                                                <TheIdItself onClick={ () => handleIdNav(event._id) }>{event.location}</TheIdItself>
+                                                              </SubHeadingWrapper>
+                                                              <SubHeadingWrapper>
+                                                                <IdTitle>id:</IdTitle>
+                                                                <TheIdItself onClick={ () => handleIdNav(event._id) }>{event._id}</TheIdItself>
+                                                              </SubHeadingWrapper>
+                                                            </QuickLinkWrapper>
+                                                    )
+                                                  }
+                                      )
+                    } 
+                  </IdsWrapper>
+                </EventListings>
+            }
+          </PageLeftRight>
+      
       }
-      { !eventListing
-        ?<Title>Loading eventlistings...</Title>
-        : <SubListing>
-            <BigName>Upcoming Events...</BigName>
-            <IdsWrapper>
-              { eventListing.map( event =>  {
-                                              return (<QuickLinkWrapper key={event._id}>
-                                                        <SubHeadingWrapper>
-                                                          <IdTitle>{`${event.name} @ `}</IdTitle>
-                                                          <TheIdItself onClick={ () => handleIdNav(event._id) }>{event.location}</TheIdItself>
-                                                        </SubHeadingWrapper>
-                                                        <SubHeadingWrapper>
-                                                          <IdTitle>id:</IdTitle>
-                                                          <TheIdItself onClick={ () => handleIdNav(event._id) }>{event._id}</TheIdItself>
-                                                        </SubHeadingWrapper>
-                                                      </QuickLinkWrapper>
-                                              )
-                                            }
-                                )
-              } 
-            </IdsWrapper>
-          </SubListing>
-      }
-      </PageLeftRight>
+      
     </>
   )
 }
@@ -113,7 +118,12 @@ const PageLeftRight = styled.div`
   justify-content: space-between;
 `
 
+const MainTitle = styled.h1`
+`
+
 const Title = styled.h1`
+  width: 100%;
+  margin: 0px;
   /* color: white; */
 `
 const EventWrapper = styled.div`
@@ -203,7 +213,7 @@ const NotFull = styled.div`
 
 
 
-const SubListing = styled.div`
+const EventListings = styled.div`
   height: 800px;
   width: 450px;
 `
