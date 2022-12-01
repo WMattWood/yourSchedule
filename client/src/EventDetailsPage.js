@@ -88,14 +88,14 @@ const EventDetailsPage = () => {
                   <BigName>Upcoming Events...</BigName>
                   <IdsWrapper>
                     { eventListing.map( event =>  {
-                                                    return (<QuickLinkWrapper key={event._id}>
+                                                    return (<QuickLinkWrapper key={event._id} onClick={ () => handleIdNav(event._id) }>
                                                               <SubHeadingWrapper>
                                                                 <IdTitle>{`${event.name} @ `}</IdTitle>
-                                                                <TheIdItself onClick={ () => handleIdNav(event._id) }>{event.location}</TheIdItself>
+                                                                <TheIdItself >{event.location}</TheIdItself>
                                                               </SubHeadingWrapper>
                                                               <SubHeadingWrapper>
                                                                 <IdTitle>id:</IdTitle>
-                                                                <TheIdItself onClick={ () => handleIdNav(event._id) }>{event._id}</TheIdItself>
+                                                                <TheIdItself >{event._id}</TheIdItself>
                                                               </SubHeadingWrapper>
                                                             </QuickLinkWrapper>
                                                     )
@@ -216,6 +216,7 @@ const NotFull = styled.div`
 const EventListings = styled.div`
   height: 800px;
   width: 450px;
+  padding: 8px;
 `
 const IdsWrapper = styled.div`
   margin-top: 20px;
