@@ -2,23 +2,25 @@ import styled from 'styled-components'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListDetail = ({event, memberList, setEvent}) => {
+const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallList}) => {
 
   return (
     <>
       <CallListTitle>CallList:</CallListTitle>
       <CallListWrapper>
         <CallList>
-          { event.callList.map( ( position, idx ) => <CallListPosition name={position.name} 
-                                                              position={position.position}
-                                                              id={position._id}
+          { event.callList.map( ( position, idx ) => <CallListPosition 
+                                                              // id={position._id}
+                                                              editCallList={editCallList} 
+                                                              setEditCallList={setEditCallList}
                                                               eventId={event._id}
                                                               eventCallList={event.callList}
                                                               memberList={memberList}
                                                               event={event}
                                                               setEvent={setEvent}
                                                               idx={idx}
-                                                              key={uuidv4()}/>) }
+                                                              key={uuidv4()}
+                                                              />) }
         <SpaceHolderDiv/>
         </CallList>
       </CallListWrapper>

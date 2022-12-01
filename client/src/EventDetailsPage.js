@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import CallListDetail from './CallListDetail'
+import EditCallListDetail from './EditCallListDetail'
 import EventDetail from './EventDetail'
 import DateDetails from './DateDetails'
 
@@ -12,6 +13,8 @@ const EventDetailsPage = () => {
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
   const [ memberList, setMemberList ] = useState(null)
+  const [ editCallList, setEditCallList ] = useState(false)
+
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const navigate = useNavigate()
 
@@ -61,9 +64,13 @@ const EventDetailsPage = () => {
                       ? <Full>FILLED</Full> 
                       : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
                     }
-                    <EditCallListButton>Edit CallList</EditCallListButton>
+                    <EditCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Edit CallList</EditCallListButton>
                   </CallListStatus>
-                  <CallListDetail event={event} memberList={memberList} setEvent={setEvent}/>
+
+                  <CallListDetail event={event} memberList={memberList} setEvent={setEvent} editCallList={editCallList} setEditCallList={setEditCallList}/>
+                  
+
+
                 </EventWrapper>
             }
             { !eventListing

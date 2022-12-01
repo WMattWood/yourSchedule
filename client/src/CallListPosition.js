@@ -2,12 +2,18 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({name, position, id, eventId, event, idx, memberList, setEvent}) => {
-  
+const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList}) => {
   
   const [ showAddMember, setShowAddMember ] = useState(false)
-  const [ callList, setCallList ] = useState(event.callList)
   
+  const changeJobHandler = () => {
+    
+  }
+
+  const changeNameHandler = () => {
+    
+  }
+
   const clickHandler = () => {
     setShowAddMember(!showAddMember)
   }
@@ -41,28 +47,46 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList, 
   }
 
   return (
-    <Container key={id} >
-      { ! callList
-        ? null
-        : <CallListPositionWrapper onClick={clickHandler}>
-            <InnerText>{`${callList[idx].position}: ${callList[idx].name}`}</InnerText>
+    <>
+    { ! editCallList
+      ? <Container>
+          <CallListPositionWrapper onClick={clickHandler}>
+            <InnerText>{`${eventCallList[idx].position}: ${eventCallList[idx].name}`}</InnerText>
           </CallListPositionWrapper>
-      }
-      { ! showAddMember
-        ? null
-        : <>
-          {
-            ! memberList
+          { ! showAddMember
             ? null
-            : <AddMember onChange={changeHandler}>
-                <Member value={event.callList[idx].name}>unfilled</Member>
-                {memberList.map ( member => <Member value={member.name} key={uuidv4()}>{member.name}</Member> ) }
-              </AddMember>
+            : <>
+              {
+                ! memberList
+                ? null
+                : <AddMember onChange={changeHandler}>
+                    <Member value={"unfilled"}>unfilled</Member>
+                    {memberList.map ( member => <Member value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</Member> ) }
+                  </AddMember>
+              }
+              </>
           }
-          </>
-      }
-      
-    </Container>
+          
+        </Container>
+      : <Container>
+          <CallListPositionWrapper>
+            <JobSelect onChange={changeJobHandler}>
+              <JobOption>tech</JobOption>
+              <JobOption>chef</JobOption>
+              <JobOption>lx</JobOption>
+              <JobOption>head-lx</JobOption>
+              <JobOption>audio</JobOption>
+              <JobOption>head-audio</JobOption>
+              <JobOption>video</JobOption>
+            </JobSelect>
+            <NameSelect onChange={changeNameHandler}>
+                <NameOption value={"unfilled"}>unfilled</NameOption>
+                {memberList.map ( member => <NameOption value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</NameOption> ) }
+            </NameSelect>
+          </CallListPositionWrapper>
+        </Container>
+    }
+    </>
   )
 }
 
@@ -104,6 +128,15 @@ const AddMember = styled.select`
 `
 
 const Member = styled.option`
+`
+
+const JobSelect = styled.select`
+`
+const JobOption = styled.option`
+`
+const NameSelect = styled.select`
+`
+const NameOption = styled.option`
 `
 
 export default CallListPosition
