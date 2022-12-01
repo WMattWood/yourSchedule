@@ -105,7 +105,7 @@ const InnerText = styled.div`
 
 const AddMember = styled.select`
   position: relative;
-  margin-left: 5px;
+  padding-left: 5px;
   top: 5px;
   width: 80px;
   height: 20px;

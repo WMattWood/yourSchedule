@@ -39,38 +39,52 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
+            
             <DisplayedField>{`${fieldName}:`}</DisplayedField>
-            <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
-            <SaveButton onClick={saveClickHandler}>Save</SaveButton>
-            <CloseButton onClick={toggleEditor}>Close</CloseButton>
+            <EditMenuWrapper>
+              <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
+              <EditButtonsWrapper>
+                <SaveButton onClick={saveClickHandler}>Save</SaveButton>
+                <CloseButton onClick={toggleEditor}>Close</CloseButton>
+              </EditButtonsWrapper>
+            </EditMenuWrapper>
           </>
       }
     </FieldWrapper>
   )
 }
+const EditMenuWrapper = styled.div`
+display: flex;
+justify-content: space-between;
+`
+const EditButtonsWrapper = styled.div`
+display: flex;
+`
 
 const TextInput = styled.input`
-  width: 200px;
+  margin: 5px 12px 5px 0px;
+  width: auto;
 `
 const EditButton = styled.button`
-  margin-left: 20px;
+  margin: 5px 20px;
   width: auto;
   border-radius: 5px;
 `
 const SaveButton = styled.button`
-  margin-left: 10px;
+  margin: 5px 4px 5px 0px;
   width: auto;
   border-radius: 5px;
 `
 const CloseButton = styled.button`
-  margin-left: 4px;
-  margin-right: 4px;
+  margin: 5px 4px;
+  /* margin-right: 4px; */
   width: auto;
   border-radius: 5px;
 `
 const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   /* height: 40px; */
   width: 99%;
   background: white;
@@ -78,6 +92,7 @@ const FieldWrapper = styled.div`
   box-shadow: 1px 1px 2px 1px black;
 `
 const DisplayedField = styled.div`
+  margin: 5px 0px;
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;

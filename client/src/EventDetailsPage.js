@@ -50,19 +50,28 @@ const EventDetailsPage = () => {
               ?<Title>Loading events...</Title>
               : <EventWrapper>
                   <BigName>{event.name}</BigName>
-                  <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
-                  <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
-                  <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
+                  <EventDetailWrapper>
+                    <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
+                  </EventDetailWrapper>
+                  <EventDetailWrapper>
+                    <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
+                  </EventDetailWrapper>
+                  <EventDetailWrapper>
+                    <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
+                  </EventDetailWrapper>
                   {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
-                  <DateDetails event={event}></DateDetails>
-      
-                  <CallListStatus>
-                    <Status>Event Status:</Status>
-                    { event.callListFull
-                      ? <Full>FILLED</Full> 
-                      : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
-                    }
-                  </CallListStatus>
+                  <EventDetailWrapper>
+                    <DateDetails event={event}></DateDetails>
+                  </EventDetailWrapper>
+                  <EventDetailWrapper>
+                    <CallListStatus>
+                      <Status>Event Status:</Status>
+                      { event.callListFull
+                        ? <Full>FILLED</Full> 
+                        : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
+                      }
+                    </CallListStatus>
+                  </EventDetailWrapper>
       
                   <CallListTitle>CallList:</CallListTitle>
                   <CallListWrapper>
@@ -129,9 +138,9 @@ const Title = styled.h1`
 const EventWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  * {
+  /* * {
     margin: 5px 0px;
-  }
+  } */
 
   width: 406px;
   padding: 5px;
@@ -140,6 +149,10 @@ const EventWrapper = styled.div`
   background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
   border: 3px solid black;
   /* background-color: #598039; */
+`
+
+const EventDetailWrapper = styled.div`
+  margin: 5px 0px;
 `
 const BigName = styled.div`
   font-size: 28px;
@@ -171,6 +184,7 @@ const CallListStatus = styled.div`
 //   width: 300px;
 // `
 const Status = styled.div`
+  margin: 5px 0px;
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;
