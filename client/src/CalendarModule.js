@@ -106,22 +106,16 @@ const CalendarModule = () => {
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         // setting up different versions of DayCell component
         // __________________________
-        // if there is an event, the eventStatus property is set to either eventPending or eventFull
+        // if there are events on the currentDate, an array of those events is
+        // sent into the DayCell component where the eventStatus property is set to 
+        // either eventPending or eventFull based on test logic for whether all positions
+        // in the callList are set to !unfilled
         // this property gets used to set the EVENT BAND that displays on each cell
+        // _________________________
         // if the currentDate iterator is equal to the Calendar State "activeDate" then a "selected"
         // status is applied to the  component which render a red background for the cell
         const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
-
         const isToday = ( activeDate.getDate() === currentDate ) 
-
-        // const hasFullEvent = monthlyCalendar.filter( event => event.dateDay === currentDate )
-        //                                     .filter( e => e.callList.every(el => el.name !== 'unfilled' ))
-        //                                     .length > 0
-        
-        // const hasPendingEvent =  monthlyCalendar.filter( event => event.dateDay === currentDate )
-        //                                         .filter( e => e.callList.some(el => el.name === 'unfilled' ))
-        //                                         .length > 0
-
         const actualEvents = monthlyCalendar.filter( event => event.dateDay === currentDate )
         
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
@@ -131,7 +125,6 @@ const CalendarModule = () => {
         } else {
           week.push( <DayCell key={uuidv4()}
                             numberMarker={ currentDate }
-                            // eventStatus={ hasFullEvent ? "eventFull" : hasPendingEvent ? "eventPending" : "noevent" }
                             selectedStatus={ isToday ? "selected" : null}
                             eventArray={actualEvents}
                             /> )

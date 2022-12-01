@@ -45,12 +45,11 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
                   parsedName = parsedName.slice(0, splitPoint) + "..."
                 }
 
-                let eventStatus = ""
+                // set full/pending status for each eventBand
+                let eventStatus = "eventPending"
                 if (event.callList.every(el => el.name !== 'unfilled' )){
                   eventStatus = "eventFull"
-                } else {
-                  eventStatus = "eventPending"
-                }
+                } 
 
                 return (
                   <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)}>
