@@ -140,7 +140,7 @@ const updateEvent = async (req, res) => {
   try {
     // Connect client
     await client.connect()
-    console.log("Bitch I Connected")
+    console.log("Connected")
     const db = client.db(DATABASE_NAME)
 
     const eventId = req.params.eventId
@@ -152,9 +152,7 @@ const updateEvent = async (req, res) => {
     } else {
       formData.callListFull = false
     }
-    // console.log("CALLLISTTEST>>>>>", formData)
-    // console.log("Testy testy", callListTest.every( el ))
-    console.log("FORM DATA>>>>>", formData)
+
     await db.collection("Events").updateOne( { _id: eventId }, { $set: {...formData} })
 
     res.status(200).json({
@@ -188,20 +186,16 @@ const updateCallListByEvent = async (req, res) => {
     const updatedEntry = req.body.updatedEntry
 
     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
-    let mostUpToDateList = specifiedEvent.callList
-    
-    console.log("BEFORE", mostUpToDateList)
-    
-    mostUpToDateList[idx] = updatedEntry
+    // let mostUpToDateList = specifiedEvent.callList
+      
+    specifiedEvent.callList[idx] = updatedEntry
 
-    console.log("AFTER", mostUpToDateList)
-
-    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: mostUpToDateList }})
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: specifiedEvent.callList }})
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: updatedEntry
+      data: specifiedEvent
     })
 
   } catch(err) {

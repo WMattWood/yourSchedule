@@ -94,7 +94,6 @@ const CalendarModule = () => {
 
   // Generate Calendar Grid
   const getCalendar = (year, month) => {
-    console.log("I'm running...", monthlyCalendar)
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
     let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
