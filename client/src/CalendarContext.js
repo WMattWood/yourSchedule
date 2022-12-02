@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
-import { v4 as uuidv4 } from 'uuid';
 
 export const CalendarContext = createContext(null);
 
@@ -19,11 +18,6 @@ export const CalendarProvider = ({ children }) => {
                                                   callList: [],
                                                   callListFull: false
                                                 })
-
-    // console.log("Context level formData", formData)
-    // console.log(new Date().getMonth())
-    // console.log(new Date().getDate())
-    // console.log(new Date().getFullYear())
 
     useEffect( () => {
         setFormData({...formData,

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}) => {
+const CallListDetail = ({event, memberList, setEvent}) => {
 
   
 
@@ -12,17 +12,13 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
       <CallListTitle>CallList:</CallListTitle>
       <CallListWrapper>
         <CallList>
-          { event.callList.map( ( position, idx ) => <CallListPosition 
-                                                              eventCallList={event.callList}
-                                                              memberList={memberList}
-                                                              event={event}
-                                                              setEvent={setEvent}
-                                                              idx={idx}
-                                                              key={uuidv4()}
-                                                              globalEdit={globalEdit}
-                                                              setGlobalEdit={setGlobalEdit}
-                                                              editMode={position.editMode}
-                                                              />) }
+          { event.callList.map( ( position, idx ) => <CallListPosition  memberList={memberList}
+                                                                        event={event}
+                                                                        setEvent={setEvent}
+                                                                        idx={idx}
+                                                                        editMode={position.editMode}
+                                                                        key={uuidv4()}
+                                                                        /> ) }
         <SpaceHolderDiv/>
         </CallList>
       </CallListWrapper>

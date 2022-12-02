@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({event, idx, memberList, setEvent, eventCallList, editMode}) => {
+const CallListPosition = ({event, idx, memberList, setEvent, editMode}) => {
   
   const [ localEdit, setLocalEdit ] = useState()
-  const [ miniForm, setMiniForm ] = useState({ name: eventCallList[idx].name, position: eventCallList[idx].position })
+  const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
 
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
@@ -135,38 +135,30 @@ const CallListPosition = ({event, idx, memberList, setEvent, eventCallList, edit
   }
 
   return (
-    <>
-    { ! editMode
-      ? // DISPLAY POSITION
-        <Container>
+    <Container>
+      { ! editMode
+        ? // DISPLAY POSITION
           <CallListPositionWrapper onClick={clickHandler}>
-            <InnerText>{`${eventCallList[idx].position}: ${eventCallList[idx].name}`}</InnerText>
+            <InnerText>{`${event.callList[idx].position}: ${event.callList[idx].name}`}</InnerText>
           </CallListPositionWrapper>
-        </Container>
-      : // EDIT THE POSITION
-        <Container>
-          <CallListPositionWrapper>
-            {/* <LittleForm onSubmit={ submitHandler }> */}
-            
-            <PositionSelect onChange={changePositionHandler} value={eventCallList[idx].position}>
-              {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
-            </PositionSelect>
-            
-            <NameSelect onChange={changeNameHandler} value={eventCallList[idx].name}>
-                <NameOption value={"unfilled"}>unfilled</NameOption>
-                { ! memberList
-                  ? null
-                  : memberList.map ( member => <NameOption value={member.name} key={uuidv4()}>{member.name}</NameOption> ) 
-                }
-            </NameSelect>
-           
-            <SaveButton onClick={submitHandler} className={"float-right"} >Save</SaveButton>
-
-            {/* </LittleForm> */}
-          </CallListPositionWrapper>
-        </Container>
-    }
-    </>
+        : // EDIT THE POSITION
+          <>
+            <CallListPositionWrapper>
+              <PositionSelect onChange={changePositionHandler} value={event.callList[idx].position}>
+                {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
+              </PositionSelect>
+              <NameSelect onChange={changeNameHandler} value={event.callList[idx].name}>
+                  <NameOption value={"unfilled"}>unfilled</NameOption>
+                  { ! memberList
+                    ? null
+                    : memberList.map ( member => <NameOption value={member.name} key={uuidv4()}>{member.name}</NameOption> ) 
+                  }
+              </NameSelect>
+              <SaveButton onClick={submitHandler} className={"float-right"} >Save</SaveButton>
+            </CallListPositionWrapper>
+          </>
+      }
+    </Container>
   )
 }
 
