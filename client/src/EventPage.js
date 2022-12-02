@@ -13,8 +13,6 @@ const EventPage = () => {
   const [ eventListing, setEventListing ] = useState(null)
   const [ memberList, setMemberList ] = useState(null)
   const [ globalEdit, setGlobalEdit ] = useState(false)
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const navigate = useNavigate()
 
   useEffect( () => {
@@ -40,38 +38,6 @@ const EventPage = () => {
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
     navigate(0)
-  }
-
-  // const globalEditToggle = async (setting) => {
-  //   let mostUpToDateList = await fetch(`/calendar/${eventId}`)
-  //       .then(res => res.json() )
-  //       .then(res => res.data.callList)
-
-  //   let newList = mostUpToDateList.map( obj => {
-  //      return {...obj, editMode: setting } 
-  //     } )
-
-  //   fetch(`/calendar/${eventId}`, {
-  //     "method": "PATCH",
-  //     "body": JSON.stringify({
-  //     "data": { ...event, callList: newList }
-  //     }),
-  //     "headers": {
-  //     "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => res.json() )
-  //     .then(res => setEvent(res.data) )
-  // }
-
-  const toggleGlobalEditOff = () => {
-    // globalEditToggle(false)
-    setGlobalEdit(!globalEdit)
-  }
-
-  const toggleGlobalEditOn = () => {
-    // globalEditToggle(true)
-    setGlobalEdit(!globalEdit)
   }
 
   return (

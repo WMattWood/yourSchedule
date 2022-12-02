@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdit, setGlobalEdit}) => {
-  
-  // const [ localEdit, setLocalEdit ] = useState()
-  // const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
 
   const [ showEditor, setShowEditor ] = useState(event.callList[idx].editMode)
   const [ updatedEntry, setUpdatedEntry ] = useState( { name: event.callList[idx].name,
@@ -50,9 +47,9 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
     setShowEditor(globalEdit)
   }, [globalEdit])
 
-  // useEffect( () => {
-  //   if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
-  // }, [])
+  useEffect( () => {
+    if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
+  }, [])
   // const changePositionHandler = async (ev) => {
   //   // let position = ev.currentTarget.value
   //   // setMiniForm( {...miniForm, position: position})
