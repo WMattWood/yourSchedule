@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
-import EventDetailsPage from "./EventDetailsPage";
+import EventPage from "./EventPage";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -33,7 +33,7 @@ function App() {
         : <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/calendar" element={<CalendarPage/>} />
-            <Route path="/event/:eventId" element={<EventDetailsPage/>} />
+            <Route path="/event/:eventId" element={<EventPage/>} />
             <Route path="/roster" element={<RosterPage/>} />
           </Routes>
       }

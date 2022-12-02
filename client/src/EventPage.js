@@ -6,7 +6,7 @@ import CallListDetail from './CallListDetail'
 import EventDetail from './EventDetail'
 import DateDetails from './DateDetails'
 
-const EventDetailsPage = () => {
+const EventPage = () => {
 
   const { eventId } = useParams()
   const [ event, setEvent ] = useState(null)
@@ -302,4 +302,4 @@ const SaveCallListButton = styled.button`
 `
 
 
-export default EventDetailsPage
+export default EventPage
