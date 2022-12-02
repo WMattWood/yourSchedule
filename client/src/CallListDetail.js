@@ -1,8 +1,11 @@
 import styled from 'styled-components'
+import { useState } from 'react'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallList}) => {
+const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallList, globalEdit, setGlobalEdit}) => {
+
+  
 
   return (
     <>
@@ -20,6 +23,8 @@ const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallL
                                                               setEvent={setEvent}
                                                               idx={idx}
                                                               key={uuidv4()}
+                                                              globalEdit={globalEdit}
+                                                              setGlobalEdit={setGlobalEdit}
                                                               />) }
         <SpaceHolderDiv/>
         </CallList>

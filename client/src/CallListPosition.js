@@ -2,11 +2,12 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList}) => {
+const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit}) => {
   
   const [ showAddMember, setShowAddMember ] = useState(false)
-  const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
+  // const [ localEdit, setLocalEdit ] = useState()
 
+  const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
   const changeJobHandler = async (ev) => {
     let job = ev.currentTarget.value
@@ -58,11 +59,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
   }
 
   const clickHandler = () => {
-    setShowAddMember(!showAddMember)
-  }
-
-  const saveClickHandler = () => {
-    setEditCallList(!editCallList)
+    setLocalEdit(!localEdit)
   }
 
   // On change - update this specific callListPosition with a name selected from
@@ -93,45 +90,31 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
     setShowAddMember(!showAddMember)
   }
 
+  useState( () => {
+    setLocalEdit(globalEdit)
+  }, [globalEdit] )
+
+
   return (
     <>
-    { ! editCallList
-      ? <Container>
+    { ! localEdit
+      ? // DISPLAY POSITION
+        <Container>
           <CallListPositionWrapper onClick={clickHandler}>
             <InnerText>{`${eventCallList[idx].position}: ${eventCallList[idx].name}`}</InnerText>
           </CallListPositionWrapper>
-          { ! showAddMember
-            ? null
-            : <>
-              {
-                ! memberList
-                ? null
-                : <AddMember onChange={changeHandler}>
-                    <Member value={"unfilled"}>unfilled</Member>
-                    {memberList.map ( member => <Member value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</Member> ) }
-                  </AddMember>
-              }
-              </>
-          }
-          
         </Container>
-      : <Container>
+      : // EDIT THE POSITION
+        <Container>
           <CallListPositionWrapper>
             <JobSelect onChange={changeJobHandler}>
               {jobs.map(jobber => <JobOption value={jobber} key={uuidv4()} selected={jobber === eventCallList[idx].position ? "selected" : null}>{jobber}</JobOption>)}
-              {/* <JobOption>tech</JobOption>
-              <JobOption>chef</JobOption>
-              <JobOption>lx</JobOption>
-              <JobOption>head-lx</JobOption>
-              <JobOption>audio</JobOption>
-              <JobOption>head-audio</JobOption>
-              <JobOption>video</JobOption> */}
             </JobSelect>
             <NameSelect onChange={changeNameHandler}>
                 <NameOption value={"unfilled"}>unfilled</NameOption>
                 {memberList.map ( member => <NameOption value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</NameOption> ) }
             </NameSelect>
-            <SaveButton onClick={saveClickHandler} className={"float-right"}>Save</SaveButton>
+            <SaveButton onClick={clickHandler} className={"float-right"}>Save</SaveButton>
           </CallListPositionWrapper>
         </Container>
     }

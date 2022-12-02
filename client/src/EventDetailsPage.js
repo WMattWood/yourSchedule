@@ -14,6 +14,8 @@ const EventDetailsPage = () => {
   const [ memberList, setMemberList ] = useState(null)
   const [ editCallList, setEditCallList ] = useState(false)
 
+  const [ globalEdit, setGlobalEdit ] = useState(false)
+
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const navigate = useNavigate()
 
@@ -63,13 +65,20 @@ const EventDetailsPage = () => {
                       ? <Full>FILLED</Full> 
                       : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
                     }
-                    { ! editCallList 
-                      ? <EditCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Edit CallList</EditCallListButton>
-                      : <SaveCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Save CallList</SaveCallListButton>
+                    { ! globalEdit 
+                      ? <EditCallListButton onClick={ ()=>{setGlobalEdit(!globalEdit)}}>Edit CallList</EditCallListButton>
+                      : <SaveCallListButton onClick={ ()=>{setGlobalEdit(!globalEdit)}}>Save CallList</SaveCallListButton>
                     }
                   </CallListStatus>
 
-                  <CallListDetail event={event} memberList={memberList} setEvent={setEvent} editCallList={editCallList} setEditCallList={setEditCallList}/>
+                  <CallListDetail event={event} 
+                                  memberList={memberList} 
+                                  setEvent={setEvent} 
+                                  editCallList={editCallList} 
+                                  setEditCallList={setEditCallList}
+                                  globalEdit={globalEdit}
+                                  setGlobalEdit={setGlobalEdit}
+                                  />
                   
 
 
