@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { useNavigate, useParams } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid'
 
 const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
 
@@ -52,7 +53,7 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
                 } 
 
                 return (
-                  <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)}>
+                  <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)} key={uuidv4()}>
                     <BandSpan>{parsedName}</BandSpan>
                   </EventBand>
                 )

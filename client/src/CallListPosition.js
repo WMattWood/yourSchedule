@@ -10,58 +10,58 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
   const changePositionHandler = async (ev) => {
-    let position = ev.currentTarget.value
-    setMiniForm( {...miniForm, position: position})
+    // let position = ev.currentTarget.value
+    // setMiniForm( {...miniForm, position: position})
 
-    // let job = ev.currentTarget.value
+    let job = ev.currentTarget.value
 
-    // let mostUpToDateList = await fetch(`/calendar/${eventId}`)
-    //                                 .then(res => res.json() )
-    //                                 .then(res => res.data.callList)
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
 
-    // let modifiedEntry = {...mostUpToDateList[idx], position: job}
+    let modifiedEntry = {...mostUpToDateList[idx], position: job}
 
-    // mostUpToDateList[idx] = modifiedEntry
+    mostUpToDateList[idx] = modifiedEntry
 
-    // fetch(`/calendar/${eventId}`, {
-    //   "method": "PATCH",
-    //   "body": JSON.stringify({
-    //     "data": {...event, callList: mostUpToDateList }
-    //   }),
-    //   "headers": {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(res => res.json() )
-    //   .then(res => setEvent(res.data) )
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "data": {...event, callList: mostUpToDateList }
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
     
   }
 
   const changeNameHandler = async (ev) => {
-    let name = ev.currentTarget.value
-    setMiniForm( {...miniForm, name: name})
-
     // let name = ev.currentTarget.value
+    // setMiniForm( {...miniForm, name: name})
 
-    // let mostUpToDateList = await fetch(`/calendar/${eventId}`)
-    //                                 .then(res => res.json() )
-    //                                 .then(res => res.data.callList)
+    let name = ev.currentTarget.value
 
-    // let modifiedEntry = {...mostUpToDateList[idx], name: name}
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
 
-    // mostUpToDateList[idx] = modifiedEntry
+    let modifiedEntry = {...mostUpToDateList[idx], name: name}
 
-    // fetch(`/calendar/${eventId}`, {
-    //   "method": "PATCH",
-    //   "body": JSON.stringify({
-    //     "data": {...event, callList: mostUpToDateList }
-    //   }),
-    //   "headers": {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(res => res.json() )
-    //   .then(res => setEvent(res.data) )
+    mostUpToDateList[idx] = modifiedEntry
+
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "data": {...event, callList: mostUpToDateList }
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
   }
 
   const clickHandler = async () => {
@@ -106,7 +106,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
-    let newEntry = miniForm
+    let newEntry = mostUpToDateList[idx]
     newEntry.editMode = false
 
     mostUpToDateList[idx] = newEntry
@@ -152,11 +152,11 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
           <CallListPositionWrapper>
             {/* <LittleForm onSubmit={ submitHandler }> */}
             
-            <PositionSelect onChange={changePositionHandler} value={miniForm.position}>
+            <PositionSelect onChange={changePositionHandler} value={eventCallList[idx].position}>
               {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
             </PositionSelect>
             
-            <NameSelect onChange={changeNameHandler} value={miniForm.name}>
+            <NameSelect onChange={changeNameHandler} value={eventCallList[idx].name}>
                 <NameOption value={"unfilled"}>unfilled</NameOption>
                 { ! memberList
                   ? null
@@ -207,12 +207,13 @@ const LittleForm = styled.form`
 `
 const PositionSelect = styled.select`
   margin-left: 10px;
+  width: 60px;
 `
 const PositionOption = styled.option`
 `
 const NameSelect = styled.select`
   margin-left: 5px;
-  width: 100px;
+  width: 160px;
 `
 const NameOption = styled.option`
 `
