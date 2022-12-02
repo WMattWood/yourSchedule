@@ -187,10 +187,14 @@ const updateCallListByEvent = async (req, res) => {
     const idx = req.body.data.index
     const updatedEntry = req.body.data.updatedEntry
 
-    let specifiedEvent = await db.collection("Events").find( { _id: eventId } )
+    let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
     let mostUpToDateList = specifiedEvent.callList
-    console.log("This is the retrieved callList in the UpdateCallList function", mostUpToDateList)
+    
+    console.log("BEFORE", mostUpToDateList)
+    
     mostUpToDateList[idx] = updatedEntry
+
+    console.log("AFTER", mostUpToDateList)
 
     await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: mostUpToDateList }})
 
