@@ -149,6 +149,8 @@ const updateEvent = async (req, res) => {
     let callListTest = formData.callList
     if (callListTest.every( el => el.name !== "unfilled" )) {
       formData.callListFull = true
+    } else {
+      formData.callListFull = false
     }
     // console.log("CALLLISTTEST>>>>>", formData)
     // console.log("Testy testy", callListTest.every( el ))

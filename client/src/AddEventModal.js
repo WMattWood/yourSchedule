@@ -115,7 +115,7 @@ const AddEventModal = ({ errorPopup }) => {
     let x = 0
     let newCallList = []
     while (x < number) {
-      newCallList.push({ name: "unfilled", position: "tech" })
+      newCallList.push({ name: "unfilled", position: "tech", editMode: false })
       x++;
     }
 
