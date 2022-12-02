@@ -42,9 +42,13 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
   }
 
-  // useEffect( () => {
-  //   setShowEditor(globalEdit)
-  // }, [globalEdit])
+  useEffect( () => {
+    if ( ! globalEdit ) { 
+      console.log("beep")
+      updateCallList() 
+    }
+    setShowEditor(globalEdit)
+  }, [globalEdit])
 
   // useEffect( () => {
   //   if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }

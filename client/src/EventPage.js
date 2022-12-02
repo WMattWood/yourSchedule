@@ -42,35 +42,35 @@ const EventPage = () => {
     navigate(0)
   }
 
-  const globalEditToggle = async (setting) => {
-    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
-        .then(res => res.json() )
-        .then(res => res.data.callList)
+  // const globalEditToggle = async (setting) => {
+  //   let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+  //       .then(res => res.json() )
+  //       .then(res => res.data.callList)
 
-    let newList = mostUpToDateList.map( obj => {
-       return {...obj, editMode: setting } 
-      } )
+  //   let newList = mostUpToDateList.map( obj => {
+  //      return {...obj, editMode: setting } 
+  //     } )
 
-    fetch(`/calendar/${eventId}`, {
-      "method": "PATCH",
-      "body": JSON.stringify({
-      "data": { ...event, callList: newList }
-      }),
-      "headers": {
-      "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json() )
-      .then(res => setEvent(res.data) )
-  }
+  //   fetch(`/calendar/${eventId}`, {
+  //     "method": "PATCH",
+  //     "body": JSON.stringify({
+  //     "data": { ...event, callList: newList }
+  //     }),
+  //     "headers": {
+  //     "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => res.json() )
+  //     .then(res => setEvent(res.data) )
+  // }
 
   const toggleGlobalEditOff = () => {
-    globalEditToggle(false)
+    // globalEditToggle(false)
     setGlobalEdit(!globalEdit)
   }
 
   const toggleGlobalEditOn = () => {
-    globalEditToggle(true)
+    // globalEditToggle(true)
     setGlobalEdit(!globalEdit)
   }
 
@@ -92,11 +92,11 @@ const EventPage = () => {
                     <Status>Event Status:</Status>
                     { event.callListFull
                       ? <Full>FILLED</Full> 
-                      : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
+                      : <NotFull>NOT FILLED</NotFull> 
                     }
                     { ! globalEdit 
-                      ? <EditCallListButton onClick={toggleGlobalEditOn}>Edit CallList</EditCallListButton>
-                      : <SaveCallListButton onClick={toggleGlobalEditOff}>Save CallList</SaveCallListButton>
+                      ? <EditCallListButton onClick={()=>setGlobalEdit(true)}>Edit CallList</EditCallListButton>
+                      : <SaveCallListButton onClick={()=>setGlobalEdit(false)}>Save CallList</SaveCallListButton>
                     }
                   </CallListStatus>
 
