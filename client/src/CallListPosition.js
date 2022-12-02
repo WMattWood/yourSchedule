@@ -5,17 +5,64 @@ import { v4 as uuidv4 } from 'uuid'
 const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList}) => {
   
   const [ showAddMember, setShowAddMember ] = useState(false)
-  
-  const changeJobHandler = () => {
+  const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
+
+
+  const changeJobHandler = async (ev) => {
+    let job = ev.currentTarget.value
+
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
+
+    let modifiedEntry = {...mostUpToDateList[idx], position: job}
+
+    mostUpToDateList[idx] = modifiedEntry
+
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "data": {...event, callList: mostUpToDateList }
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
     
   }
 
-  const changeNameHandler = () => {
-    
+  const changeNameHandler = async (ev) => {
+    let name = ev.currentTarget.value
+
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
+
+    let modifiedEntry = {...mostUpToDateList[idx], name: name}
+
+    mostUpToDateList[idx] = modifiedEntry
+
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "data": {...event, callList: mostUpToDateList }
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
   }
 
   const clickHandler = () => {
     setShowAddMember(!showAddMember)
+  }
+
+  const saveClickHandler = () => {
+    setEditCallList(!editCallList)
   }
 
   // On change - update this specific callListPosition with a name selected from
@@ -71,18 +118,20 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
       : <Container>
           <CallListPositionWrapper>
             <JobSelect onChange={changeJobHandler}>
-              <JobOption>tech</JobOption>
+              {jobs.map(jobber => <JobOption value={jobber} key={uuidv4()} selected={jobber === eventCallList[idx].position ? "selected" : null}>{jobber}</JobOption>)}
+              {/* <JobOption>tech</JobOption>
               <JobOption>chef</JobOption>
               <JobOption>lx</JobOption>
               <JobOption>head-lx</JobOption>
               <JobOption>audio</JobOption>
               <JobOption>head-audio</JobOption>
-              <JobOption>video</JobOption>
+              <JobOption>video</JobOption> */}
             </JobSelect>
             <NameSelect onChange={changeNameHandler}>
                 <NameOption value={"unfilled"}>unfilled</NameOption>
                 {memberList.map ( member => <NameOption value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</NameOption> ) }
             </NameSelect>
+            <SaveButton onClick={saveClickHandler} className={"float-right"}>Save</SaveButton>
           </CallListPositionWrapper>
         </Container>
     }
@@ -131,12 +180,25 @@ const Member = styled.option`
 `
 
 const JobSelect = styled.select`
+  margin-left: 10px;
 `
 const JobOption = styled.option`
 `
 const NameSelect = styled.select`
+  margin-left: 5px;
+  width: 100px;
 `
 const NameOption = styled.option`
+`
+const SaveButton = styled.button`
+  
+  margin: 5px 4px 5px 0px;
+  width: auto;
+  border-radius: 5px;
+
+  &.float-right{
+    margin-left: auto;
+  }
 `
 
 export default CallListPosition

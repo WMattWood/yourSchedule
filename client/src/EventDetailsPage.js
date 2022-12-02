@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import CallListDetail from './CallListDetail'
-import EditCallListDetail from './EditCallListDetail'
 import EventDetail from './EventDetail'
 import DateDetails from './DateDetails'
 
@@ -64,7 +63,10 @@ const EventDetailsPage = () => {
                       ? <Full>FILLED</Full> 
                       : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
                     }
-                    <EditCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Edit CallList</EditCallListButton>
+                    { ! editCallList 
+                      ? <EditCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Edit CallList</EditCallListButton>
+                      : <SaveCallListButton onClick={ ()=>{setEditCallList(!editCallList)}}>Save CallList</SaveCallListButton>
+                    }
                   </CallListStatus>
 
                   <CallListDetail event={event} memberList={memberList} setEvent={setEvent} editCallList={editCallList} setEditCallList={setEditCallList}/>
@@ -244,6 +246,22 @@ const EditCallListButton = styled.button`
   height: 26px;
   border-radius: 5px;
   margin: 6px 5px;
+`
+
+const SaveCallListButton = styled.button`
+  width: 120px;
+  height: 26px;
+  border-radius: 5px;
+  margin: 6px 5px;
+  font-weight: 600;
+  background-color: #395980;
+  border-radius: 10px;
+
+  /* &:hover{
+    cursor: pointer;
+    background-color: #B0BDCC;
+    color: white;
+  } */
 `
 
 
