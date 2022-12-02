@@ -174,4 +174,42 @@ const updateEvent = async (req, res) => {
   }
 };
 
-module.exports = { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent }
+const updateCallListByEvent = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options)
+
+  try {
+    // Connect Client
+    await client.connect()
+    console.log("Connected")
+    const db = client.db(DATABASE_NAME)
+
+    const eventId = req.params.eventId
+    const idx = req.body.data.index
+    const updatedEntry = req.body.data.updatedEntry
+
+    let specifiedEvent = await db.collection("Events").find( { _id: eventId } )
+    let mostUpToDateList = specifiedEvent.callList
+    console.log("This is the retrieved callList in the UpdateCallList function", mostUpToDateList)
+    mostUpToDateList[idx] = updatedEntry
+
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: mostUpToDateList }})
+
+    res.status(200).json({
+      status: 200,
+      message: "SUCCESS",
+      data: updatedEntry
+    })
+
+  } catch(err) {
+    res.status(400).json({
+      status: 400, 
+      message: "ERROR"
+    })
+  } finally {
+    // disconnect from database 
+    client.close()
+    console.log("Disconnected")
+  }
+}
+
+module.exports = { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent, updateCallListByEvent  }
