@@ -1,11 +1,14 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { CallListContext } from './CallListContext'
 
-const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdit, setGlobalEdit}) => {
+const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalUpdatedEntries, setGlobalUpdatedEntries }) => {
   
   // const [ localEdit, setLocalEdit ] = useState()
   // const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
+
+  const { globalEdit } = useContext(CallListContext)
 
   const [ showEditor, setShowEditor ] = useState(event.callList[idx].editMode)
   const [ updatedEntry, setUpdatedEntry ] = useState( { name: event.callList[idx].name,
@@ -40,13 +43,13 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
+    console.log("CallListPosition/HandleChange/glooobaleupdatedEntries", globalUpdatedEntries)
+    setGlobalUpdatedEntries( Object.assign( [...globalUpdatedEntries], 
+                                                {[idx]: updatedEntry} 
+                                          ) )
   }
 
   useEffect( () => {
-    if ( ! globalEdit ) { 
-      console.log("beep")
-      updateCallList() 
-    }
     setShowEditor(globalEdit)
   }, [globalEdit])
 

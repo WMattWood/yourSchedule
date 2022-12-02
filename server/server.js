@@ -3,7 +3,7 @@ const helmet = require('helmet')
 const morgan = require("morgan");
 const port = 8000
 
-const { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent, updateCallListByEvent} = require('./Handlers/EventHandlers')
+const { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent, updateCallListByEvent, updateAllCallListEntries} = require('./Handlers/EventHandlers')
 const { getAllMembers, getMember } = require('./Handlers/MemberHandlers')
 const { msgServerViaWebHook, httpPostViaWebHook } = require('./discord_server/commands/DiscordHandlers')
 
@@ -39,6 +39,9 @@ express()
 
   // update a specific callList entry
   .patch('/callList/:eventId', updateCallListByEvent)
+
+  // update all callList entries
+  .patch('/callList/all/:eventId', updateAllCallListEntries)
 
 
   ////////// MEMBER ENDPOINTS

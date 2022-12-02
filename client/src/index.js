@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import CalendarProvider from './CalendarContext';
+import CallListProvider from './CallListContext';
 import { Auth0Provider } from "@auth0/auth0-react"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,9 @@ root.render(
       redirectUri={"http://localhost:3000/calendar"}
     >
       <CalendarProvider>
-        <App />
+        <CallListProvider>
+          <App />
+        </CallListProvider>
       </CalendarProvider>
     </Auth0Provider>
   // </React.StrictMode>
