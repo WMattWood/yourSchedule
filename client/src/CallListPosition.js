@@ -2,34 +2,101 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({name, position, id, eventId, event, idx, memberList, setEvent}) => {
+const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit}) => {
   
-  
-  const [ showAddMember, setShowAddMember ] = useState(false)
-  const [ callList, setCallList ] = useState(event.callList)
-  
+  const [ localEdit, setLocalEdit ] = useState()
+  const [ miniForm, setMiniForm ] = useState({ name: null, position: null })
+
+  const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
+
+  const changePositionHandler = async (ev) => {
+    let position = ev.currentTarget.value
+    setMiniForm( {...miniForm, position: position})
+
+    // let job = ev.currentTarget.value
+
+    // let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    //                                 .then(res => res.json() )
+    //                                 .then(res => res.data.callList)
+
+    // let modifiedEntry = {...mostUpToDateList[idx], position: job}
+
+    // mostUpToDateList[idx] = modifiedEntry
+
+    // fetch(`/calendar/${eventId}`, {
+    //   "method": "PATCH",
+    //   "body": JSON.stringify({
+    //     "data": {...event, callList: mostUpToDateList }
+    //   }),
+    //   "headers": {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    //   .then(res => res.json() )
+    //   .then(res => setEvent(res.data) )
+    
+  }
+
+  const changeNameHandler = async (ev) => {
+    let name = ev.currentTarget.value
+    setMiniForm( {...miniForm, name: name})
+    // let name = ev.currentTarget.value
+
+    // let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    //                                 .then(res => res.json() )
+    //                                 .then(res => res.data.callList)
+
+    // let modifiedEntry = {...mostUpToDateList[idx], name: name}
+
+    // mostUpToDateList[idx] = modifiedEntry
+
+    // fetch(`/calendar/${eventId}`, {
+    //   "method": "PATCH",
+    //   "body": JSON.stringify({
+    //     "data": {...event, callList: mostUpToDateList }
+    //   }),
+    //   "headers": {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    //   .then(res => res.json() )
+    //   .then(res => setEvent(res.data) )
+  }
+
   const clickHandler = () => {
-    setShowAddMember(!showAddMember)
+    setLocalEdit(!localEdit)
   }
 
   // On change - update this specific callListPosition with a name selected from
   // the addMember dropdown.
-  const changeHandler = async (ev) => {
-    const chosenName = ev.currentTarget.value
-    console.log("This is the name:", chosenName)
+  const submitHandler = async (ev) => {
+    ev.preventDefault()
+    submitFormToUpperManagement()
+  }
 
+  useState( () => {
+    setLocalEdit(globalEdit)
+  }, [globalEdit] )
+
+  const submitFormToUpperManagement = async () => {
     let mostUpToDateList = await fetch(`/calendar/${eventId}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
-    console.log("This is the moseUpToDateList:", mostUpToDateList)
 
-    let modifiedEntry = {...mostUpToDateList[idx], name: chosenName}
-    console.log("This is the modified entry:", modifiedEntry)
+    let newEntry = mostUpToDateList[idx]
 
-    mostUpToDateList[idx] = modifiedEntry
-    console.log("This is the UPDATED moseUpToDateList:", mostUpToDateList)
+    if ( miniForm.name === null && miniForm.position === null ) {
+      setLocalEdit(!localEdit)
+      return;
+    } else if ( miniForm.name === null ) {
+      newEntry = {...newEntry, position: miniForm.position}
+    } else if ( miniForm.position === null ) {
+      newEntry = {...newEntry, name: miniForm.name}
+    } else {
+      newEntry = miniForm
+    }
 
-    // await setCallList(callList.map( (entry, i) => i === idx ? modifiedEntry : entry ))
+    mostUpToDateList[idx] = newEntry
 
     fetch(`/calendar/${eventId}`, {
       "method": "PATCH",
@@ -42,33 +109,37 @@ const CallListPosition = ({name, position, id, eventId, event, idx, memberList, 
     })
       .then(res => res.json() )
       .then(res => setEvent(res.data) )
-
-    setShowAddMember(!showAddMember)
   }
 
   return (
-    <Container key={id} >
-      { ! callList
-        ? null
-        : <CallListPositionWrapper onClick={clickHandler}>
-            <InnerText>{`${callList[idx].position}: ${callList[idx].name}`}</InnerText>
+    <>
+    { ! localEdit
+      ? // DISPLAY POSITION
+        <Container>
+          <CallListPositionWrapper onClick={clickHandler}>
+            <InnerText>{`${eventCallList[idx].position}: ${eventCallList[idx].name}`}</InnerText>
           </CallListPositionWrapper>
-      }
-      { ! showAddMember
-        ? null
-        : <>
-          {
-            ! memberList
-            ? null
-            : <AddMember onChange={changeHandler}>
-                <Member value={event.callList[idx].name}>unfilled</Member>
-                {memberList.map ( member => <Member value={member.name} key={uuidv4()}>{member.name}</Member> ) }
-              </AddMember>
-          }
-          </>
-      }
-      
-    </Container>
+        </Container>
+      : // EDIT THE POSITION
+        <Container>
+          <CallListPositionWrapper>
+            {/* <LittleForm onSubmit={ submitHandler }> */}
+            
+            <PositionSelect onChange={changePositionHandler} value={miniForm.position}>
+              {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
+            </PositionSelect>
+            
+            <NameSelect onChange={changeNameHandler} value={miniForm.name}>
+                <NameOption value={"unfilled"}>unfilled</NameOption>
+                {memberList.map ( member => <NameOption value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</NameOption> ) }
+            </NameSelect>
+            <SaveButton onClick={submitHandler} className={"float-right"} >Save</SaveButton>
+
+            {/* </LittleForm> */}
+          </CallListPositionWrapper>
+        </Container>
+    }
+    </>
   )
 }
 
@@ -77,9 +148,7 @@ const Container = styled.div`
   justify-content: start;
   height: 30px;
   width: 400px;
-  * {
-    margin: 5px;
-  }
+  margin: 5px 0px;
 `
 
 const CallListPositionWrapper = styled.li`
@@ -103,15 +172,28 @@ const InnerText = styled.div`
   font-weight: 600;
 `
 
-const AddMember = styled.select`
-  position: relative;
-  margin-left: 5px;
-  top: 5px;
-  width: 80px;
-  height: 20px;
+const LittleForm = styled.form`
 `
+const PositionSelect = styled.select`
+  margin-left: 10px;
+`
+const PositionOption = styled.option`
+`
+const NameSelect = styled.select`
+  margin-left: 5px;
+  width: 100px;
+`
+const NameOption = styled.option`
+`
+const SaveButton = styled.button`
+  
+  margin: 5px 4px 5px 0px;
+  width: auto;
+  border-radius: 5px;
 
-const Member = styled.option`
+  &.float-right{
+    margin-left: auto;
+  }
 `
 
 export default CallListPosition

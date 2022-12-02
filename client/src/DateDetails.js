@@ -83,37 +83,37 @@ const DateDetails = ({event}) => {
             {/* <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput> */}
 
             <DropdownMenus>
-            <DropDown>
-              <label forhtml="month">month</label>
-              <EventDateSelect  type="select" 
-                                name="month"
-                                id="modalMonth"  
-                                value={updatedMonth} 
-                                onChange={ (ev) => handleMonthChange(ev) } 
-                                required 
-                                >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
-            </DropDown>
-            <DropDown>
-              <label forhtml="day">day</label>
-              <EventDateSelect  type="select" 
-                                name="day"
-                                id="modalDay" 
-                                value={updatedDay}
-                                onChange={ (ev) => handleDayChange(ev) }  
-                                required 
-                                >{days.map( (day) => <DayOption value={day} key={uuidv4()}>{day}</DayOption>)}</EventDateSelect>
-            </DropDown>
-            <DropDown>
-              <label forhtml="year">year</label>
-              <EventDateSelect  type="select" 
-                                name="year"
-                                id="modalYear" 
-                                value={updatedYear} 
-                                onChange={ (ev) => handleYearChange(ev) }  
-                                required 
-                                >{years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}</EventDateSelect>
-            </DropDown>
-          </DropdownMenus>
+              <DropDown>
+                <label forhtml="month">month</label>
+                <EventDateSelect  type="select" 
+                                  name="month"
+                                  id="modalMonth"  
+                                  value={updatedMonth} 
+                                  onChange={ (ev) => handleMonthChange(ev) } 
+                                  required 
+                                  >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
+              </DropDown>
+              <DropDown>
+                <label forhtml="day">day</label>
+                <EventDateSelect  type="select" 
+                                  name="day"
+                                  id="modalDay" 
+                                  value={updatedDay}
+                                  onChange={ (ev) => handleDayChange(ev) }  
+                                  required 
+                                  >{days.map( (day) => <DayOption value={day} key={uuidv4()}>{day}</DayOption>)}</EventDateSelect>
+              </DropDown>
+              <DropDown>
+                <label forhtml="year">year</label>
+                <EventDateSelect  type="select" 
+                                  name="year"
+                                  id="modalYear" 
+                                  value={updatedYear} 
+                                  onChange={ (ev) => handleYearChange(ev) }  
+                                  required 
+                                  >{years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}</EventDateSelect>
+              </DropDown>
+            </DropdownMenus>
           
             <SaveButton onClick={saveClickHandler}>Save</SaveButton>
             <CloseButton onClick={toggleEditor}>Close</CloseButton>
@@ -133,11 +133,13 @@ const EditButton = styled.button`
 `
 const SaveButton = styled.button`
   /* margin-left: 10px; */
+  margin: 5px 0px;
   width: auto;
   border-radius: 5px;
 `
 const CloseButton = styled.button`
   /* margin-left: 10px; */
+  margin: 5px 4px;
   width: auto;
   border-radius: 5px;
 `
@@ -149,8 +151,10 @@ const FieldWrapper = styled.div`
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
+  margin: 5px 0px;
 `
 const DisplayedField = styled.div`
+  margin: 5px 0px;
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;
@@ -160,7 +164,7 @@ const DisplayedField = styled.div`
 // FORM DROPDOWN MENUS
 const DropdownMenus = styled.div`
   width: 100%;
-  margin: 0px 5px;
+  margin: 5px 5px 5px 0px;
   display: flex;
   justify-content: space-around;
   * {
