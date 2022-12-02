@@ -1,11 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
 const CallListDetail = ({event, memberList, setEvent}) => {
-
-  
 
   return (
     <>
@@ -32,7 +29,6 @@ const CallListTitle = styled.div`
   width: 75%;
   margin: 12px 0px 0px 0px;
   padding: 0px;
-  /* margin: 5px 0px; */
   border-bottom: 3px solid black;
   margin-bottom: 5px;
 `

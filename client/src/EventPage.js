@@ -87,7 +87,6 @@ const EventPage = () => {
                   <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
                   <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
                   <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
-                  {/* <EventDetail event={event} fieldName={"CallList"} fieldProperty={"name"}></EventDetail> */}
                   <DateDetails event={event}></DateDetails>
                   <CallListStatus>
                     <Status>Event Status:</Status>
@@ -293,12 +292,6 @@ const SaveCallListButton = styled.button`
   font-weight: 600;
   background-color: #395980;
   border-radius: 10px;
-
-  /* &:hover{
-    cursor: pointer;
-    background-color: #B0BDCC;
-    color: white;
-  } */
 `
 
 
