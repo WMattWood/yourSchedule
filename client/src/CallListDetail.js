@@ -14,8 +14,6 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
                                                                         setEvent={setEvent}
                                                                         idx={idx}
                                                                         editMode={position.editMode}
-                                                                        globalEdit={globalEdit}
-                                                                        setGlobalEdit={setGlobalEdit}
                                                                         key={uuidv4()}
                                                                         /> ) }
         <SpaceHolderDiv/>

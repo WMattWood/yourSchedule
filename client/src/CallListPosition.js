@@ -1,8 +1,11 @@
 import styled, { ThemeConsumer } from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { CallListContext } from './CallListContext'
 
 const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdit, setGlobalEdit}) => {
+
+  const { globalEdit } = useContext(CallListContext)
 
   const [ showEditor, setShowEditor ] = useState(event.callList[idx].editMode)
   const [ updatedEntry, setUpdatedEntry ] = useState( { name: event.callList[idx].name,
@@ -39,6 +42,10 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
+    console.log("CallListPosition/HandleChange/glooobaleupdatedEntries", globalUpdatedEntries)
+    setGlobalUpdatedEntries( Object.assign( [...globalUpdatedEntries], 
+                                                {[idx]: updatedEntry} 
+                                          ) )
   }
 
   // useEffect( () => {

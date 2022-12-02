@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-
+import { CallListContext } from './CallListContext'
 import CallListDetail from './CallListDetail'
 import EventDetail from './EventDetail'
 import DateDetails from './DateDetails'
@@ -16,10 +16,21 @@ const EventPage = () => {
   const navigate = useNavigate()
 
   useEffect( () => {
-    fetch(`/calendar/${eventId}`)
-      .then( res => res.json() )
-      .then( res => setEvent(res.data))
+
+    const doAsyncStuff = async() => {
+      let theEvent = await fetch(`/calendar/${eventId}`)
+        .then( res => res.json() )
+        .then( res => res.data)
+
+      setEvent(theEvent)
+      setGlobalUpdatedEntries(theEvent.callList)
+    }
+    
+    doAsyncStuff()
+
   }, [] )
+
+  console.log("I am lost but here is globalUpdatedEntries", globalUpdatedEntries)
 
   useEffect( () => {
     fetch(`/calendar/allEvents`)

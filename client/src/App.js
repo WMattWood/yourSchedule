@@ -11,15 +11,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 function App() {
 
   const { user, isAuthenticated, isLoading } = useAuth0()
-  // ~~~~ Structure of the App:
-  // "HEADER/NAVBAR"
-  // "Path: HOME"
-  // "Path: ABOUT US PAGE"
-  // "Path: SPECIFIC ITEM PAGE"
-  // "Path: CART PAGE"
-  // "Path: CONFIRMATION PAGE"
-  // "FOOTER"
-  // ~~~~
 
   return (
     <BrowserRouter>
@@ -37,20 +28,8 @@ function App() {
             <Route path="/roster" element={<RosterPage/>} />
           </Routes>
       }
-        {/* <Route path="/items/id/:itemId" element={<ItemPage/>} /> */}
-        {/* <Route path="/cart" element={<DisplayCart/>} /> */}
-        {/* <Route path="/confirmation" element={<Confirmation/>} /> */}
-      
-      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
-
-// GlobalStyles???
-// const App = styled.div`
-//   font-family: sans-serif;
-//   text-align: center;
-//   color: #212121;
-// `
 
 export default App;
