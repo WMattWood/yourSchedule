@@ -12,8 +12,6 @@ const EventDetailsPage = () => {
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
   const [ memberList, setMemberList ] = useState(null)
-  const [ editCallList, setEditCallList ] = useState(false)
-
   const [ globalEdit, setGlobalEdit ] = useState(false)
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -106,8 +104,6 @@ const EventDetailsPage = () => {
                   <CallListDetail event={event} 
                                   memberList={memberList} 
                                   setEvent={setEvent} 
-                                  editCallList={editCallList} 
-                                  setEditCallList={setEditCallList}
                                   globalEdit={globalEdit}
                                   setGlobalEdit={setGlobalEdit}
                                   />

@@ -15,11 +15,6 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
     //..... also makes the current active date into that selected day
     setModalVisibility(true)
     if ( parseInt(numberMarker) ) {
-      // setFormData( { ...formData, 
-      //                   dateYear: activeDate.getFullYear(), 
-      //                   dateMonth: activeDate.getMonth(), 
-      //                   dateDay: numberMarker 
-      //               }) 
       setActiveDate( new Date(activeDate.getFullYear(), activeDate.getMonth(), numberMarker ) ) 
     }
   }
@@ -35,12 +30,14 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
         <NumCircle>{numberMarker}</NumCircle>
         <EventsBox>
           { // map through eventArray which is any events that were found on the current day
+            // display an EventBand for each event in the array (up to 3) and set the event
+            // status to either Full or Pending
             ! eventArray
             ? null
             : eventArray.map( event => {
                 // You can modify how many chars are displayed with the splitPoint variable
                 const splitPoint = 12
-                // Set a 10 character name to display on the EventBand
+                // Set a 12 character name to be displayed on the EventBand
                 let parsedName = event.name 
                 if (parsedName.length > splitPoint ) {
                   parsedName = parsedName.slice(0, splitPoint) + "..."
@@ -59,9 +56,6 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
                 )
               }) 
           }
-          {/* <EventBand className={eventStatus}></EventBand>
-          <EventBand className={eventStatus}></EventBand>
-          <EventBand className={eventStatus}></EventBand> */}
         </EventsBox>
       </DayCellWrapper>
     </Container>

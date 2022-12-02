@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit, editMode}) => {
+const CallListPosition = ({event, idx, memberList, setEvent, eventCallList, editMode}) => {
   
   const [ localEdit, setLocalEdit ] = useState()
   const [ miniForm, setMiniForm ] = useState({ name: eventCallList[idx].name, position: eventCallList[idx].position })
@@ -15,7 +15,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
     let job = ev.currentTarget.value
 
-    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
@@ -23,7 +23,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
     mostUpToDateList[idx] = modifiedEntry
 
-    fetch(`/calendar/${eventId}`, {
+    fetch(`/calendar/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "data": {...event, callList: mostUpToDateList }
@@ -43,7 +43,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
     let name = ev.currentTarget.value
 
-    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
@@ -51,7 +51,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
     mostUpToDateList[idx] = modifiedEntry
 
-    fetch(`/calendar/${eventId}`, {
+    fetch(`/calendar/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "data": {...event, callList: mostUpToDateList }
@@ -66,7 +66,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
   const clickHandler = async () => {
     // setLocalEdit(!localEdit)
-    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
@@ -75,7 +75,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
     mostUpToDateList[idx] = newEntry
 
-    fetch(`/calendar/${eventId}`, {
+    fetch(`/calendar/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "data": {...event, callList: mostUpToDateList }
@@ -96,13 +96,9 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
     submitFormToUpperManagement()
   }
 
-  // useState( () => {
-  //   setLocalEdit(globalEdit)
-  // }, [globalEdit] )
-
   const submitFormToUpperManagement = async () => {
 
-    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
@@ -125,7 +121,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
     //   newEntry.editMode = false
     // mostUpToDateList[idx] = newEntry
 
-    fetch(`/calendar/${eventId}`, {
+    fetch(`/calendar/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "data": {...event, callList: mostUpToDateList }

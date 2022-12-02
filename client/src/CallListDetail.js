@@ -3,7 +3,7 @@ import { useState } from 'react'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallList, globalEdit, setGlobalEdit}) => {
+const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}) => {
 
   
 
@@ -13,10 +13,6 @@ const CallListDetail = ({event, memberList, setEvent, editCallList, setEditCallL
       <CallListWrapper>
         <CallList>
           { event.callList.map( ( position, idx ) => <CallListPosition 
-                                                              // id={position._id}
-                                                              editCallList={editCallList} 
-                                                              setEditCallList={setEditCallList}
-                                                              eventId={event._id}
                                                               eventCallList={event.callList}
                                                               memberList={memberList}
                                                               event={event}
