@@ -186,7 +186,7 @@ const updateCallListByEvent = async (req, res) => {
     const updatedEntry = req.body.updatedEntry
 
     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
-    // let mostUpToDateList = specifiedEvent.callList
+    // let mostUpToDateList = specifiedEvent.callList delete this
       
     specifiedEvent.callList[idx] = updatedEntry
 
