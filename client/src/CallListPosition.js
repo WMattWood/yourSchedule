@@ -1,12 +1,9 @@
-import styled from 'styled-components'
-import { useState, useEffect, useContext } from 'react'
+import styled, { ThemeConsumer } from 'styled-components'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { CallListContext } from './CallListContext'
 
-const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalUpdatedEntries, setGlobalUpdatedEntries }) => {
-  
-  // const [ localEdit, setLocalEdit ] = useState()
-  // const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
+const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdit, setGlobalEdit}) => {
 
   const { globalEdit } = useContext(CallListContext)
 
@@ -33,6 +30,8 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalUpd
           "Content-Type": "application/json"
         }
     })
+      .then(res => res.json())
+      .then(res => setEvent(res.data))
   }
 
   const saveClickHandler = () => {
@@ -49,13 +48,22 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalUpd
                                           ) )
   }
 
-  useEffect( () => {
-    setShowEditor(globalEdit)
-  }, [globalEdit])
+  // useEffect( () => {
+  //   if ( ! globalEdit ) { 
+  //     updateCallList() 
+  //   }
+  //   setShowEditor(globalEdit)
+  // }, [globalEdit])
 
   // useEffect( () => {
   //   if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
   // }, [])
+
+
+
+
+
+  
   // const changePositionHandler = async (ev) => {
   //   // let position = ev.currentTarget.value
   //   // setMiniForm( {...miniForm, position: position})

@@ -12,10 +12,7 @@ const EventPage = () => {
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
   const [ memberList, setMemberList ] = useState(null)
-
-  const { globalEdit, setGlobalEdit, globalUpdatedEntries, setGlobalUpdatedEntries } = useContext(CallListContext)
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const [ globalEdit, setGlobalEdit ] = useState(false)
   const navigate = useNavigate()
 
   useEffect( () => {
@@ -54,36 +51,8 @@ const EventPage = () => {
     navigate(0)
   }
 
-  // const globalEditToggle = async (setting) => {
-  //   let mostUpToDateList = await fetch(`/calendar/${eventId}`)
-  //       .then(res => res.json() )
-  //       .then(res => res.data.callList)
-
-  //   let newList = mostUpToDateList.map( obj => {
-  //      return {...obj, editMode: setting } 
-  //     } )
-
-  //   fetch(`/calendar/${eventId}`, {
-  //     "method": "PATCH",
-  //     "body": JSON.stringify({
-  //     "data": { ...event, callList: newList }
-  //     }),
-  //     "headers": {
-  //     "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => res.json() )
-  //     .then(res => setEvent(res.data) )
-  // }
-
-  const toggleGlobalEditOff = () => {
-    // globalEditToggle(false)
-    setGlobalEdit(!globalEdit)
-  }
-
-  const toggleGlobalEditOn = () => {
-    // globalEditToggle(true)
-    setGlobalEdit(!globalEdit)
+  const isCallListFull = () => {
+    return event.callList.every( el => el.name !== "unfilled" )
   }
 
   return (
@@ -102,7 +71,7 @@ const EventPage = () => {
                   <DateDetails event={event}></DateDetails>
                   <CallListStatus>
                     <Status>Event Status:</Status>
-                    { event.callListFull
+                    { isCallListFull() //event.callListFull
                       ? <Full>FILLED</Full> 
                       : <NotFull>NOT FILLED</NotFull> 
                     }

@@ -83,12 +83,8 @@ const AddEventModal = ({ errorPopup }) => {
                   callListFull: false
                 })
 
-    // // lazy hack to force the calendar to re-render after adding a new event
-    // setActiveDate(activeDate)
+    // force the calendar to re-render after adding a new event
     let newMonthlyCalendar = [...monthlyCalendar, newCalendarEvent]
-    console.log("Monthly Calendar___________", newCalendarEvent)
-    console.log("New Monthly Calendar_______", newMonthlyCalendar)
-    console.log("formData", formData)
     setMonthlyCalendar(newMonthlyCalendar)
   }
 
