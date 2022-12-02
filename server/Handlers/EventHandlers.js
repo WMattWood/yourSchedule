@@ -184,8 +184,8 @@ const updateCallListByEvent = async (req, res) => {
     const db = client.db(DATABASE_NAME)
 
     const eventId = req.params.eventId
-    const idx = req.body.data.index
-    const updatedEntry = req.body.data.updatedEntry
+    const idx = req.body.index
+    const updatedEntry = req.body.updatedEntry
 
     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
     let mostUpToDateList = specifiedEvent.callList
