@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit}) => {
+const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit, editMode}) => {
   
   const [ localEdit, setLocalEdit ] = useState()
   const [ miniForm, setMiniForm ] = useState({ name: null, position: null })
@@ -63,8 +63,29 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
     //   .then(res => setEvent(res.data) )
   }
 
-  const clickHandler = () => {
-    setLocalEdit(!localEdit)
+  const clickHandler = async () => {
+    // setLocalEdit(!localEdit)
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+                                    .then(res => res.json() )
+                                    .then(res => res.data.callList)
+
+    let newEntry = mostUpToDateList[idx]
+    newEntry.editMode = true
+
+    mostUpToDateList[idx] = newEntry
+
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "data": {...event, callList: mostUpToDateList }
+      }),
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
+
   }
 
   // On change - update this specific callListPosition with a name selected from
@@ -74,9 +95,9 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
     submitFormToUpperManagement()
   }
 
-  useState( () => {
-    setLocalEdit(globalEdit)
-  }, [globalEdit] )
+  // useState( () => {
+  //   setLocalEdit(globalEdit)
+  // }, [globalEdit] )
 
   const submitFormToUpperManagement = async () => {
     let mostUpToDateList = await fetch(`/calendar/${eventId}`)
@@ -113,7 +134,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
 
   return (
     <>
-    { ! localEdit
+    { ! editMode
       ? // DISPLAY POSITION
         <Container>
           <CallListPositionWrapper onClick={clickHandler}>

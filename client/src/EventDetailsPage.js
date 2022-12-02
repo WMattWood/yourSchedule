@@ -44,6 +44,28 @@ const EventDetailsPage = () => {
     navigate(0)
   }
 
+  const globalEditToggle = async (setting) => {
+    let mostUpToDateList = await fetch(`/calendar/${eventId}`)
+        .then(res => res.json() )
+        .then(res => res.data.callList)
+
+    let newList = mostUpToDateList.map( obj => {
+       return {...obj, editMode: setting } 
+      } )
+
+    fetch(`/calendar/${eventId}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+      "data": { ...event, callList: newList }
+      }),
+      "headers": {
+      "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json() )
+      .then(res => setEvent(res.data) )
+  }
+
   return (
     <>
       <MainTitle>Welcome to my EventDetails!</MainTitle>
@@ -66,8 +88,8 @@ const EventDetailsPage = () => {
                       : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
                     }
                     { ! globalEdit 
-                      ? <EditCallListButton onClick={ ()=>{setGlobalEdit(!globalEdit)}}>Edit CallList</EditCallListButton>
-                      : <SaveCallListButton onClick={ ()=>{setGlobalEdit(!globalEdit)}}>Save CallList</SaveCallListButton>
+                      ? <EditCallListButton onClick={ ()=>{globalEditToggle(true)}}>Edit CallList</EditCallListButton>
+                      : <SaveCallListButton onClick={ ()=>{globalEditToggle(false)}}>Save CallList</SaveCallListButton>
                     }
                   </CallListStatus>
 
