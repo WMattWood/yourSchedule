@@ -2,159 +2,199 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({event, idx, memberList, setEvent, editMode}) => {
+const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdit, setGlobalEdit}) => {
   
-  const [ localEdit, setLocalEdit ] = useState()
-  const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
+  // const [ localEdit, setLocalEdit ] = useState()
+  // const [ miniForm, setMiniForm ] = useState({ name: event.callList[idx].name, position: event.callList[idx].position })
+
+  const [ showEditor, setShowEditor ] = useState(event.callList[idx].editMode)
+  const [ updatedEntry, setUpdatedEntry ] = useState( { name: event.callList[idx].name,
+                                                        position: event.callList[idx].position,
+                                                        editMode: event.callList[idx].editMode
+                                                      })
 
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
-  const changePositionHandler = async (ev) => {
-    // let position = ev.currentTarget.value
-    // setMiniForm( {...miniForm, position: position})
+  const toggleEditor = () => {
+    setShowEditor(!showEditor)
+  }
 
-    let job = ev.currentTarget.value
-
-    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
-                                    .then(res => res.json() )
-                                    .then(res => res.data.callList)
-
-    let modifiedEntry = {...mostUpToDateList[idx], position: job}
-
-    mostUpToDateList[idx] = modifiedEntry
-
-    fetch(`/calendar/${event._id}`, {
+  const updateCallList = () => {
+    fetch(`/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
-        "data": {...event, callList: mostUpToDateList }
+        "index": idx,
+        "updatedEntry": updatedEntry
       }),
-      "headers": {
-        "Content-Type": "application/json"
-      }
+        "headers": {
+          "Content-Type": "application/json"
+        }
     })
-      .then(res => res.json() )
-      .then(res => setEvent(res.data) )
+  }
+
+  const saveClickHandler = () => {
+    updateCallList()
+    toggleEditor()
+  }
+
+  const handleChange = (ev, fieldName) => {
+    let updatedValue = ev.currentTarget.value
+    setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
+  }
+
+  // useEffect( () => {
+  //   setShowEditor(globalEdit)
+  // }, [globalEdit])
+
+  // useEffect( () => {
+  //   if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
+  // }, [])
+  // const changePositionHandler = async (ev) => {
+  //   // let position = ev.currentTarget.value
+  //   // setMiniForm( {...miniForm, position: position})
+
+  //   let job = ev.currentTarget.value
+
+  //   let mostUpToDateList = await fetch(`/calendar/${event._id}`)
+  //                                   .then(res => res.json() )
+  //                                   .then(res => res.data.callList)
+
+  //   let modifiedEntry = {...mostUpToDateList[idx], position: job}
+
+  //   mostUpToDateList[idx] = modifiedEntry
+
+  //   fetch(`/calendar/${event._id}`, {
+  //     "method": "PATCH",
+  //     "body": JSON.stringify({
+  //       "data": {...event, callList: mostUpToDateList }
+  //     }),
+  //     "headers": {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => res.json() )
+  //     .then(res => setEvent(res.data) )
     
-  }
+  // }
 
-  const changeNameHandler = async (ev) => {
-    // let name = ev.currentTarget.value
-    // setMiniForm( {...miniForm, name: name})
+  // const changeNameHandler = async (ev) => {
+  //   // let name = ev.currentTarget.value
+  //   // setMiniForm( {...miniForm, name: name})
 
-    let name = ev.currentTarget.value
+  //   let name = ev.currentTarget.value
 
-    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
-                                    .then(res => res.json() )
-                                    .then(res => res.data.callList)
+  //   let mostUpToDateList = await fetch(`/calendar/${event._id}`)
+  //                                   .then(res => res.json() )
+  //                                   .then(res => res.data.callList)
 
-    let modifiedEntry = {...mostUpToDateList[idx], name: name}
+  //   let modifiedEntry = {...mostUpToDateList[idx], name: name}
 
-    mostUpToDateList[idx] = modifiedEntry
+  //   mostUpToDateList[idx] = modifiedEntry
 
-    fetch(`/calendar/${event._id}`, {
-      "method": "PATCH",
-      "body": JSON.stringify({
-        "data": {...event, callList: mostUpToDateList }
-      }),
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json() )
-      .then(res => setEvent(res.data) )
-  }
+  //   fetch(`/calendar/${event._id}`, {
+  //     "method": "PATCH",
+  //     "body": JSON.stringify({
+  //       "data": {...event, callList: mostUpToDateList }
+  //     }),
+  //     "headers": {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => res.json() )
+  //     .then(res => setEvent(res.data) )
+  // }
 
-  const clickHandler = async () => {
-    // setLocalEdit(!localEdit)
-    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
-                                    .then(res => res.json() )
-                                    .then(res => res.data.callList)
+  // const clickHandler = async () => {
+  //   // setLocalEdit(!localEdit)
+  //   let mostUpToDateList = await fetch(`/calendar/${event._id}`)
+  //                                   .then(res => res.json() )
+  //                                   .then(res => res.data.callList)
 
-    let newEntry = mostUpToDateList[idx]
-    newEntry.editMode = true
+  //   let newEntry = mostUpToDateList[idx]
+  //   newEntry.editMode = true
 
-    mostUpToDateList[idx] = newEntry
+  //   mostUpToDateList[idx] = newEntry
 
-    fetch(`/calendar/${event._id}`, {
-      "method": "PATCH",
-      "body": JSON.stringify({
-        "data": {...event, callList: mostUpToDateList }
-      }),
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json() )
-      .then(res => setEvent(res.data) )
+  //   fetch(`/calendar/${event._id}`, {
+  //     "method": "PATCH",
+  //     "body": JSON.stringify({
+  //       "data": {...event, callList: mostUpToDateList }
+  //     }),
+  //     "headers": {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => res.json() )
+  //     .then(res => setEvent(res.data) )
 
-  }
+  // }
 
-  // On change - update this specific callListPosition with a name selected from
-  // the addMember dropdown.
-  const submitHandler = async (ev) => {
-    ev.preventDefault()
-    submitFormToUpperManagement()
-  }
+  // // On change - update this specific callListPosition with a name selected from
+  // // the addMember dropdown.
+  // const submitHandler = async (ev) => {
+  //   ev.preventDefault()
+  //   submitFormToUpperManagement()
+  // }
 
-  const submitFormToUpperManagement = async () => {
+  // const submitFormToUpperManagement = async () => {
 
-    let mostUpToDateList = await fetch(`/calendar/${event._id}`)
-                                    .then(res => res.json() )
-                                    .then(res => res.data.callList)
+  //   let mostUpToDateList = await fetch(`/calendar/${event._id}`)
+  //                                   .then(res => res.json() )
+  //                                   .then(res => res.data.callList)
 
-    let newEntry = mostUpToDateList[idx]
-    newEntry.editMode = false
+  //   let newEntry = mostUpToDateList[idx]
+  //   newEntry.editMode = false
 
-    mostUpToDateList[idx] = newEntry
+  //   mostUpToDateList[idx] = newEntry
 
-    // if ( miniForm.name === null && miniForm.position === null ) {
-    //   setLocalEdit(!localEdit)
-    //   return;
-    // } else if ( miniForm.name === null ) {
-    //   newEntry = {...newEntry, position: miniForm.position}
-    // } else if ( miniForm.position === null ) {
-    //   newEntry = {...newEntry, name: miniForm.name}
-    // } else {
-    //   newEntry = miniForm
-    // }
+  //   // if ( miniForm.name === null && miniForm.position === null ) {
+  //   //   setLocalEdit(!localEdit)
+  //   //   return;
+  //   // } else if ( miniForm.name === null ) {
+  //   //   newEntry = {...newEntry, position: miniForm.position}
+  //   // } else if ( miniForm.position === null ) {
+  //   //   newEntry = {...newEntry, name: miniForm.name}
+  //   // } else {
+  //   //   newEntry = miniForm
+  //   // }
 
-    //   newEntry.editMode = false
-    // mostUpToDateList[idx] = newEntry
+  //   //   newEntry.editMode = false
+  //   // mostUpToDateList[idx] = newEntry
 
-    fetch(`/calendar/${event._id}`, {
-      "method": "PATCH",
-      "body": JSON.stringify({
-        "data": {...event, callList: mostUpToDateList }
-      }),
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json() )
-      .then(res => setEvent(res.data) )
-  }
+  //   fetch(`/calendar/${event._id}`, {
+  //     "method": "PATCH",
+  //     "body": JSON.stringify({
+  //       "data": {...event, callList: mostUpToDateList }
+  //     }),
+  //     "headers": {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => res.json() )
+  //     .then(res => setEvent(res.data) )
+  // }
 
   return (
     <Container>
-      { ! editMode
+      { ! showEditor
         ? // DISPLAY POSITION
-          <CallListPositionWrapper onClick={clickHandler}>
-            <InnerText>{`${event.callList[idx].position}: ${event.callList[idx].name}`}</InnerText>
+          <CallListPositionWrapper onClick={toggleEditor}>
+            <InnerText>{`${updatedEntry.position}: ${updatedEntry.name}`}</InnerText>
           </CallListPositionWrapper>
         : // EDIT THE POSITION
           <>
             <CallListPositionWrapper>
-              <PositionSelect onChange={changePositionHandler} value={event.callList[idx].position}>
+              <PositionSelect onChange={ (ev)=> handleChange(ev, "position") } value={updatedEntry.position}>
                 {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
               </PositionSelect>
-              <NameSelect onChange={changeNameHandler} value={event.callList[idx].name}>
+              <NameSelect onChange={ (ev)=> handleChange(ev, "name") } value={updatedEntry.name}>
                   <NameOption value={"unfilled"}>unfilled</NameOption>
                   { ! memberList
                     ? null
                     : memberList.map ( member => <NameOption value={member.name} key={uuidv4()}>{member.name}</NameOption> ) 
                   }
               </NameSelect>
-              <SaveButton onClick={submitHandler} className={"float-right"} >Save</SaveButton>
+              <SaveButton onClick={saveClickHandler} className={"float-right"} >Save</SaveButton>
             </CallListPositionWrapper>
           </>
       }

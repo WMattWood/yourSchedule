@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListDetail = ({event, memberList, setEvent}) => {
+const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}) => {
 
   return (
     <>
@@ -14,6 +14,8 @@ const CallListDetail = ({event, memberList, setEvent}) => {
                                                                         setEvent={setEvent}
                                                                         idx={idx}
                                                                         editMode={position.editMode}
+                                                                        globalEdit={globalEdit}
+                                                                        setGlobalEdit={setGlobalEdit}
                                                                         key={uuidv4()}
                                                                         /> ) }
         <SpaceHolderDiv/>
