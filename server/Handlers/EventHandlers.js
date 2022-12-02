@@ -186,16 +186,16 @@ const updateCallListByEvent = async (req, res) => {
     const updatedEntry = req.body.updatedEntry
 
     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
-    let mostUpToDateList = specifiedEvent.callList
+    // let mostUpToDateList = specifiedEvent.callList
       
-    mostUpToDateList[idx] = updatedEntry
+    specifiedEvent.callList[idx] = updatedEntry
 
-    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: mostUpToDateList }})
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: specifiedEvent.callList }})
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: updatedEntry
+      data: specifiedEvent
     })
 
   } catch(err) {

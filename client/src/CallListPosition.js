@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { ThemeConsumer } from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -27,6 +27,8 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
           "Content-Type": "application/json"
         }
     })
+      .then(res => res.json())
+      .then(res => setEvent(res.data))
   }
 
   const saveClickHandler = () => {
@@ -39,17 +41,22 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
   }
 
-  useEffect( () => {
-    if ( ! globalEdit ) { 
-      console.log("beep")
-      updateCallList() 
-    }
-    setShowEditor(globalEdit)
-  }, [globalEdit])
+  // useEffect( () => {
+  //   if ( ! globalEdit ) { 
+  //     updateCallList() 
+  //   }
+  //   setShowEditor(globalEdit)
+  // }, [globalEdit])
 
-  useEffect( () => {
-    if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
-  }, [])
+  // useEffect( () => {
+  //   if (event.callList.every( entry => !entry.editMode )) { setGlobalEdit(false) }
+  // }, [])
+
+
+
+
+
+  
   // const changePositionHandler = async (ev) => {
   //   // let position = ev.currentTarget.value
   //   // setMiniForm( {...miniForm, position: position})

@@ -40,6 +40,10 @@ const EventPage = () => {
     navigate(0)
   }
 
+  const isCallListFull = () => {
+    return event.callList.every( el => el.name !== "unfilled" )
+  }
+
   return (
     <>
       <MainTitle>Welcome to my EventDetails!</MainTitle>
@@ -56,7 +60,7 @@ const EventPage = () => {
                   <DateDetails event={event}></DateDetails>
                   <CallListStatus>
                     <Status>Event Status:</Status>
-                    { event.callListFull
+                    { isCallListFull() //event.callListFull
                       ? <Full>FILLED</Full> 
                       : <NotFull>NOT FILLED</NotFull> 
                     }
