@@ -66,6 +66,16 @@ const EventDetailsPage = () => {
       .then(res => setEvent(res.data) )
   }
 
+  const toggleGlobalEditOff = () => {
+    globalEditToggle(false)
+    setGlobalEdit(!globalEdit)
+  }
+
+  const toggleGlobalEditOn = () => {
+    globalEditToggle(true)
+    setGlobalEdit(!globalEdit)
+  }
+
   return (
     <>
       <MainTitle>Welcome to my EventDetails!</MainTitle>
@@ -88,8 +98,8 @@ const EventDetailsPage = () => {
                       : <NotFull>{console.log("the event:", event)}NOT FILLED</NotFull> 
                     }
                     { ! globalEdit 
-                      ? <EditCallListButton onClick={ ()=>{globalEditToggle(true)}}>Edit CallList</EditCallListButton>
-                      : <SaveCallListButton onClick={ ()=>{globalEditToggle(false)}}>Save CallList</SaveCallListButton>
+                      ? <EditCallListButton onClick={toggleGlobalEditOn}>Edit CallList</EditCallListButton>
+                      : <SaveCallListButton onClick={toggleGlobalEditOff}>Save CallList</SaveCallListButton>
                     }
                   </CallListStatus>
 

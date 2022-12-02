@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallList, editCallList, setEditCallList, globalEdit, setGlobalEdit, editMode}) => {
   
   const [ localEdit, setLocalEdit ] = useState()
-  const [ miniForm, setMiniForm ] = useState({ name: null, position: null })
+  const [ miniForm, setMiniForm ] = useState({ name: eventCallList[idx].name, position: eventCallList[idx].position })
 
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
@@ -40,6 +40,7 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
   const changeNameHandler = async (ev) => {
     let name = ev.currentTarget.value
     setMiniForm( {...miniForm, name: name})
+
     // let name = ev.currentTarget.value
 
     // let mostUpToDateList = await fetch(`/calendar/${eventId}`)
@@ -100,24 +101,29 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
   // }, [globalEdit] )
 
   const submitFormToUpperManagement = async () => {
+
     let mostUpToDateList = await fetch(`/calendar/${eventId}`)
                                     .then(res => res.json() )
                                     .then(res => res.data.callList)
 
-    let newEntry = mostUpToDateList[idx]
-
-    if ( miniForm.name === null && miniForm.position === null ) {
-      setLocalEdit(!localEdit)
-      return;
-    } else if ( miniForm.name === null ) {
-      newEntry = {...newEntry, position: miniForm.position}
-    } else if ( miniForm.position === null ) {
-      newEntry = {...newEntry, name: miniForm.name}
-    } else {
-      newEntry = miniForm
-    }
+    let newEntry = miniForm
+    newEntry.editMode = false
 
     mostUpToDateList[idx] = newEntry
+
+    // if ( miniForm.name === null && miniForm.position === null ) {
+    //   setLocalEdit(!localEdit)
+    //   return;
+    // } else if ( miniForm.name === null ) {
+    //   newEntry = {...newEntry, position: miniForm.position}
+    // } else if ( miniForm.position === null ) {
+    //   newEntry = {...newEntry, name: miniForm.name}
+    // } else {
+    //   newEntry = miniForm
+    // }
+
+    //   newEntry.editMode = false
+    // mostUpToDateList[idx] = newEntry
 
     fetch(`/calendar/${eventId}`, {
       "method": "PATCH",
@@ -152,8 +158,12 @@ const CallListPosition = ({eventId, event, idx, memberList, setEvent, eventCallL
             
             <NameSelect onChange={changeNameHandler} value={miniForm.name}>
                 <NameOption value={"unfilled"}>unfilled</NameOption>
-                {memberList.map ( member => <NameOption value={member.name} key={uuidv4()} selected={member.name === eventCallList[idx].name ? "selected" : null}>{member.name}</NameOption> ) }
+                { ! memberList
+                  ? null
+                  : memberList.map ( member => <NameOption value={member.name} key={uuidv4()}>{member.name}</NameOption> ) 
+                }
             </NameSelect>
+           
             <SaveButton onClick={submitHandler} className={"float-right"} >Save</SaveButton>
 
             {/* </LittleForm> */}
