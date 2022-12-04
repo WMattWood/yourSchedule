@@ -15,28 +15,27 @@ function App() {
   return (
     <BrowserRouter>
     <GlobalStyle />
-      <Navbar />
-      
-      { !isAuthenticated
-        ? <Routes>
-            <Route path="*" element={<Homepage />} />
-          </Routes>
-        : <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/calendar" element={<CalendarPage/>} />
-            <Route path="/event/:eventId" element={<EventPage/>} />
-            <Route path="/roster" element={<RosterPage/>} />
-          </Routes>
-      }
+      <PageWindow>
+        <Navbar />
+        
+        { !isAuthenticated
+          ? <Routes>
+              <Route path="*" element={<Homepage />} />
+            </Routes>
+          : <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/calendar" element={<CalendarPage/>} />
+              <Route path="/event/:eventId" element={<EventPage/>} />
+              <Route path="/roster" element={<RosterPage/>} />
+            </Routes>
+        }
+      </PageWindow>
     </BrowserRouter>
   );
 }
 
-// GlobalStyles???
-// const App = styled.div`
-//   font-family: sans-serif;
-//   text-align: center;
-//   color: #212121;
-// `
+const PageWindow = styled.div`
+  width: 1000px;
+`
 
 export default App;

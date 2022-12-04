@@ -16,9 +16,10 @@ const CalendarPage = () => {
   }
 
   return(
+    <>
     <PageLeftRight>
       {/* <h1>Welcome to my CalendarPage!</h1> */}
-      <CalendarModule></CalendarModule>
+      <CalendarModule/>
       { 
         ! errorWindow
         ? null
@@ -36,8 +37,10 @@ const CalendarPage = () => {
         : <AddEventModal errorPopup={errorPopup}/>
       }
       </ModalHolder>
-      {/* <AddEventButton onClick={ () => { setModalVisibility(!modalVisibility) } }>+ Add Event</AddEventButton> */}
+      
     </PageLeftRight>
+    <AddEventButton onClick={ () => { setModalVisibility(!modalVisibility) } }>+ Add Event</AddEventButton>
+    </>
   )
 }
 
@@ -59,7 +62,7 @@ const ErrorDialog = styled.dialog`
 `
 
 const ModalHolder = styled.div`
-  margin-left: 60px;
+  margin-left: 45px;
   /* position: absolute; */
   /* left: 800px; */
   /* top: 240px; */

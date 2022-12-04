@@ -151,7 +151,9 @@ const CalendarModule = () => {
       {getHeader()}
       {getWeekDayNames()}
       { monthlyCalendar
-        ? <>{getCalendar(currentYear, currentMonth)}</>
+        ? <>
+          {getCalendar(currentYear, currentMonth)}
+          </>
         : null
       }
     </section>
@@ -182,6 +184,7 @@ const WeekDayTitle = styled.div`
 const HeaderWrapper = styled.div `
   display: flex;
   align-items: center;
+  height: 50px;
 `
 const MonthTitle = styled.h2 `
   width: 220px;
