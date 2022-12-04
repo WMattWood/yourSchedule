@@ -46,7 +46,7 @@ const EventPage = () => {
 
   return (
     <>
-      <MainTitle>Welcome to my EventDetails!</MainTitle>
+      {/* <MainTitle>Welcome to my EventDetails!</MainTitle> */}
       { eventId === "meep"
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>

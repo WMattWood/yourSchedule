@@ -17,7 +17,7 @@ const CalendarPage = () => {
 
   return(
     <>
-      <h1>Welcome to my CalendarPage!</h1>
+      {/* <h1>Welcome to my CalendarPage!</h1> */}
       <CalendarModule></CalendarModule>
       { 
         ! errorWindow

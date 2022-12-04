@@ -68,9 +68,10 @@ const Navbar = () => {
 }
 
 const Title = styled.div`
-  padding-top: 30px;
-  padding-bottom: 10px;
+  /* padding-top: 30px; */
+  /* padding-bottom: 10px; */
   font-size: 48px;
+  margin: 0px;
 
   &:hover {
     cursor: pointer;
