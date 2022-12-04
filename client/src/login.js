@@ -9,13 +9,9 @@ const LoginButton = () => {
 };
 
 const Button = styled.button`
-  /* position: absolute; */
   margin-top: 20px;
-  /* margin-left: 10px; */
   font-weight: 600;
-  /* font-size: 16px; */
   border-radius: 5px;
-  /* height: 30px; */
 `
 
 export default LoginButton;
