@@ -51,9 +51,11 @@ const EventPage = () => {
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>
             { !event
-              ?<Title>Loading events...</Title>
-              : <EventWrapper>
-                  <BigName>{event.name}</BigName>
+              ? <h1>Loading events...</h1>
+              : <LeftWrapper>
+                <EventTitle>{event.name}</EventTitle>
+                <EventWrapper>
+                  {/* <BigName>{event.name}</BigName> */}
                   <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
                   <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
                   <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
@@ -74,15 +76,13 @@ const EventPage = () => {
                                   memberList={memberList} 
                                   setEvent={setEvent} 
                                   />
-                  
-
-
                 </EventWrapper>
+              </LeftWrapper>
             }
             { !eventListing
               ? null
               : <EventListings>
-                  <BigName>Upcoming Events...</BigName>
+                  <EventTitle>Upcoming Events...</EventTitle>
                   <IdsWrapper>
                     { eventListing.map( event =>  {
                                                     return (<QuickLinkWrapper key={event._id} onClick={ () => handleIdNav(event._id) }>
@@ -114,8 +114,35 @@ const PageLeftRight = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const LeftWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 const MainTitle = styled.h1`
 `
+const EventTitle = styled.h1`
+  border-bottom: 3px solid black;
+  padding-bottom: 2px;
+  /* margin: 5px 0px; */
+`
+const UpcomingEventsTitle = styled.div`
+  font-size: 28px;
+  font-weight: bold;
+  /* width: 75%; */
+  margin: 5px 0px;
+  border-bottom: 3px solid black;
+  padding-bottom: 2px;
+`
+
+const BigName = styled.div`
+  font-size: 28px;
+  font-weight: bold;
+  width: 75%;
+  margin: 5px 0px;
+  border-bottom: 3px solid black;
+  padding-bottom: 2px;
+`
+
 const Title = styled.h1`
   width: 100%;
   margin: 0px;
@@ -130,14 +157,7 @@ const EventWrapper = styled.div`
   background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
   border: 3px solid black;
 `
-const BigName = styled.div`
-  font-size: 28px;
-  font-weight: bold;
-  width: 75%;
-  margin: 5px 0px;
-  border-bottom: 3px solid black;
-  padding-bottom: 2px;
-`
+
 
 
 // MOVED TO EVENTDETAIL
@@ -176,8 +196,9 @@ const NotFull = styled.div`
 
 const EventListings = styled.div`
   height: 800px;
-  width: 450px;
-  padding: 8px;
+  /* width: 450px; */
+  width: 40%;
+  /* padding: 8px; */
 `
 const IdsWrapper = styled.div`
   margin-top: 20px;
