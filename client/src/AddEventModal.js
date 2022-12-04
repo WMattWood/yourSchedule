@@ -210,7 +210,7 @@ const EventForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 600px;
+  height: 500px;
   width: 260px;
   * {
     font-weight: 600;
