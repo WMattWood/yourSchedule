@@ -12,7 +12,7 @@ const EventPage = () => {
   const [ event, setEvent ] = useState(null)
   const [ eventListing, setEventListing ] = useState(null)
   const [ memberList, setMemberList ] = useState(null)
-  const [ globalEdit, setGlobalEdit ] = useState(false)
+  // const [ globalEdit, setGlobalEdit ] = useState(false)
   const navigate = useNavigate()
 
   useEffect( () => {
@@ -64,17 +64,15 @@ const EventPage = () => {
                       ? <Full>FILLED</Full> 
                       : <NotFull>NOT FILLED</NotFull> 
                     }
-                    { ! globalEdit 
+                    {/* { ! globalEdit 
                       ? <EditCallListButton onClick={()=>setGlobalEdit(true)}>Edit CallList</EditCallListButton>
                       : <SaveCallListButton onClick={()=>setGlobalEdit(false)}>Save CallList</SaveCallListButton>
-                    }
+                    } */}
                   </CallListStatus>
 
                   <CallListDetail event={event} 
                                   memberList={memberList} 
                                   setEvent={setEvent} 
-                                  globalEdit={globalEdit}
-                                  setGlobalEdit={setGlobalEdit}
                                   />
                   
 
@@ -121,26 +119,16 @@ const MainTitle = styled.h1`
 const Title = styled.h1`
   width: 100%;
   margin: 0px;
-  /* color: white; */
 `
 const EventWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* * {
-    margin: 5px 0px;
-  } */
-
   width: 406px;
   padding: 5px;
   height: 70vh;
   border-radius: 5px;
   background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
   border: 3px solid black;
-  /* background-color: #598039; */
-`
-
-const EventDetailWrapper = styled.div`
-  /* margin: 5px 0px; */
 `
 const BigName = styled.div`
   font-size: 28px;
@@ -157,33 +145,20 @@ const CallListStatus = styled.div`
   display: flex;
   align-items: center;
   white-space: nowrap;
-  /* height: 40px; */
   width: 99%;
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
   margin: 5px 0px;
 `
-// const CallListStatus = styled.div`
-//   display: flex;
-//   align-items: center;
-//   padding: 4px 12px;
-//   font-size: 18px;
-//   font-weight: 200;
-//   width: 300px;
-// `
 const Status = styled.div`
   margin: 5px 0px;
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;
-  /* width: 300px; */
 `
 const Full = styled.div`
-  /* text-shadow: 1px 1px 2px black; */
   text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-  /* text-decoration-line: underline; */
-  /* text-decoration-style: double; */
   letter-spacing: 2px;
   font-size: 20px;
   font-weight: 600;
@@ -191,30 +166,13 @@ const Full = styled.div`
   color: #1bde23;
 `
 const NotFull = styled.div`
-  /* text-shadow: 1px 1px 2px black; */
   text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-  /* text-decoration-line: underline; */
-  /* text-decoration-style: double; */
   letter-spacing: 2px;
   font-size: 20px;
   font-weight: 600;
   width: 300px;
   color: red;
 `
-// const EditButton = styled.button`
-//   margin-left: 10px;
-//   width: auto;
-//   border-radius: 5px;
-// `
-// const SaveButton = styled.button`
-//   display: none;
-//   margin-left: 10px;
-//   width: auto;
-//   border-radius: 5px;
-// `
-
-
-
 
 const EventListings = styled.div`
   height: 800px;
@@ -247,22 +205,22 @@ const TheIdItself = styled.a`
   width: 400px;
 `
 
-const EditCallListButton = styled.button`
-  width: 90px;
-  height: 26px;
-  border-radius: 5px;
-  margin: 6px 5px;
-`
+// const EditCallListButton = styled.button`
+//   width: 90px;
+//   height: 26px;
+//   border-radius: 5px;
+//   margin: 6px 5px;
+// `
 
-const SaveCallListButton = styled.button`
-  width: 120px;
-  height: 26px;
-  border-radius: 5px;
-  margin: 6px 5px;
-  font-weight: 600;
-  background-color: #395980;
-  border-radius: 10px;
-`
+// const SaveCallListButton = styled.button`
+//   width: 120px;
+//   height: 26px;
+//   border-radius: 5px;
+//   margin: 6px 5px;
+//   font-weight: 600;
+//   background-color: #395980;
+//   border-radius: 10px;
+// `
 
 
 export default EventPage

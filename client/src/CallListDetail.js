@@ -9,13 +9,10 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
       <CallListTitle>CallList:</CallListTitle>
       <CallListWrapper>
         <CallList>
-          { event.callList.map( ( position, idx ) => <CallListPosition  memberList={memberList}
-                                                                        event={event}
+          { event.callList.map( ( position, idx ) => <CallListPosition  event={event}
+                                                                        memberList={memberList}
                                                                         setEvent={setEvent}
                                                                         idx={idx}
-                                                                        editMode={position.editMode}
-                                                                        globalEdit={globalEdit}
-                                                                        setGlobalEdit={setGlobalEdit}
                                                                         key={uuidv4()}
                                                                         /> ) }
         <SpaceHolderDiv/>
