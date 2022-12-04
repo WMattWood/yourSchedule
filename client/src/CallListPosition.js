@@ -27,8 +27,8 @@ const CallListPosition = ({event, idx, memberList, setEvent, editMode, globalEdi
           "Content-Type": "application/json"
         }
     })
-      .then(res => res.json())
-      .then(res => setEvent(res.data))
+      // .then(res => res.json())
+      // .then(res => setEvent(res.data))
   }
 
   const saveClickHandler = () => {
