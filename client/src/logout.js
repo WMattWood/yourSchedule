@@ -15,6 +15,10 @@ const LogoutButton = () => {
 const Button = styled.button`
   position: absolute;
   top: 20px;
-  right: 30px;
+  left: 933px;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 5px;
+  height: 30px;
 `
 export default LogoutButton;
