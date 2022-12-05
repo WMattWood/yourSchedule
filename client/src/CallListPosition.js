@@ -1,4 +1,4 @@
-import styled, { ThemeConsumer } from 'styled-components'
+import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -12,40 +12,82 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
 
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
-  const toggleEditor = () => {
-    setShowEditor(!showEditor)
-  }
+  // const toggleEditor = () => {
+  //   setShowEditor(!showEditor)
+  // }
 
-  const updateCallList = () => {
+  const dbUpdateEditModeFalse = () => {
+    console.log("This is what we're updating, should be false", updatedEntry)
+    let target = {...updatedEntry, editMode: false } 
     fetch(`/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
-        "updatedEntry": updatedEntry
+        "updatedEntry": target
       }),
         "headers": {
           "Content-Type": "application/json"
         }
     })
-      // .then(res => res.json())
-      // .then(res => setEvent(res.data))
+      .then(res => res.json())
+      .then(res => setEvent(res.data))
+  }
+
+  const dbUpdateEditModeTrue = () => {
+    console.log("This is what we're updating, should be true", updatedEntry)
+    let target = {...updatedEntry, editMode: true } 
+    fetch(`/callList/${event._id}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "index": idx,
+        "updatedEntry": target
+      }),
+        "headers": {
+          "Content-Type": "application/json"
+        }
+    })
+    // .then(res => res.json())
+    // .then(res => setEvent(res.data))
+  }
+
+  const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
+    let target = {...updatedEntry, [fieldName]: updatedValue }
+    console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
+    fetch(`/callList/${event._id}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "index": idx,
+        "updatedEntry": target
+      }),
+        "headers": {
+          "Content-Type": "application/json"
+        }
+    })
+  }
+
+  const clickHandler = () => {
+    setUpdatedEntry( {...updatedEntry, editMode: true })
+    dbUpdateEditModeTrue()
+    setShowEditor(true)
   }
 
   const saveClickHandler = () => {
-    updateCallList()
-    toggleEditor()
+    setUpdatedEntry( {...updatedEntry, editMode: false })
+    dbUpdateEditModeFalse()
+    setShowEditor(false)
   }
 
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
-    setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
+    setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue } )
+    setStateHookShouldSupportCALLBACKS( updatedValue, fieldName )
   }
 
   return (
     <Container>
       { ! showEditor
         ? // DISPLAY POSITION
-          <CallListPositionWrapper onClick={toggleEditor}>
+          <CallListPositionWrapper onClick={clickHandler}>
             <InnerText>{`${updatedEntry.position}: ${updatedEntry.name}`}</InnerText>
           </CallListPositionWrapper>
         : // EDIT THE POSITION
