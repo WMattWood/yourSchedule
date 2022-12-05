@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-const CallListPosition = ({event, memberList, setEvent, idx}) => {
+const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, setShowDeleteButton, selectForDeleteHandler}) => {
 
   const [ showEditor, setShowEditor ] = useState(event.callList[idx].editMode)
   const [ updatedEntry, setUpdatedEntry ] = useState( { name: event.callList[idx].name,
@@ -10,6 +10,7 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
                                                         editMode: event.callList[idx].editMode
                                                       })
 
+                           
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
   // const toggleEditor = () => {
@@ -65,6 +66,10 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
     })
   }
 
+  const deleteHandlerSpecial = () => {
+    selectForDeleteHandler(`${updatedEntry.position}: ${updatedEntry.name}`, idx)
+  }
+
   const clickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: true })
     dbUpdateEditModeTrue()
@@ -87,9 +92,12 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
     <Container>
       { ! showEditor
         ? // DISPLAY POSITION
-          <CallListPositionWrapper onClick={clickHandler}>
-            <InnerText>{`${updatedEntry.position}: ${updatedEntry.name}`}</InnerText>
-          </CallListPositionWrapper>
+          <>
+            <CallListPositionWrapper onClick={clickHandler}>
+              <InnerText>{`${updatedEntry.position}: ${updatedEntry.name}`}</InnerText>
+            </CallListPositionWrapper>
+            { showDeleteButton ? <Delete onClick={deleteHandlerSpecial}>Delete</Delete> : null  }
+          </>
         : // EDIT THE POSITION
           <>
             <CallListPositionWrapper>
@@ -105,6 +113,7 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
               </NameSelect>
               <SaveButton onClick={saveClickHandler} className={"float-right"} >Save</SaveButton>
             </CallListPositionWrapper>
+            { showDeleteButton ? <Delete onClick={deleteHandlerSpecial}>Delete</Delete> : null }
           </>
       }
     </Container>
@@ -163,6 +172,15 @@ const SaveButton = styled.button`
   &.float-right{
     margin-left: auto;
   }
+`
+
+const Delete = styled.button`
+  height: 20px;
+  border-radius: 5px;
+  width: 80px;
+  margin-left: 10px;
+  position: relative;
+  top: 5px;
 `
 
 export default CallListPosition

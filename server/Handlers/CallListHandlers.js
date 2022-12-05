@@ -68,12 +68,18 @@ const removePosition = async (req, res) => {
     const eventId = req.params.eventId
     const idx = req.body.index
 
-    // grab the old collection and replace the old callList with a new one
-    let updatedEvent = await db.collection("Events").findOne( { _id: eventId } )
-    updatedEvent.callList = updatedEvent.callList.filter( (el, index) => index !== idx )
+    // grab the old collection 
+    let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
 
-    // update the document with the updated event
-    await db.collection("Events").updateOne( { _id: eventId }, { updatedEvent } )
+    // make an updated version of the calllist with the desired index deleted
+    // update the database with that new callList
+    let updatedCallList = specifiedEvent.callList.filter( (el, index) => index !== idx )
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: updatedCallList }})
+
+    // make an updated version of the event with the updated call list
+    // this is needed to send back as part of the response so we can update the app state.
+    let updatedEvent = specifiedEvent
+    updatedEvent.callList = updatedCallList
 
     // success response
     res.status(200).json({
