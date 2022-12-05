@@ -29,6 +29,20 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
     setShowDeleteButton(false)
   }
 
+  const addHandler = () => {
+    fetch(`/callList/add/${event._id}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+      }),
+        "headers": {
+          "Content-Type": "application/json"
+        }
+    })
+      .then(res => res.json())
+      .then(res => setEvent(res.data))
+
+  }
+
   const deleteHandler = (idx) => {
     fetch(`/callList/delete/${event._id}`, {
       "method": "PATCH",
@@ -61,12 +75,15 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
         <SpaceHolderDiv/>
         </CallList>
       </CallListWrapper>
-      <DeleteButton onClick={()=>setShowDeleteButton(!showDeleteButton)}>- Delete Position </DeleteButton>
+      <ButtonsWrapper>
+        <BigButton onClick={addHandler}>+ Add Position </BigButton>
+        <BigButton onClick={()=>setShowDeleteButton(!showDeleteButton)}>- Delete Position </BigButton>
+      </ButtonsWrapper>
       { ! showDeleteModal 
         ? null
         : <ConfirmDialog>
-           <p>Are you sure you want to delete this position?</p>
-           <p>{thePhrase.current}</p>
+           <ConfirmText>Are you sure you want to delete this position?</ConfirmText>
+           <ConfirmText>{thePhrase.current}</ConfirmText>
             <form method="dialog">
               <DialogButton onClick={() => handleOK(theIndex.current)}>OK</DialogButton>
               <DialogButton onClick={handleClose}>Cancel</DialogButton>
@@ -113,8 +130,10 @@ const CallList = styled.ul`
 const SpaceHolderDiv = styled.div`
   height: 50px;
 `
-
-const DeleteButton = styled.button`
+const ButtonsWrapper = styled.div`
+  display: flex;
+`
+const BigButton = styled.button`
   height: 40px;
   width: 180px;
   font-size: 20px;
@@ -131,6 +150,9 @@ const ConfirmDialog = styled.div`
   background-color: #d3d3d3;
   border: 3px solid black;
   z-index: 3;
+`
+const ConfirmText = styled.p`
+  margin: 5px 10px;
 `
 
 const DialogButton = styled.button`

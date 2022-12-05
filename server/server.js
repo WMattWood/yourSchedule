@@ -46,8 +46,8 @@ express()
   // delete a specific callList entry
   .patch('/callList/delete/:eventId', removePosition)
 
-  // // delete a specific callList entry
-  // .patch('/callList/add/:eventId', addPosition)
+  // delete a specific callList entry
+  .patch('/callList/add/:eventId', addPosition)
 
 
   ////////// MEMBER ENDPOINTS

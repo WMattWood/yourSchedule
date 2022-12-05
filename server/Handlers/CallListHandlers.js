@@ -111,20 +111,24 @@ const addPosition = async (req, res) => {
     const db = client.db(DATABASE_NAME)
 
     const eventId = req.params.eventId
-    const idx = req.body.index
-    const updatedEntry = req.body.updatedEntry
+    // const idx = req.body.index
+    // const updatedEntry = req.body.updatedEntry
 
     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
     // let mostUpToDateList = specifiedEvent.callList
       
-    specifiedEvent.callList[idx] = updatedEntry
+    let updatedCallList = specifiedEvent.callList
+    updatedCallList.push({ name: "unfilled", position: "tech", editMode: false })
 
-    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: specifiedEvent.callList }})
+    let updatedEvent = specifiedEvent
+    updatedEvent.callList = updatedCallList
+
+    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: updatedCallList }})
 
     res.status(200).json({
       status: 200,
       message: "SUCCESS",
-      data: specifiedEvent
+      data: updatedEvent
     })
 
   } catch(err) {
