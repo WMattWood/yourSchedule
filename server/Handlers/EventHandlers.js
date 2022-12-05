@@ -172,42 +172,48 @@ const updateEvent = async (req, res) => {
   }
 };
 
-const updateCallListByEvent = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options)
+// const updateCallListByEvent = async (req, res) => {
+//   const client = new MongoClient(MONGO_URI, options)
 
-  try {
-    // Connect Client
-    await client.connect()
-    console.log("Connected")
-    const db = client.db(DATABASE_NAME)
+//   try {
+//     // Connect Client
+//     await client.connect()
+//     console.log("Connected")
+//     const db = client.db(DATABASE_NAME)
 
-    const eventId = req.params.eventId
-    const idx = req.body.index
-    const updatedEntry = req.body.updatedEntry
+//     const eventId = req.params.eventId
+//     const idx = req.body.index
+//     const updatedEntry = req.body.updatedEntry
 
-    let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
-    // let mostUpToDateList = specifiedEvent.callList
+//     let specifiedEvent = await db.collection("Events").findOne( { _id: eventId } )
+//     // let mostUpToDateList = specifiedEvent.callList
       
-    specifiedEvent.callList[idx] = updatedEntry
+//     specifiedEvent.callList[idx] = updatedEntry
 
-    await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: specifiedEvent.callList }})
+//     await db.collection("Events").updateOne( { _id: eventId }, { $set: { callList: specifiedEvent.callList }})
 
-    res.status(200).json({
-      status: 200,
-      message: "SUCCESS",
-      data: specifiedEvent
-    })
+//     res.status(200).json({
+//       status: 200,
+//       message: "SUCCESS",
+//       data: specifiedEvent
+//     })
 
-  } catch(err) {
-    res.status(400).json({
-      status: 400, 
-      message: "ERROR"
-    })
-  } finally {
-    // disconnect from database 
-    client.close()
-    console.log("Disconnected")
-  }
-}
+//   } catch(err) {
+//     res.status(400).json({
+//       status: 400, 
+//       message: "ERROR"
+//     })
+//   } finally {
+//     // disconnect from database 
+//     client.close()
+//     console.log("Disconnected")
+//   }
+// }
 
-module.exports = { insertEvent, getAllEvents, getAllEventsByMonth, getEventById, updateEvent, updateCallListByEvent  }
+module.exports = {  insertEvent, 
+                    getAllEvents, 
+                    getAllEventsByMonth, 
+                    getEventById, 
+                    updateEvent
+                    // updateCallListByEvent
+                  }
