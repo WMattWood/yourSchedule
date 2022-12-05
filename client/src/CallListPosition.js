@@ -27,8 +27,8 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
           "Content-Type": "application/json"
         }
     })
-      // .then(res => res.json())
-      // .then(res => setEvent(res.data))
+      .then(res => res.json())
+      .then(res => setEvent(res.data))
   }
 
   const saveClickHandler = () => {

@@ -19,13 +19,13 @@ const EventPage = () => {
     fetch(`/calendar/${eventId}`)
       .then( res => res.json() )
       .then( res => setEvent(res.data))
-  }, [] )
+  }, [eventId] )
 
   useEffect( () => {
     fetch(`/calendar/allEvents`)
       .then( res => res.json() )
       .then( res => setEventListing(res.data))
-  }, [] )
+  }, [eventId] )
 
   useEffect( () => { 
     fetch(`/members/allmembers`)
@@ -33,7 +33,7 @@ const EventPage = () => {
       .then(res => {
         setMemberList(res.data)
       })
-  }, [] )
+  }, [eventId] )
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
