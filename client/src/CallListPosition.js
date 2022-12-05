@@ -1,4 +1,4 @@
-import styled, { ThemeConsumer } from 'styled-components'
+import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -16,7 +16,7 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
   //   setShowEditor(!showEditor)
   // }
 
-  const updateCallList = () => {
+  const dbUpdateEditModeFalse = () => {
     console.log("This is what we're updating, should be false", updatedEntry)
     let target = {...updatedEntry, editMode: false } 
     fetch(`/callList/${event._id}`, {
@@ -33,7 +33,7 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
       .then(res => setEvent(res.data))
   }
 
-  const dbUpdateEditModeOnly = () => {
+  const dbUpdateEditModeTrue = () => {
     console.log("This is what we're updating, should be true", updatedEntry)
     let target = {...updatedEntry, editMode: true } 
     fetch(`/callList/${event._id}`, {
@@ -50,21 +50,37 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
     // .then(res => setEvent(res.data))
   }
 
+  const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
+    let target = {...updatedEntry, [fieldName]: updatedValue }
+    console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
+    fetch(`/callList/${event._id}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "index": idx,
+        "updatedEntry": target
+      }),
+        "headers": {
+          "Content-Type": "application/json"
+        }
+    })
+  }
+
   const clickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: true })
-    dbUpdateEditModeOnly()
+    dbUpdateEditModeTrue()
     setShowEditor(true)
   }
 
   const saveClickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: false })
-    updateCallList()
+    dbUpdateEditModeFalse()
     setShowEditor(false)
   }
 
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
-    setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue })
+    setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue } )
+    setStateHookShouldSupportCALLBACKS( updatedValue, fieldName )
   }
 
   return (
