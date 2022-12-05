@@ -12,16 +12,18 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
 
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
-  const toggleEditor = () => {
-    setShowEditor(!showEditor)
-  }
+  // const toggleEditor = () => {
+  //   setShowEditor(!showEditor)
+  // }
 
   const updateCallList = () => {
+    console.log("This is what we're updating, should be false", updatedEntry)
+    let target = {...updatedEntry, editMode: false } 
     fetch(`/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
-        "updatedEntry": updatedEntry
+        "updatedEntry": target
       }),
         "headers": {
           "Content-Type": "application/json"
@@ -31,9 +33,33 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
       .then(res => setEvent(res.data))
   }
 
+  const dbUpdateEditModeOnly = () => {
+    console.log("This is what we're updating, should be true", updatedEntry)
+    let target = {...updatedEntry, editMode: true } 
+    fetch(`/callList/${event._id}`, {
+      "method": "PATCH",
+      "body": JSON.stringify({
+        "index": idx,
+        "updatedEntry": target
+      }),
+        "headers": {
+          "Content-Type": "application/json"
+        }
+    })
+    // .then(res => res.json())
+    // .then(res => setEvent(res.data))
+  }
+
+  const clickHandler = () => {
+    setUpdatedEntry( {...updatedEntry, editMode: true })
+    dbUpdateEditModeOnly()
+    setShowEditor(true)
+  }
+
   const saveClickHandler = () => {
+    setUpdatedEntry( {...updatedEntry, editMode: false })
     updateCallList()
-    toggleEditor()
+    setShowEditor(false)
   }
 
   const handleChange = (ev, fieldName) => {
@@ -45,7 +71,7 @@ const CallListPosition = ({event, memberList, setEvent, idx}) => {
     <Container>
       { ! showEditor
         ? // DISPLAY POSITION
-          <CallListPositionWrapper onClick={toggleEditor}>
+          <CallListPositionWrapper onClick={clickHandler}>
             <InnerText>{`${updatedEntry.position}: ${updatedEntry.name}`}</InnerText>
           </CallListPositionWrapper>
         : // EDIT THE POSITION
