@@ -28,7 +28,9 @@ const CalendarModule = () => {
 
   // Jump To Specific Month
   const jump = () => {
-    setActiveDate(new Date(document.getElementById("year"), document.getElementById("month")))
+    let selectYear = document.getElementById("year")
+    let selectMonth = document.getElementById("month")
+    setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
 
   // Jump To Today's Date
@@ -52,10 +54,10 @@ const CalendarModule = () => {
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
 
-        <JumpSectionForm className="form-inline">
-            <JumpLabel className="lead mr-2 ml-2" htmlFor="month"> Jump To:{" "} </JumpLabel>
+        <JumpSectionForm /*className="form-inline"*/>
+            <JumpLabel /*className="lead mr-2 ml-2"*/ htmlFor="month"> Jump To:{" "} </JumpLabel>
             <MonthSelect
-                className="form-control col-sm-4"
+                // className="form-control col-sm-4"
                 name="month"
                 id="month"
                 value={activeDate.getMonth()} 
@@ -64,7 +66,7 @@ const CalendarModule = () => {
             </MonthSelect>
             <label htmlFor="year" />
             <YearSelect
-                className="form-control col-sm-4"
+                // className="form-control col-sm-4"
                 name="year"
                 id="year"
                 value={activeDate.getFullYear()} 
