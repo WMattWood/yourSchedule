@@ -6,6 +6,28 @@ import { v4 as uuidv4 } from 'uuid'
 
 const AddEventModal = () => {
 
+  // DAYS
+  let days = []
+  let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
+  for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
+    days.push(i)
+  }
+  
+  // YEARS
+  let years = []
+  for ( let i = 2000; i <= 2038; i++ ) {
+    years.push(i)
+  }
+
+  // MONTHS
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+  // STAFF NUMBERS
+  var staffArray = [];
+  for ( let i = 0; i <= 16; i++) {
+    staffArray.push(i);
+  }
+
   const { setModalVisibility,
           monthlyCalendar,
           setMonthlyCalendar, 
@@ -15,44 +37,14 @@ const AddEventModal = () => {
           setFormData,
         } = useContext(CalendarContext)
 
+  const [ errorWindow, setErrorWindow ] = useState(false)
+
   const closeModal = () => { setModalVisibility(false) }
 
-  const [ errorWindow, setErrorWindow ] = useState(false)
   const errorPopup = () => {
     setErrorWindow(!errorWindow)
   }
-
-  // I think we don't need this because it already happens in the CalendarContext
-  // useEffect( () => {
-  //   setFormData({ ...formData,
-  //                 dateMonth: activeDate.getMonth(),
-  //                 dateDay: activeDate.getDate(),
-  //                 dateYear: activeDate.getFullYear()
-  //             })
-  // }, [activeDate])
                      
-  // Generating Iterables
-  // MONTHS
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  // YEARS
-  let years = []
-  for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(i)
-  }
-  // DAYS
-  let days = []
-  let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
-  for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
-    days.push(i)
-  }
-  // STAFF NUMBERS
-  var staffArray = [];
-  for ( let i = 0; i <= 16; i++) {
-    staffArray.push(i);
-  }
-
-
-
   const submitHandler = async (ev) => {
     ev.preventDefault();
 
@@ -208,6 +200,7 @@ const AddEventModal = () => {
   )
 }
 
+// FRAME
 const ModalHolder = styled.div`
   margin-left: 45px;
 `
@@ -313,7 +306,7 @@ const EventDataSubmit = styled.button`
   cursor: pointer;
 `
 
-// An error popup which displays if a user tries to submit with a CallList of 0. 
+// ERROR POPUP 
 const ErrorDialog = styled.dialog`
   position: absolute;
   top: 50%;
