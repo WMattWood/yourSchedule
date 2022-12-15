@@ -54,24 +54,22 @@ const CalendarModule = () => {
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
 
-        <JumpSectionForm /*className="form-inline"*/>
-            <JumpLabel /*className="lead mr-2 ml-2"*/ htmlFor="month"> Jump To:{" "} </JumpLabel>
+        <JumpSectionForm>
+            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
             <MonthSelect
-                // className="form-control col-sm-4"
                 name="month"
                 id="month"
                 value={activeDate.getMonth()} 
-                onChange={ () => jump() }
-                > {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
+                onChange={ () => jump() } > 
+                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
             </MonthSelect>
             <label htmlFor="year" />
             <YearSelect
-                // className="form-control col-sm-4"
                 name="year"
                 id="year"
                 value={activeDate.getFullYear()} 
-                onChange={ () => jump() }
-                > {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
+                onChange={ () => jump() } > 
+                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
             </YearSelect>
           </JumpSectionForm>
       </HeaderWrapper>
@@ -145,12 +143,13 @@ const CalendarModule = () => {
       {/* {console.log(monthlyCalendar)} */}
       {getHeader()}
       {getWeekDayNames()}
-      { monthlyCalendar
+      {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
+      {/* { monthlyCalendar
         ? <>
           {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
           </>
         : null
-      }
+      } */}
     </section>
   );
 };
@@ -187,7 +186,7 @@ const MonthTitle = styled.h2 `
   font-size: 24px;
 `
 const NavWrapper = styled.div`
-  display: flex
+  display: flex;
 `
 const NavIcon = styled.div`
   width: 20px;
