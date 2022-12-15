@@ -125,7 +125,6 @@ const CalendarModule = () => {
       }
       arrayOfWeeks.push(week)
     }
-    // console.log(arrayOfWeeks)
     return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
   }
 
@@ -140,7 +139,6 @@ const CalendarModule = () => {
   /// JSX RETURN
   return (
     <section>
-      {/* {console.log(monthlyCalendar)} */}
       {getHeader()}
       {getWeekDayNames()}
       {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
