@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
-const AddEventModal = ({ errorPopup }) => {
+const AddEventModal = () => {
 
   const { setModalVisibility,
           monthlyCalendar,
@@ -16,6 +16,11 @@ const AddEventModal = ({ errorPopup }) => {
         } = useContext(CalendarContext)
 
   const closeModal = () => { setModalVisibility(false) }
+
+  const [ errorWindow, setErrorWindow ] = useState(false)
+  const errorPopup = () => {
+    setErrorWindow(!errorWindow)
+  }
 
   // I think we don't need this because it already happens in the CalendarContext
   // useEffect( () => {
@@ -119,7 +124,7 @@ const AddEventModal = ({ errorPopup }) => {
   }
 
   return (
-    <>
+    <ModalHolder>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
         <XButton onClick={ closeModal }>X</XButton>
         <AllFields>
@@ -188,9 +193,24 @@ const AddEventModal = ({ errorPopup }) => {
         </AllFields>
         <EventDataSubmit type="submit">SUBMIT</EventDataSubmit>
       </EventForm>
-    </>
+
+      { ! errorWindow
+        ? null
+        : <ErrorDialog open>
+            <p>The CallList must have at least 1 person.</p>
+            <form method="dialog">
+              <button onClick={errorPopup}>OK</button>
+            </form>
+          </ErrorDialog>
+      }
+
+    </ModalHolder>
   )
 }
+
+const ModalHolder = styled.div`
+  margin-left: 45px;
+`
 
 // FORM X BUTTON
 const XButton = styled.div`
@@ -291,5 +311,17 @@ const EventDataSubmit = styled.button`
   height: 60px;
   margin-top: 20px;
   cursor: pointer;
+`
+
+// An error popup which displays if a user tries to submit with a CallList of 0. 
+const ErrorDialog = styled.dialog`
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #d3d3d3;
+  border: 3px solid black;
+  z-index: 2;
 `
 export default AddEventModal

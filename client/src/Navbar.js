@@ -7,27 +7,28 @@ import { CalendarContext } from './CalendarContext';
 
 const Navbar = () => {
 
-  const navigate = useNavigate();
-  const { user, isAuthenticated, isLoading } = useAuth0()
-  const { monthlyCalendar } = useContext(CalendarContext)
 
+  const { isAuthenticated } = useAuth0()
+  const navigate = useNavigate();
+
+  // LINKS
   const linkToCalendar = () => {
     navigate("/calendar");
   };
 
-  const linkToEventDetails = async () => {
-    let defaultEventId = "meep"
+  const linkToRoster = () => {
+    navigate("/roster");
+  };
 
-    // if (monthlyCalendar) {
-    //   defaultEventId = monthlyCalendar[0]._id
-    // } else {
-    //   const availableEvents = await fetch(`/calendar/allevents`)
-    //   .then(res => res.json() )
-    //   .then(res => res.data)
+  const linkToHome = () => {
+    navigate("/");
+  };
+
+  const linkToEventDetails = async () => {
     
-    //   defaultEventId = availableEvents[0]._id 
-    // }
-    
+    // if no events exist yet, we will navigate to a page with no events.
+    let defaultEventId = "uneventful"
+
     const availableEvents = await fetch(`/calendar/allevents`)
         .then(res => res.json() )
         .then(res => res.data)
@@ -37,14 +38,6 @@ const Navbar = () => {
     } 
 
     navigate(`/event/${defaultEventId}`);
-  };
-
-  const linkToRoster = () => {
-    navigate("/roster");
-  };
-
-  const linkToHome = () => {
-    navigate("/");
   };
 
   return (
@@ -68,8 +61,6 @@ const Navbar = () => {
 }
 
 const Title = styled.div`
-  /* padding-top: 30px; */
-  /* padding-bottom: 10px; */
   font-size: 48px;
   margin: 0px;
 
@@ -85,26 +76,30 @@ const NavbarContainer = styled.div`
   border-bottom: 4px solid black;
   width: 100%;
   height: 50px;
-  /* margin: 0px 5px; */
+
   * {
     margin: 2px 0px;
   }
 `
+
 const LeftSide = styled.div`
   display: flex;
   align-items: end;
   width: 300px;
 `
+
 const RightSide = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
   width: 300px;
 `
+
 const Link = styled.div`
   font-size: 24px;
   border-bottom: 3px solid black;
   transition: border-bottom 0.2s, color 0.2s;
+
   &:hover {
     cursor: pointer;
     border-bottom: 3px solid goldenrod;

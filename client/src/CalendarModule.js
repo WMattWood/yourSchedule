@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { format, subMonths, addMonths } from "date-fns";
@@ -8,37 +8,32 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'
 
 const CalendarModule = () => {
-  
-  const { activeDate, setActiveDate, monthlyCalendar, setMonthlyCalendar } = useContext(CalendarContext)
 
-  // const [selectedDate, setSelectedDate] = useState(new Date());
-  // const [monthlyCalendar, setMonthlyCalendar] = useState([])
-
-  useEffect( () => {
-    selectYear = document.getElementById("year")
-    selectMonth = document.getElementById("month")
-  }, [])
-
-  let selectYear = document.getElementById("year")
-  let selectMonth = document.getElementById("month")
-
-  let today = new Date();
-  let currentMonth = activeDate.getMonth();
-  let currentYear = activeDate.getFullYear();
+  // DAYS/MONTHS/YEARS
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   let years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
- 
+
+  // The activeDate is used to determine which square on the calendar shows as highlighted
+  // It also determines which day will display in the AddEventModal's date selection input
+  // The monthlyCalendar determines what calendar month is displayed in the CalendarModule
+  // It also determines which month/year will display in the AddEventModal's date selection 
+  // input.
+  // Because these pieces of state are required by DayCell, CalendarModule and AddEventModal
+  // they are stored in the CalendarContext to allow unified access to that information. 
+  const { activeDate, setActiveDate, monthlyCalendar, setMonthlyCalendar } = useContext(CalendarContext)
+
   // Jump To Specific Month
   const jump = () => {
-    console.log(selectYear.value)
-    console.log(selectMonth.value)
+    let selectYear = document.getElementById("year")
+    let selectMonth = document.getElementById("month")
     setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
 
+  // Jump To Today's Date
   const jumpToday = () => {
     setActiveDate( new Date() )
   }
@@ -59,24 +54,22 @@ const CalendarModule = () => {
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
 
-        <JumpSectionForm className="form-inline">
-            <JumpLabel className="lead mr-2 ml-2" htmlFor="month"> Jump To:{" "} </JumpLabel>
+        <JumpSectionForm>
+            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
             <MonthSelect
-                className="form-control col-sm-4"
                 name="month"
                 id="month"
                 value={activeDate.getMonth()} 
-                onChange={ () => jump() }
-                > {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
+                onChange={ () => jump() } > 
+                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
             </MonthSelect>
             <label htmlFor="year" />
             <YearSelect
-                className="form-control col-sm-4"
                 name="year"
                 id="year"
                 value={activeDate.getFullYear()} 
-                onChange={ () => jump() }
-                > {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
+                onChange={ () => jump() } > 
+                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
             </YearSelect>
           </JumpSectionForm>
       </HeaderWrapper>
@@ -132,7 +125,6 @@ const CalendarModule = () => {
       }
       arrayOfWeeks.push(week)
     }
-    // console.log(arrayOfWeeks)
     return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
   }
 
@@ -147,15 +139,15 @@ const CalendarModule = () => {
   /// JSX RETURN
   return (
     <section>
-      {/* {console.log(monthlyCalendar)} */}
       {getHeader()}
       {getWeekDayNames()}
-      { monthlyCalendar
+      {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
+      {/* { monthlyCalendar
         ? <>
-          {getCalendar(currentYear, currentMonth)}
+          {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
           </>
         : null
-      }
+      } */}
     </section>
   );
 };
@@ -192,7 +184,7 @@ const MonthTitle = styled.h2 `
   font-size: 24px;
 `
 const NavWrapper = styled.div`
-  display: flex
+  display: flex;
 `
 const NavIcon = styled.div`
   width: 20px;
