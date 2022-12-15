@@ -29,8 +29,8 @@ const AddEventModal = () => {
   }
 
   const { setModalVisibility,
-          monthlyCalendar,
-          setMonthlyCalendar, 
+          monthlyEventListings,
+          setMonthlyEventListings, 
           activeDate, 
           setActiveDate, 
           formData, 
@@ -81,8 +81,8 @@ const AddEventModal = () => {
                 })
 
     // force the calendar to re-render after adding a new event
-    let newMonthlyCalendar = [...monthlyCalendar, newCalendarEvent]
-    setMonthlyCalendar(newMonthlyCalendar)
+    let newMonthlyEventListings = [...monthlyEventListings, newCalendarEvent]
+    setMonthlyEventListings(newMonthlyEventListings)
   }
 
   const inputHandler = (ev, field) => {

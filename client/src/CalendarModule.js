@@ -19,12 +19,12 @@ const CalendarModule = () => {
 
   // The activeDate is used to determine which square on the calendar shows as highlighted
   // It also determines which day will display in the AddEventModal's date selection input
-  // The monthlyCalendar determines what calendar month is displayed in the CalendarModule
+  // The monthlyEventListings determines what calendar month is displayed in the CalendarModule
   // It also determines which month/year will display in the AddEventModal's date selection 
   // input.
   // Because these pieces of state are required by DayCell, CalendarModule and AddEventModal
   // they are stored in the CalendarContext to allow unified access to that information. 
-  const { activeDate, setActiveDate, monthlyCalendar, setMonthlyCalendar } = useContext(CalendarContext)
+  const { activeDate, setActiveDate, monthlyEventListings, setMonthlyEventListings } = useContext(CalendarContext)
 
   // Jump To Specific Month
   const jump = () => {
@@ -108,7 +108,7 @@ const CalendarModule = () => {
         // status is applied to the  component which render a red background for the cell
         const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
         const isToday = ( activeDate.getDate() === currentDate ) 
-        const actualEvents = monthlyCalendar.filter( event => event.dateDay === currentDate )
+        const actualEvents = monthlyEventListings.filter( event => event.dateDay === currentDate )
         
         if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
           week.push(blankSquare);
@@ -133,7 +133,7 @@ const CalendarModule = () => {
   useEffect( () => {
     fetch(`/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
-      .then( res => setMonthlyCalendar(res.data) )
+      .then( res => setMonthlyEventListings(res.data) )
   }, [activeDate] )
 
   /// JSX RETURN
@@ -142,7 +142,7 @@ const CalendarModule = () => {
       {getHeader()}
       {getWeekDayNames()}
       {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
-      {/* { monthlyCalendar
+      {/* { monthlyEventListings
         ? <>
           {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
           </>

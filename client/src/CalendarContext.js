@@ -7,7 +7,7 @@ export const CalendarContext = createContext(null);
 export const CalendarProvider = ({ children }) => {
 
     const [ modalVisibility, setModalVisibility ] = useState(false)
-    const [ monthlyCalendar, setMonthlyCalendar ] = useState([])
+    const [ monthlyEventListings, setMonthlyEventListings ] = useState([])
     const [ activeDate, setActiveDate ] = useState(new Date());
     const [ formData, setFormData ] = useState( { name: "", 
                                                   location: "",
@@ -31,8 +31,8 @@ export const CalendarProvider = ({ children }) => {
             value={{
                 modalVisibility,
                 setModalVisibility,
-                monthlyCalendar,
-                setMonthlyCalendar,
+                monthlyEventListings,
+                setMonthlyEventListings,
                 activeDate,
                 setActiveDate,
                 formData,
