@@ -27,7 +27,7 @@ const Navbar = () => {
   const linkToEventDetails = async () => {
     
     // if no events exist yet, we will navigate to a page with no events.
-    let defaultEventId = "meep"
+    let defaultEventId = "uneventful"
 
     const availableEvents = await fetch(`/calendar/allevents`)
         .then(res => res.json() )
