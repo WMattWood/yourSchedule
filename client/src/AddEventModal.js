@@ -6,6 +6,15 @@ import { v4 as uuidv4 } from 'uuid'
 
 const AddEventModal = () => {
 
+  const { setModalVisibility,
+    monthlyEventListings,
+    setMonthlyEventListings, 
+    activeDate, 
+    setActiveDate, 
+    formData, 
+    setFormData,
+  } = useContext(CalendarContext)
+
   // DAYS
   let days = []
   let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
@@ -27,15 +36,6 @@ const AddEventModal = () => {
   for ( let i = 0; i <= 16; i++) {
     staffArray.push(i);
   }
-
-  const { setModalVisibility,
-          monthlyEventListings,
-          setMonthlyEventListings, 
-          activeDate, 
-          setActiveDate, 
-          formData, 
-          setFormData,
-        } = useContext(CalendarContext)
 
   const [ errorWindow, setErrorWindow ] = useState(false)
 
