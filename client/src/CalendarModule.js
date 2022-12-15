@@ -9,14 +9,6 @@ import DayCell from './DayCell'
 
 const CalendarModule = () => {
 
-  // DAYS/MONTHS/YEARS
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  let years = []
-  for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(i)
-  }
-
   // The activeDate is used to determine which square on the calendar shows as highlighted
   // It also determines which day will display in the AddEventModal's date selection input
   // The monthlyEventListings determines what calendar month is displayed in the CalendarModule
@@ -26,66 +18,15 @@ const CalendarModule = () => {
   // they are stored in the CalendarContext to allow unified access to that information. 
   const { activeDate, setActiveDate, monthlyEventListings, setMonthlyEventListings } = useContext(CalendarContext)
 
-  // Jump To Specific Month
-  const jump = () => {
-    let selectYear = document.getElementById("year")
-    let selectMonth = document.getElementById("month")
-    setActiveDate(new Date(selectYear.value, selectMonth.value))
+  // DAYS/MONTHS/YEARS
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  let years = []
+  for ( let i = 2000; i <= 2038; i++ ) {
+    years.push(i)
   }
 
-  // Jump To Today's Date
-  const jumpToday = () => {
-    setActiveDate( new Date() )
-  }
-
-  // Generate Header
-  const getHeader = () => {
-
-    return (
-      <HeaderWrapper>
-        <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
-        <NavWrapper>
-          <NavIcon onClick={() => setActiveDate(subMonths(activeDate, 1))}>
-            <AiOutlineLeft />
-          </NavIcon>
-          <NavIcon onClick={() => setActiveDate(addMonths(activeDate, 1))}>
-            <AiOutlineRight />
-          </NavIcon>
-        </NavWrapper>
-        <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
-
-        <JumpSectionForm>
-            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
-            <MonthSelect
-                name="month"
-                id="month"
-                value={activeDate.getMonth()} 
-                onChange={ () => jump() } > 
-                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
-            </MonthSelect>
-            <label htmlFor="year" />
-            <YearSelect
-                name="year"
-                id="year"
-                value={activeDate.getFullYear()} 
-                onChange={ () => jump() } > 
-                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
-            </YearSelect>
-          </JumpSectionForm>
-      </HeaderWrapper>
-    );
-  };
-
-  // Generate WeekdayTitles
-  const getWeekDayNames = () => {
-    return (
-      <CalendarGrid>
-        { daysOfTheWeek.map( day => <WeekDayTitle key={uuidv4()}>{day}</WeekDayTitle> ) }
-      </CalendarGrid>
-    )
-  }
-
-  // Generate Calendar Grid
+  // CALENDAR LOGIC
   const getCalendar = (year, month) => {
     // set first day of month and days in current month
     let firstDayOfTheMonth = (new Date(year, month)).getDay()
@@ -96,7 +37,6 @@ const CalendarModule = () => {
     for (let weekRow = 0; weekRow < 6; weekRow++) {
       let week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        // setting up different versions of DayCell component
         // __________________________
         // if there are events on the currentDate, an array of those events is
         // sent into the DayCell component where the eventStatus property is set to 
@@ -128,8 +68,22 @@ const CalendarModule = () => {
     return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
   }
 
-  // Set the calendar for this month, so we can scan through it and see
-  // if a given DayCell needs to have an event on it.
+  // Jump To Specific Month
+  const jump = () => {
+    let selectYear = document.getElementById("year")
+    let selectMonth = document.getElementById("month")
+    setActiveDate(new Date(selectYear.value, selectMonth.value))
+  }
+
+  // Jump To Today's Date
+  const jumpToday = () => {
+    setActiveDate( new Date() )
+  }
+
+  // Set the event listings for this month based on the currently 
+  // focused date. THIS COULD BE THE SPOT WE NEED TO REFACTOR IF
+  // WE WANT TO HAVE THE EVENTS DISPLAY AFTER WE NAV TO NEW MONTH
+  // Set Monthly Event Listings
   useEffect( () => {
     fetch(`/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
@@ -139,15 +93,48 @@ const CalendarModule = () => {
   /// JSX RETURN
   return (
     <section>
-      {getHeader()}
-      {getWeekDayNames()}
+      
+      {/* Render Calendar Header */}
+      <HeaderWrapper>
+        <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
+        <NavWrapper>
+          <NavIcon onClick={() => setActiveDate(subMonths(activeDate, 1))}>
+            <AiOutlineLeft />
+          </NavIcon>
+          <NavIcon onClick={() => setActiveDate(addMonths(activeDate, 1))}>
+            <AiOutlineRight />
+          </NavIcon>
+        </NavWrapper>
+        <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
+
+        <JumpSectionForm>
+            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
+            <MonthSelect
+                name="month"
+                id="month"
+                value={activeDate.getMonth()} 
+                onChange={ () => jump() } > 
+                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
+            </MonthSelect>
+            <label htmlFor="year" />
+            <YearSelect
+                name="year"
+                id="year"
+                value={activeDate.getFullYear()} 
+                onChange={ () => jump() } > 
+                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
+            </YearSelect>
+          </JumpSectionForm>
+      </HeaderWrapper>
+      
+      {/* Render Days of the Week */}
+      <CalendarGrid>
+        { daysOfTheWeek.map( day => <WeekDayTitle key={uuidv4()}>{day}</WeekDayTitle> ) }
+      </CalendarGrid>
+
+      {/* Render Actual Calendar Grid */}
       {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
-      {/* { monthlyEventListings
-        ? <>
-          {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
-          </>
-        : null
-      } */}
+
     </section>
   );
 };
