@@ -9,7 +9,6 @@ const CalendarPage = () => {
 
   const { modalVisibility, setModalVisibility} = useContext(CalendarContext);
   const [ errorWindow, setErrorWindow ] = useState(false)
-  // console.log("This is what the activeDate looks like", activeDate)
 
   const errorPopup = () => {
     setErrorWindow(!errorWindow)
@@ -17,39 +16,35 @@ const CalendarPage = () => {
 
   return(
     <>
-    <PageLeftRight>
-      {/* <h1>Welcome to my CalendarPage!</h1> */}
-      <CalendarModule/>
-      { 
-        ! errorWindow
-        ? null
-        : <ErrorDialog open>
-            <p>The CallList must have at least 1 person.</p>
-            <form method="dialog">
-              <button onClick={errorPopup}>OK</button>
-            </form>
-          </ErrorDialog>
-      }
-      <ModalHolder>
-      { 
-        ! modalVisibility 
-        ? null
-        : <AddEventModal errorPopup={errorPopup}/>
-      }
-      </ModalHolder>
-      
-    </PageLeftRight>
-    <AddEventButton onClick={ () => { setModalVisibility(!modalVisibility) } }>+ Add Event</AddEventButton>
+      <PageLeftRight>
+        <CalendarModule/>
+        { ! errorWindow
+          ? null
+          : <ErrorDialog open>
+              <p>The CallList must have at least 1 person.</p>
+              <form method="dialog">
+                <button onClick={errorPopup}>OK</button>
+              </form>
+            </ErrorDialog>
+        }
+        { ! modalVisibility 
+          ? null
+          : <AddEventModal errorPopup={errorPopup}/>
+        }
+      </PageLeftRight>
+      <AddEventButton onClick={ () => { setModalVisibility(!modalVisibility) } }>+ Add Event</AddEventButton>
     </>
   )
 }
 
+// Main page divider
 const PageLeftRight = styled.div`
   display: flex;
   justify-content: start;
   align-items: end;
 `
 
+// An error popup which displays if a user tries to submit with a CallList of 0. 
 const ErrorDialog = styled.dialog`
   position: absolute;
   top: 50%;
@@ -61,12 +56,6 @@ const ErrorDialog = styled.dialog`
   z-index: 2;
 `
 
-const ModalHolder = styled.div`
-  margin-left: 45px;
-  /* position: absolute; */
-  /* left: 800px; */
-  /* top: 240px; */
-`
 const AddEventButton = styled.button`
   height: 40px;
   width: 140px;

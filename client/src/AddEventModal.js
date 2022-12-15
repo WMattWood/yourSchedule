@@ -119,7 +119,7 @@ const AddEventModal = ({ errorPopup }) => {
   }
 
   return (
-    <>
+    <ModalHolder>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
         <XButton onClick={ closeModal }>X</XButton>
         <AllFields>
@@ -188,9 +188,13 @@ const AddEventModal = ({ errorPopup }) => {
         </AllFields>
         <EventDataSubmit type="submit">SUBMIT</EventDataSubmit>
       </EventForm>
-    </>
+    </ModalHolder>
   )
 }
+
+const ModalHolder = styled.div`
+  margin-left: 45px;
+`
 
 // FORM X BUTTON
 const XButton = styled.div`
