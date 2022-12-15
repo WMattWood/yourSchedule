@@ -9,6 +9,15 @@ import DayCell from './DayCell'
 
 const CalendarModule = () => {
 
+  // The activeDate is used to determine which square on the calendar shows as highlighted
+  // It also determines which day will display in the AddEventModal's date selection input
+  // The monthlyEventListings determines what calendar month is displayed in the CalendarModule
+  // It also determines which month/year will display in the AddEventModal's date selection 
+  // input.
+  // Because these pieces of state are required by DayCell, CalendarModule and AddEventModal
+  // they are stored in the CalendarContext to allow unified access to that information. 
+  const { activeDate, setActiveDate, monthlyEventListings, setMonthlyEventListings } = useContext(CalendarContext)
+
   // DAYS/MONTHS/YEARS
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -17,14 +26,47 @@ const CalendarModule = () => {
     years.push(i)
   }
 
-  // The activeDate is used to determine which square on the calendar shows as highlighted
-  // It also determines which day will display in the AddEventModal's date selection input
-  // The monthlyCalendar determines what calendar month is displayed in the CalendarModule
-  // It also determines which month/year will display in the AddEventModal's date selection 
-  // input.
-  // Because these pieces of state are required by DayCell, CalendarModule and AddEventModal
-  // they are stored in the CalendarContext to allow unified access to that information. 
-  const { activeDate, setActiveDate, monthlyCalendar, setMonthlyCalendar } = useContext(CalendarContext)
+  // CALENDAR LOGIC
+  const getCalendar = (year, month) => {
+    // set first day of month and days in current month
+    let firstDayOfTheMonth = (new Date(year, month)).getDay()
+    let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
+    // initialize "currentDate" count
+    let currentDate = 1
+    let arrayOfWeeks = []
+    for (let weekRow = 0; weekRow < 6; weekRow++) {
+      let week = []
+      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+        // __________________________
+        // if there are events on the currentDate, an array of those events is
+        // sent into the DayCell component where the eventStatus property is set to 
+        // either eventPending or eventFull based on test logic for whether all positions
+        // in the callList are set to !unfilled
+        // this property gets used to set the EVENT BAND that displays on each cell
+        // _________________________
+        // if the currentDate iterator is equal to the Calendar State "activeDate" then a "selected"
+        // status is applied to the  component which render a red background for the cell
+        const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
+        const isToday = ( activeDate.getDate() === currentDate ) 
+        const actualEvents = monthlyEventListings.filter( event => event.dateDay === currentDate )
+        
+        if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
+          week.push(blankSquare);
+        } else if (currentDate > daysInMonth) {
+          break;
+        } else {
+          week.push( <DayCell key={uuidv4()}
+                            numberMarker={ currentDate }
+                            selectedStatus={ isToday ? "selected" : null}
+                            eventArray={actualEvents}
+                            /> )
+          currentDate++;
+        }
+      }
+      arrayOfWeeks.push(week)
+    }
+    return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
+  }
 
   // Jump To Specific Month
   const jump = () => {
@@ -38,10 +80,21 @@ const CalendarModule = () => {
     setActiveDate( new Date() )
   }
 
-  // Generate Header
-  const getHeader = () => {
+  // Set the event listings for this month based on the currently 
+  // focused date. THIS COULD BE THE SPOT WE NEED TO REFACTOR IF
+  // WE WANT TO HAVE THE EVENTS DISPLAY AFTER WE NAV TO NEW MONTH
+  // Set Monthly Event Listings
+  useEffect( () => {
+    fetch(`/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
+      .then( res => res.json() )
+      .then( res => setMonthlyEventListings(res.data) )
+  }, [activeDate] )
 
-    return (
+  /// JSX RETURN
+  return (
+    <section>
+      
+      {/* Render Calendar Header */}
       <HeaderWrapper>
         <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
         <NavWrapper>
@@ -73,81 +126,15 @@ const CalendarModule = () => {
             </YearSelect>
           </JumpSectionForm>
       </HeaderWrapper>
-    );
-  };
-
-  // Generate WeekdayTitles
-  const getWeekDayNames = () => {
-    return (
+      
+      {/* Render Days of the Week */}
       <CalendarGrid>
         { daysOfTheWeek.map( day => <WeekDayTitle key={uuidv4()}>{day}</WeekDayTitle> ) }
       </CalendarGrid>
-    )
-  }
 
-  // Generate Calendar Grid
-  const getCalendar = (year, month) => {
-    // set first day of month and days in current month
-    let firstDayOfTheMonth = (new Date(year, month)).getDay()
-    let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
-    // initialize "currentDate" count
-    let currentDate = 1
-    let arrayOfWeeks = []
-    for (let weekRow = 0; weekRow < 6; weekRow++) {
-      let week = []
-      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        // setting up different versions of DayCell component
-        // __________________________
-        // if there are events on the currentDate, an array of those events is
-        // sent into the DayCell component where the eventStatus property is set to 
-        // either eventPending or eventFull based on test logic for whether all positions
-        // in the callList are set to !unfilled
-        // this property gets used to set the EVENT BAND that displays on each cell
-        // _________________________
-        // if the currentDate iterator is equal to the Calendar State "activeDate" then a "selected"
-        // status is applied to the  component which render a red background for the cell
-        const blankSquare = <DayCell key={uuidv4()} numberMarker={""}></DayCell>
-        const isToday = ( activeDate.getDate() === currentDate ) 
-        const actualEvents = monthlyCalendar.filter( event => event.dateDay === currentDate )
-        
-        if ( weekRow === 0 && dayOfWeek < firstDayOfTheMonth) {
-          week.push(blankSquare);
-        } else if (currentDate > daysInMonth) {
-          break;
-        } else {
-          week.push( <DayCell key={uuidv4()}
-                            numberMarker={ currentDate }
-                            selectedStatus={ isToday ? "selected" : null}
-                            eventArray={actualEvents}
-                            /> )
-          currentDate++;
-        }
-      }
-      arrayOfWeeks.push(week)
-    }
-    return <CalendarGrid>{arrayOfWeeks}</CalendarGrid>
-  }
-
-  // Set the calendar for this month, so we can scan through it and see
-  // if a given DayCell needs to have an event on it.
-  useEffect( () => {
-    fetch(`/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
-      .then( res => res.json() )
-      .then( res => setMonthlyCalendar(res.data) )
-  }, [activeDate] )
-
-  /// JSX RETURN
-  return (
-    <section>
-      {getHeader()}
-      {getWeekDayNames()}
+      {/* Render Actual Calendar Grid */}
       {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
-      {/* { monthlyCalendar
-        ? <>
-          {getCalendar( activeDate.getFullYear(), activeDate.getMonth() )}
-          </>
-        : null
-      } */}
+
     </section>
   );
 };
