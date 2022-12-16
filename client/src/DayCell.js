@@ -87,10 +87,6 @@ const Container = styled.div`
 `
 
 const DayCellWrapper = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start; */
   padding-left: 2px;
   position: relative;
   box-sizing: content-box;
@@ -104,8 +100,6 @@ const NumCircle = styled.div`
   position: absolute;
   top: 9px;
   left: 3px;
-  /* height: 30px; */
-  /* width: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +127,6 @@ const EventBand = styled.div`
   width: 96%;
   height: 30%;
   margin-bottom: 2%;
-  /* opacity: 0.6; */
   visibility: visible;
   cursor: pointer;
 
