@@ -1,15 +1,23 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 
+// A GENERIC DISPLAY/EDIT FIELD FOR EVENT DETAILS (NAME, LOCATION, COMPANY)
 const EventDetail = ({fieldName, fieldProperty, event}) => {
 
+  // Toggle for showing and hiding edit view
   const [ showEditor, setShowEditor] = useState(false)
+
+  // Local updated state value
+  // This state is used to display whatever the most up to date/modified state is.
+  // This is also what gets delivered to the database on saveClick
   const [ updatedProperty, setUpdatedProperty ] = useState(event[fieldProperty])
 
+  // Toggles DISPLAY/EDITOR mode
   const toggleEditor = () => {
     setShowEditor(!showEditor)
   }
 
+  // Submits data to the database
   const saveClickHandler = () => {
     fetch(`/calendar/${event._id}`, {
         "method": "PATCH",
@@ -21,16 +29,15 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
         }
       }
     )
-
     toggleEditor()
   }
 
+  // Updates the updatedProperty state whenever the field is changed.
   const handleChange = (ev) => {
     let text = ev.currentTarget.value
     setUpdatedProperty(text)
   }
   
-
   return (
     <FieldWrapper>
       { ! showEditor 
@@ -39,7 +46,6 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
-            
             <DisplayedField>{`${fieldName}:`}</DisplayedField>
             <EditMenuWrapper>
               <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
@@ -53,14 +59,34 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
     </FieldWrapper>
   )
 }
+
+// CONTAINER
+const FieldWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 99%;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px black;
+  margin: 5px 0px;
+`
+// DISPLAY
+const DisplayedField = styled.div`
+  margin: 5px 0px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 200;
+  width: 300px;
+`
+// EDIT MODE STUFF
 const EditMenuWrapper = styled.div`
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `
 const EditButtonsWrapper = styled.div`
-display: flex;
+  display: flex;
 `
-
 const TextInput = styled.input`
   margin: 5px 12px 5px 0px;
   width: auto;
@@ -77,28 +103,8 @@ const SaveButton = styled.button`
 `
 const CloseButton = styled.button`
   margin: 5px 4px;
-  /* margin-right: 4px; */
   width: auto;
   border-radius: 5px;
 `
-const FieldWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* height: 40px; */
-  width: 99%;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px 1px black;
-  margin: 5px 0px;
-`
-const DisplayedField = styled.div`
-  margin: 5px 0px;
-  padding: 4px 12px;
-  font-size: 18px;
-  font-weight: 200;
-  width: 300px;
-`
-
 
 export default EventDetail

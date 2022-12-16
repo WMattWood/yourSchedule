@@ -46,7 +46,6 @@ const EventPage = () => {
 
   return (
     <>
-      {/* <MainTitle>Welcome to my EventDetails!</MainTitle> */}
       { eventId === "uneventful"
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>
@@ -55,7 +54,6 @@ const EventPage = () => {
               : <LeftWrapper>
                 <EventTitle>{event.name}</EventTitle>
                 <EventWrapper>
-                  {/* <BigName>{event.name}</BigName> */}
                   <EventDetail event={event} fieldName={"Event Name"} fieldProperty={"name"}></EventDetail>
                   <EventDetail event={event} fieldName={"Location"} fieldProperty={"location"}></EventDetail>
                   <EventDetail event={event} fieldName={"Client"} fieldProperty={"client"}></EventDetail>
@@ -110,6 +108,7 @@ const EventPage = () => {
   )
 }
 
+// PAGE DIVISIONS
 const PageLeftRight = styled.div`
   display: flex;
   justify-content: space-between;
@@ -118,34 +117,9 @@ const LeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-const MainTitle = styled.h1`
-`
 const EventTitle = styled.h1`
   border-bottom: 3px solid black;
   padding-bottom: 2px;
-  /* margin: 5px 0px; */
-`
-const UpcomingEventsTitle = styled.div`
-  font-size: 28px;
-  font-weight: bold;
-  /* width: 75%; */
-  margin: 5px 0px;
-  border-bottom: 3px solid black;
-  padding-bottom: 2px;
-`
-
-const BigName = styled.div`
-  font-size: 28px;
-  font-weight: bold;
-  width: 75%;
-  margin: 5px 0px;
-  border-bottom: 3px solid black;
-  padding-bottom: 2px;
-`
-
-const Title = styled.h1`
-  width: 100%;
-  margin: 0px;
 `
 const EventWrapper = styled.div`
   display: flex;
@@ -158,9 +132,7 @@ const EventWrapper = styled.div`
   border: 3px solid black;
 `
 
-
-
-// MOVED TO EVENTDETAIL
+// CALL LIST STATUS DISPLAY
 const CallListStatus = styled.div`
   display: flex;
   align-items: center;
@@ -193,12 +165,10 @@ const NotFull = styled.div`
   width: 300px;
   color: red;
 `
-
+// EVENT LISTINGS SIDE BAR
 const EventListings = styled.div`
   height: 800px;
-  /* width: 450px; */
   width: 40%;
-  /* padding: 8px; */
 `
 const IdsWrapper = styled.div`
   margin-top: 20px;
@@ -207,6 +177,7 @@ const QuickLinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
+
   &:hover {
     cursor: pointer;
     color: goldenrod;
@@ -225,23 +196,5 @@ const IdTitle = styled.div`
 const TheIdItself = styled.a`
   width: 400px;
 `
-
-// const EditCallListButton = styled.button`
-//   width: 90px;
-//   height: 26px;
-//   border-radius: 5px;
-//   margin: 6px 5px;
-// `
-
-// const SaveCallListButton = styled.button`
-//   width: 120px;
-//   height: 26px;
-//   border-radius: 5px;
-//   margin: 6px 5px;
-//   font-weight: 600;
-//   background-color: #395980;
-//   border-radius: 10px;
-// `
-
 
 export default EventPage
