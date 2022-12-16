@@ -13,22 +13,21 @@ const RosterPage = () => {
 
   return (
     <>
-    {/* <h1>Welcome to my RosterPage!</h1> */}
-        { !roster 
-          ? <h1>Loading roster...</h1>
-          : <RosterWrapper>
-              <h1>Current Roster</h1>
-              {roster.map( member => {
-                return  <MemberWrapper>
-                            <Name>{member.name} </Name>
-                            <Phone>{member.phone} </Phone>
-                            <Email>{member.email} </Email>
-                            {/* <Address>{member.address} </Address> */}
-                            <br/>
-                        </MemberWrapper>
-              })}
-            </RosterWrapper>
-        }
+      { !roster 
+        ? <h1>Loading roster...</h1>
+        : <RosterWrapper>
+            <h1>Current Roster</h1>
+            {roster.map( member => {
+              return  <MemberWrapper>
+                          <Name>{member.name} </Name>
+                          <Phone>{member.phone} </Phone>
+                          <Email>{member.email} </Email>
+                          {/* <Address>{member.address} </Address> */}
+                          <br/>
+                      </MemberWrapper>
+            })}
+          </RosterWrapper>
+      }
     </>
   )
 }

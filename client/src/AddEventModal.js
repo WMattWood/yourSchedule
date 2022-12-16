@@ -4,50 +4,47 @@ import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
-const AddEventModal = ({ errorPopup }) => {
+const AddEventModal = () => {
 
   const { setModalVisibility,
-          monthlyCalendar,
-          setMonthlyCalendar, 
-          activeDate, 
-          setActiveDate, 
-          formData, 
-          setFormData,
-        } = useContext(CalendarContext)
+    monthlyEventListings,
+    setMonthlyEventListings, 
+    activeDate, 
+    setActiveDate, 
+    formData, 
+    setFormData,
+  } = useContext(CalendarContext)
 
-  const closeModal = () => { setModalVisibility(false) }
-
-  // I think we don't need this because it already happens in the CalendarContext
-  // useEffect( () => {
-  //   setFormData({ ...formData,
-  //                 dateMonth: activeDate.getMonth(),
-  //                 dateDay: activeDate.getDate(),
-  //                 dateYear: activeDate.getFullYear()
-  //             })
-  // }, [activeDate])
-                     
-  // Generating Iterables
-  // MONTHS
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  // YEARS
-  let years = []
-  for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(i)
-  }
   // DAYS
   let days = []
   let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
     days.push(i)
   }
+  
+  // YEARS
+  let years = []
+  for ( let i = 2000; i <= 2038; i++ ) {
+    years.push(i)
+  }
+
+  // MONTHS
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
   // STAFF NUMBERS
   var staffArray = [];
   for ( let i = 0; i <= 16; i++) {
     staffArray.push(i);
   }
 
+  const [ errorWindow, setErrorWindow ] = useState(false)
 
+  const closeModal = () => { setModalVisibility(false) }
 
+  const errorPopup = () => {
+    setErrorWindow(!errorWindow)
+  }
+                     
   const submitHandler = async (ev) => {
     ev.preventDefault();
 
@@ -84,8 +81,8 @@ const AddEventModal = ({ errorPopup }) => {
                 })
 
     // force the calendar to re-render after adding a new event
-    let newMonthlyCalendar = [...monthlyCalendar, newCalendarEvent]
-    setMonthlyCalendar(newMonthlyCalendar)
+    let newMonthlyEventListings = [...monthlyEventListings, newCalendarEvent]
+    setMonthlyEventListings(newMonthlyEventListings)
   }
 
   const inputHandler = (ev, field) => {
@@ -119,7 +116,7 @@ const AddEventModal = ({ errorPopup }) => {
   }
 
   return (
-    <>
+    <ModalHolder>
       <EventForm onSubmit={ (ev) => { submitHandler(ev) } }>
         <XButton onClick={ closeModal }>X</XButton>
         <AllFields>
@@ -188,9 +185,25 @@ const AddEventModal = ({ errorPopup }) => {
         </AllFields>
         <EventDataSubmit type="submit">SUBMIT</EventDataSubmit>
       </EventForm>
-    </>
+
+      { ! errorWindow
+        ? null
+        : <ErrorDialog open>
+            <p>The CallList must have at least 1 person.</p>
+            <form method="dialog">
+              <button onClick={errorPopup}>OK</button>
+            </form>
+          </ErrorDialog>
+      }
+
+    </ModalHolder>
   )
 }
+
+// FRAME
+const ModalHolder = styled.div`
+  margin-left: 45px;
+`
 
 // FORM X BUTTON
 const XButton = styled.div`
@@ -291,5 +304,17 @@ const EventDataSubmit = styled.button`
   height: 60px;
   margin-top: 20px;
   cursor: pointer;
+`
+
+// ERROR POPUP 
+const ErrorDialog = styled.dialog`
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #d3d3d3;
+  border: 3px solid black;
+  z-index: 2;
 `
 export default AddEventModal

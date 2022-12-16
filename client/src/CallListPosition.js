@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, setShowDeleteButton, selectForDeleteHandler}) => {
@@ -10,13 +10,12 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
                                                         editMode: event.callList[idx].editMode
                                                       })
 
-                           
+  // JOB CATEGORIES                       
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
-  // const toggleEditor = () => {
-  //   setShowEditor(!showEditor)
-  // }
-
+  // HANDLER #1 
+  // sets database, modifies EVENT STATE
+  // sets EDITMODE => false
   const dbUpdateEditModeFalse = () => {
     console.log("This is what we're updating, should be false", updatedEntry)
     let target = {...updatedEntry, editMode: false } 
@@ -34,8 +33,11 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
       .then(res => setEvent(res.data))
   }
 
+  // HANDLER #2
+  // sets database, does not modify EVENT STATE
+  // sets EDITMODE => true
   const dbUpdateEditModeTrue = () => {
-    console.log("This is what we're updating, should be true", updatedEntry)
+    // console.log("This is what we're updating, should be true", updatedEntry)
     let target = {...updatedEntry, editMode: true } 
     fetch(`/callList/${event._id}`, {
       "method": "PATCH",
@@ -51,9 +53,11 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
     // .then(res => setEvent(res.data))
   }
 
+  // HANDLER #3 
+  // sets database, does not modify EVENT STATE
   const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
     let target = {...updatedEntry, [fieldName]: updatedValue }
-    console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
+    // console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
     fetch(`/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
@@ -66,28 +70,34 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
     })
   }
 
+  // Runs the delete handler from parent component CallListDetail
+  // This is cleaner to have it here because it's a long ass invocation.
   const deleteHandlerSpecial = () => {
     selectForDeleteHandler(`${updatedEntry.position}: ${updatedEntry.name}`, idx)
   }
 
+  // Does stuff when you click on it.
   const clickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: true })
     dbUpdateEditModeTrue()
     setShowEditor(true)
   }
 
+  // Does stuff when you click save button.
   const saveClickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: false })
     dbUpdateEditModeFalse()
     setShowEditor(false)
   }
 
+  // Does stuff whenever you change a field.
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue } )
     setStateHookShouldSupportCALLBACKS( updatedValue, fieldName )
   }
 
+  // JSX RETURN
   return (
     <Container>
       { ! showEditor
@@ -102,13 +112,13 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
           <>
             <CallListPositionWrapper>
               <PositionSelect onChange={ (ev)=> handleChange(ev, "position") } value={updatedEntry.position}>
-                {jobs.map(position => <PositionOption value={position} key={uuidv4()}>{position}</PositionOption>)}
+                {jobs.map(position => <SelectOption value={position} key={uuidv4()}>{position}</SelectOption>)}
               </PositionSelect>
               <NameSelect onChange={ (ev)=> handleChange(ev, "name") } value={updatedEntry.name}>
-                  <NameOption value={"unfilled"}>unfilled</NameOption>
+                  <SelectOption value={"unfilled"}>unfilled</SelectOption>
                   { ! memberList
                     ? null
-                    : memberList.map ( member => <NameOption value={member.name} key={uuidv4()}>{member.name}</NameOption> ) 
+                    : memberList.map ( member => <SelectOption value={member.name} key={uuidv4()}>{member.name}</SelectOption> ) 
                   }
               </NameSelect>
               <SaveButton onClick={saveClickHandler} className={"float-right"} >Save</SaveButton>
@@ -120,6 +130,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   )
 }
 
+// CONTAINER
 const Container = styled.div`
   display: flex;
   justify-content: start;
@@ -128,6 +139,7 @@ const Container = styled.div`
   margin: 5px 0px;
 `
 
+// WRAPPER - CAN WE JUST MAKE ONE OF THESE INSTEAD OF TWO?
 const CallListPositionWrapper = styled.li`
   display: flex;
   justify-content: start;
@@ -149,31 +161,27 @@ const InnerText = styled.div`
   font-weight: 600;
 `
 
-const LittleForm = styled.form`
-`
+// EDIT MODE STUFF
 const PositionSelect = styled.select`
   margin-left: 10px;
   width: 60px;
-`
-const PositionOption = styled.option`
 `
 const NameSelect = styled.select`
   margin-left: 5px;
   width: 160px;
 `
-const NameOption = styled.option`
+const SelectOption = styled.option`
 `
 const SaveButton = styled.button`
-  
   margin: 5px 4px 5px 0px;
   width: auto;
   border-radius: 5px;
-
   &.float-right{
     margin-left: auto;
   }
 `
 
+// INDIVIDUAL DELETE BUTTON
 const Delete = styled.button`
   height: 20px;
   border-radius: 5px;

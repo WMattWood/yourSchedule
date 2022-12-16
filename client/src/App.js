@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
 
+  // Authentication is managed by Auth0
   const { isAuthenticated } = useAuth0()
 
   return (
@@ -19,6 +20,7 @@ function App() {
       <PageWindow>
         <Navbar />
         
+        {/* Prior to user authentication - all paths route to the Homepage which provides a login option */}
         { !isAuthenticated
           ? <Routes>
               <Route path="*" element={<Homepage />} />

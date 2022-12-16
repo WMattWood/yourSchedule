@@ -2,37 +2,47 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+// A DISPLAY/EDIT FIELD FOR the DATE
 const DateDetails = ({event}) => {
 
+  // EDIT MODE TOGGLE
   const [ showEditor, setShowEditor] = useState(false)
+
+  // UPDATED LOCAL STATE
+  // This state is used to display whatever the most up to date/modified state is.
+  // This is also what gets delivered to the database on saveClick
   const [ updatedDay, setUpdatedDay ] = useState(event.dateDay)
   const [ updatedMonth, setUpdatedMonth ] = useState(event.dateMonth)
   const [ updatedYear, setUpdatedYear ] = useState(event.dateYear)
 
-  // Generating Iterables
-  // MONTHS
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  // YEARS
-  let years = []
-  for ( let i = 2000; i <= 2038; i++ ) {
-    years.push(i)
-  }
   // DAYS
   let days = []
   let daysInCurrentMonth = 32 - (new Date(updatedYear, updatedMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
     days.push(i)
   }
+
+  // YEARS
+  let years = []
+  for ( let i = 2000; i <= 2038; i++ ) {
+    years.push(i)
+  }
+
+  // MONTHS
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
   // STAFF NUMBERS
   var staffArray = [];
   for ( let i = 1; i <= 16; i++) {
     staffArray.push(i);
   }
 
+  // Toggles DISPLAY/EDITOR mode
   const toggleEditor = () => {
     setShowEditor(!showEditor)
   }
 
+  // Submits data to the database
   const saveClickHandler = () => {
     fetch(`/calendar/${event._id}`, {
         "method": "PATCH",
@@ -47,10 +57,10 @@ const DateDetails = ({event}) => {
         }
       }
     )
-
     toggleEditor()
   }
 
+  // Updates the date STATE whenever the field is changed.
   const handleDayChange = (ev) => {
     let date = ev.currentTarget.value
     setUpdatedDay(date)
@@ -65,11 +75,6 @@ const DateDetails = ({event}) => {
     let date = ev.currentTarget.value
     setUpdatedYear(date)
   }
-  
-  // const handleDate = (ev, field) => {
-  //   setFormData({...formData, [field]: ev.currentTarget.value })
-  //   setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
-  // }
 
   return (
     <FieldWrapper>
@@ -80,8 +85,6 @@ const DateDetails = ({event}) => {
           </>
         : <>
             <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
-            {/* <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput> */}
-
             <DropdownMenus>
               <DropDown>
                 <label forhtml="month">month</label>
@@ -123,42 +126,41 @@ const DateDetails = ({event}) => {
   )
 }
 
-// const TextInput = styled.input`
-//   width: 200px;
-// `
-const EditButton = styled.button`
-  margin-left: 20px;
-  width: auto;
-  border-radius: 5px;
-`
-const SaveButton = styled.button`
-  /* margin-left: 10px; */
-  margin: 5px 0px;
-  width: auto;
-  border-radius: 5px;
-`
-const CloseButton = styled.button`
-  /* margin-left: 10px; */
-  margin: 5px 4px;
-  width: auto;
-  border-radius: 5px;
-`
+// CONTAINER
 const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
-  /* height: 40px; */
   width: 99%;
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
   margin: 5px 0px;
 `
+
+// DISPLAY
 const DisplayedField = styled.div`
   margin: 5px 0px;
   padding: 4px 12px;
   font-size: 18px;
   font-weight: 200;
   width: 300px;
+`
+
+// EDIT MODE STUFF
+const EditButton = styled.button`
+  margin-left: 20px;
+  width: auto;
+  border-radius: 5px;
+`
+const SaveButton = styled.button`
+  margin: 5px 0px;
+  width: auto;
+  border-radius: 5px;
+`
+const CloseButton = styled.button`
+  margin: 5px 4px;
+  width: auto;
+  border-radius: 5px;
 `
 
 // FORM DROPDOWN MENUS
