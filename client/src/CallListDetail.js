@@ -8,9 +8,13 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
   const [showDeleteButton, setShowDeleteButton] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
+  // I think these useRefs are used for the DeleteModal popup
   const theIndex = useRef(null)
   const thePhrase = useRef(null)
 
+  // This delete handler has to be here because this is where the pop up is...
+  // ...and I think because there can only be one pop up window?  But there are
+  // lots of CallListPositions vs. AddEventModal where we just had the one.
   const selectForDeleteHandler = (phrase, index) => {
     console.log("beep")
     setShowDeleteModal(true)
@@ -18,17 +22,20 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
     theIndex.current = index
   }
 
+  // Popup closer
   const handleClose = () => {
     setShowDeleteModal(false)
     setShowDeleteButton(false)
   }
 
+  // Popup Delete Confirmation
   const handleOK = (idx) => {
     deleteHandler(idx)
     setShowDeleteModal(false)
     setShowDeleteButton(false)
   }
 
+  // Adds a new position to the CallList
   const addHandler = () => {
     fetch(`/callList/add/${event._id}`, {
       "method": "PATCH",
@@ -43,6 +50,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
 
   }
 
+  // Deletes a position from the CallList
   const deleteHandler = (idx) => {
     fetch(`/callList/delete/${event._id}`, {
       "method": "PATCH",
@@ -58,6 +66,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
 
   } 
 
+  // JSX RETURN
   return (
     <>
       <CallListTitle>CallList:</CallListTitle>
