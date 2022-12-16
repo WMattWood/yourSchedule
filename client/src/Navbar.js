@@ -11,19 +11,19 @@ const Navbar = () => {
   const { isAuthenticated } = useAuth0()
   const navigate = useNavigate();
 
-  // LINKS
+  // LINK TO CALENDAR
   const linkToCalendar = () => {
     navigate("/calendar");
   };
-
+  // LINK TO ROSTER
   const linkToRoster = () => {
     navigate("/roster");
   };
-
+  // LINK TO HOME
   const linkToHome = () => {
     navigate("/");
   };
-
+  // LINK TO EVENT PAGE
   const linkToEventDetails = async () => {
     
     // if no events exist yet, we will navigate to a page with no events.
