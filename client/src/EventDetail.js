@@ -7,7 +7,7 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
   // Toggle for showing and hiding edit view
   const [ showEditor, setShowEditor] = useState(false)
 
-  // Local updated state value
+  // UPDATED LOCAL STATE
   // This state is used to display whatever the most up to date/modified state is.
   // This is also what gets delivered to the database on saveClick
   const [ updatedProperty, setUpdatedProperty ] = useState(event[fieldProperty])
@@ -71,6 +71,7 @@ const FieldWrapper = styled.div`
   box-shadow: 1px 1px 2px 1px black;
   margin: 5px 0px;
 `
+
 // DISPLAY
 const DisplayedField = styled.div`
   margin: 5px 0px;
@@ -79,6 +80,7 @@ const DisplayedField = styled.div`
   font-weight: 200;
   width: 300px;
 `
+
 // EDIT MODE STUFF
 const EditMenuWrapper = styled.div`
   display: flex;
