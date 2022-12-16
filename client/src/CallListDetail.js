@@ -62,7 +62,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
     <>
       <CallListTitle>CallList:</CallListTitle>
       <CallListWrapper>
-        <CallList>
+        <CallListContainer>
           { event.callList.map( ( position, idx ) => <CallListPosition  event={event}
                                                                         memberList={memberList}
                                                                         setEvent={setEvent}
@@ -73,7 +73,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
                                                                         key={uuidv4()}
                                                                         /> ) }
         <SpaceHolderDiv/>
-        </CallList>
+        </CallListContainer>
       </CallListWrapper>
       <ButtonsWrapper>
         <BigButton onClick={addHandler}>+ Add Position </BigButton>
@@ -94,6 +94,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
   )
 }
 
+// CONTAINER
 const CallListTitle = styled.div`
   font-size: 28px;
   font-weight: bold;
@@ -103,7 +104,6 @@ const CallListTitle = styled.div`
   border-bottom: 3px solid black;
   margin-bottom: 5px;
 `
-
 const CallListWrapper = styled.div`
 margin: 0px;
   background-color: white;
@@ -114,8 +114,7 @@ margin: 0px;
   background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
   border: 3px solid black;
 `
-
-const CallList = styled.ul`
+const CallListContainer = styled.ul`
   margin: 0px 5px;
   margin-bottom: 40px;
   padding-left: 0px;
@@ -126,10 +125,11 @@ const CallList = styled.ul`
   padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
   box-sizing: content-box;
 `
-
 const SpaceHolderDiv = styled.div`
   height: 50px;
 `
+
+// BUTTONS
 const ButtonsWrapper = styled.div`
   display: flex;
 `
@@ -141,6 +141,8 @@ const BigButton = styled.button`
   border-radius: 10px;
   margin: 5px 0px;
 `
+
+// DELETE POSITION STUFF
 const ConfirmDialog = styled.div`
   position: absolute;
   top: 50%;
@@ -154,7 +156,6 @@ const ConfirmDialog = styled.div`
 const ConfirmText = styled.p`
   margin: 5px 10px;
 `
-
 const DialogButton = styled.button`
 `
 
