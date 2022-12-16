@@ -4,6 +4,7 @@ import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
 import EventPage from "./EventPage";
+import Signup from "./Signup";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -27,6 +28,7 @@ function App() {
               <Route path="/calendar" element={<CalendarPage/>} />
               <Route path="/event/:eventId" element={<EventPage/>} />
               <Route path="/roster" element={<RosterPage/>} />
+              <Route path="/signup" element={<Signup/>} />
             </Routes>
         }
       </PageWindow>
