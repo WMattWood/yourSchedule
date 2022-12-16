@@ -2,27 +2,34 @@
 A simple and intuitive scheduling app
 
 After logging in, users are met with the Calendar...
+
 ![Calendar Page](images/img_calendar.png)
 
 Easily discovering the ability to add events, a user can then navigate to the
 events page either by clicking on a newly generated event, or using the navbar.
-![Event Page](images/img_events.png)
 
 From the events page, details can be updated and modified, with clear visual
 indicators showing a user what they are changing, in real time.  
-![Event Page - Editing](images/img_edit_events.png)
 
 Interacting with this page gives a clear indication as well that these events 
 we are creating are intended to be populated with attendees - this leads the 
 user through to the Roster page where member details can be viewed.
-![Roster Page](images/img_roster.png)
 
-One of the guiding design principles in this app has been redundancy. There are
-many state values within the app which can be modified/set from multiple places
-within the application.  This is by design, allowing the user to manipulate the
-state of the app without conscious decision making - instead relying upon their
-intuition and a general "feel" which is provided by the app's visual layout and
-design.  Here are a few examples to illustrate this concept:
+![Event Page - Editing](images/img_edit_events.png)
+
+One of the principles for the interface design of this app is the concept of 
+interface redundancy. 
+
+https://www.sciencedirect.com/science/article/abs/pii/S1071581918306190#:~:text=Redundancy%20in%20interface%20design,et%20al.%2C%202004).
+
+There are many state values within the app which can be modified/set from 
+multiple different places within the application. This is by design, allowing 
+the user to manipulate the state of the app without conscious decision-making, 
+instead relying upon their intuition and a general "feel" which is provided by 
+the app's visual layout and design.  I believe that a well made app's interface
+can often be discovered through non-focused play with the app.  
+
+Here are a few examples to illustrate this concept:
 
   1. The AddEventModal makes use of a setModalVisibility useState hook.  Rather
   than having this hook located directly within the CalendarPage component from
