@@ -19,7 +19,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const dbUpdateEditModeFalse = () => {
     console.log("This is what we're updating, should be false", updatedEntry)
     let target = {...updatedEntry, editMode: false } 
-    fetch(`${REACT_APP_URL_BASE}/callList/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -39,7 +39,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const dbUpdateEditModeTrue = () => {
     // console.log("This is what we're updating, should be true", updatedEntry)
     let target = {...updatedEntry, editMode: true } 
-    fetch(`${REACT_APP_URL_BASE}/callList/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -58,7 +58,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
     let target = {...updatedEntry, [fieldName]: updatedValue }
     // console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
-    fetch(`${REACT_APP_URL_BASE}/callList/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
