@@ -11,7 +11,7 @@ root.render(
     <Auth0Provider
       domain="dev-45e85v0tlk073h45.us.auth0.com"
       clientId="a7T9ZSkGnQdwzDJ0LpQgFRpeg9j06I3B"
-      redirectUri={"http://localhost:3000/calendar"}
+      redirectUri={`${process.env.REACT_APP_URL_BASE}/calendar`}
     >
       <CalendarProvider>
         <App />
