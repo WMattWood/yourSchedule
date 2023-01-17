@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react"
 
-// const Signup = () => {
+const Signup = () => {
 
 //   const [ formData, setFormData ] = useState({})
 
@@ -37,7 +37,7 @@ import { useState } from "react"
 //       <SubmitButton></SubmitButton>
 //     </Signupform>
 //   )
-// }
+}
 
 
 export default Signup;
