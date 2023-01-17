@@ -37,7 +37,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
 
   // Adds a new position to the CallList
   const addHandler = () => {
-    fetch(`${REACT_APP_URL_BASE}/callList/add/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/add/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
       }),
@@ -52,7 +52,7 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
 
   // Deletes a position from the CallList
   const deleteHandler = (idx) => {
-    fetch(`${REACT_APP_URL_BASE}/callList/delete/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/delete/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx
