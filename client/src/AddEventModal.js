@@ -54,7 +54,7 @@ const AddEventModal = () => {
       return;
     }
 
-    let newCalendarEvent = await fetch(`${REACT_APP_URL_BASE}/calendar/insert`, {
+    let newCalendarEvent = await fetch(`${process.env.REACT_APP_URL_BASE}/calendar/insert`, {
       "method": "POST",
       "body": JSON.stringify({
         data: formData

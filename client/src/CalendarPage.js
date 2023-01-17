@@ -5,7 +5,7 @@ import CalendarModule from "./CalendarModule";
 import AddEventModal from "./AddEventModal";
 
 const CalendarPage = () => {
-
+  console.log("Greetings. Env is... ", `${process.env.REACT_APP_URL_BASE}`)
   const { modalVisibility, setModalVisibility} = useContext(CalendarContext);
 
   return(

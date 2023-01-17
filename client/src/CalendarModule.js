@@ -85,7 +85,7 @@ const CalendarModule = () => {
   // WE WANT TO HAVE THE EVENTS DISPLAY AFTER WE NAV TO NEW MONTH
   // Set Monthly Event Listings
   useEffect( () => {
-    fetch(`${REACT_APP_URL_BASE}/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
+    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
       .then( res => setMonthlyEventListings(res.data) )
   }, [activeDate] )
