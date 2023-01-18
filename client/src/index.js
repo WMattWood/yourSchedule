@@ -10,7 +10,7 @@ root.render(
   
   // <React.StrictMode>
   <>
-    console.log("Index.js", `${process.env.REACT_APP_URL_BASE}/calendar`)
+    {console.log("Index.js", `${process.env.REACT_APP_URL_BASE}/calendar`)}
     <Auth0Provider
       domain="dev-45e85v0tlk073h45.us.auth0.com"
       clientId="a7T9ZSkGnQdwzDJ0LpQgFRpeg9j06I3B"
