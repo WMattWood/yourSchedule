@@ -14,7 +14,7 @@ root.render(
     <Auth0Provider
       domain="dev-45e85v0tlk073h45.us.auth0.com"
       clientId="a7T9ZSkGnQdwzDJ0LpQgFRpeg9j06I3B"
-      redirectUri={`${process.env.REACT_APP_URL_BASE}/calendar`}
+      redirectUri={"https://yourschedule.onrender.com/calendar"}
     >
       <CalendarProvider>
         <App />
