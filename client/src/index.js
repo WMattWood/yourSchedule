@@ -12,7 +12,7 @@ let redirectURI = ''
 if (process.env.NODE_ENV === 'development') {
   redirectURI = "http://localhost:3000/calendar"
 } else if (process.env.NODE_ENV === 'production') {
-  redirectURI = "https://yourschedule.onrender.com/calendar"
+  redirectURI = "https://yourschedule.onrender.com"
 }
 
 root.render(
