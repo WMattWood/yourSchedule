@@ -21,7 +21,7 @@ root.render(
       domain={domain}
       clientId={clientId}
       redirectUri={window.location.origin}
-    > {console.log(redirectURI)}
+    > 
       <CalendarProvider>
         <App />
       </CalendarProvider>
