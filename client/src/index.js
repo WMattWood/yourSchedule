@@ -10,9 +10,9 @@ const clientId = process.env.REACT_APP_AUTH0_CLIENTID
 
 let redirectURI = ''
 if (process.env.NODE_ENV === 'development') {
-  redirectURI = "https:/yourschedule.onrender.com"
+  redirectURI = "http://localhost:3000/calendar"
 } else if (process.env.NODE_ENV === 'production') {
-  redirectURI = "http:/localhost:3000/calendar"
+  redirectURI = "https://yourschedule.onrender.com"
 }
 
 root.render(
@@ -20,8 +20,8 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
-    > {console.log(redirectURI)}
+      redirectUri={redirectURI}
+    >
       <CalendarProvider>
         <App />
       </CalendarProvider>
