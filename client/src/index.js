@@ -9,8 +9,11 @@ const domain = process.env.REACT_APP_AUTH0_DOMAIN
 const clientId = process.env.REACT_APP_AUTH0_CLIENTID
 
 const redirectURI = ''
-process.env.NODE_ENV === 'development' ? redirectURI = "https:/yourschedule.onrender.com" : null
-process.env.NODE_ENV === 'production' ? redirectURI = "http:/localhost:3000/calendar" : null
+if (process.env.NODE_ENV === 'development') {
+  redirectURI = "https:/yourschedule.onrender.com"
+} else if (process.env.NODE_ENV === 'production') {
+  redirectURI = "http:/localhost:3000/calendar"
+}
 
 root.render(
   <>
