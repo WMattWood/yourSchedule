@@ -30,7 +30,10 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
         }
     })
       .then(res => res.json())
-      .then(res => setEvent(res.data))
+      .then(res => {
+        console.log("BANNABA RESPONSE", res)
+        setEvent(res.data)
+      })
   }
 
   // HANDLER #2
