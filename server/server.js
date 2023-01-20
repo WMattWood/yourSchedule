@@ -15,22 +15,22 @@ express()
   .use(helmet())
   .use(morgan('tiny'))
 
-  // // CORS management
-  // .all('*', (req, res, next) => {
-  //   // console.log("Server request:", req)
-  //   // console.log("Server response:", res)
-  //   if (process.env.NODE_ENV === 'development')
-  //     res.header({
-  //       'Access-Control-Allow-Origin': 'http://localhost:3000',
-  //       'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
-  //   })
-  //   if (process.env.NODE_ENV === 'production')
-  //     res.header({
-  //       'Access-Control-Allow-Origin': 'https://yourschedule.onrender.com',
-  //       'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
-  //   })
-  //   next()
-  // })
+  // CORS management
+  .all('*', (req, res, next) => {
+    // console.log("Server request:", req)
+    // console.log("Server response:", res)
+    if (process.env.NODE_ENV === 'development')
+      res.header({
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
+    })
+    if (process.env.NODE_ENV === 'production')
+      res.header({
+        'Access-Control-Allow-Origin': 'https://yourschedule.onrender.com',
+        'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
+    })
+    next()
+  })
 
   // initial test endpoint
   .get('/howdy', (req, res) => {
