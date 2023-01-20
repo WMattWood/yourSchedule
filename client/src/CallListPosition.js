@@ -39,6 +39,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const dbUpdateEditModeTrue = () => {
     // console.log("This is what we're updating, should be true", updatedEntry)
     let target = {...updatedEntry, editMode: true } 
+    console.log(target)
     fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
