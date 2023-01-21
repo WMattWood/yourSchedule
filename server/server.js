@@ -23,11 +23,13 @@ express()
       res.header({
         'Access-Control-Allow-Origin': 'http://localhost:3000',
         'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'PATCH'
     })
     if (process.env.NODE_ENV === 'production')
       res.header({
         'Access-Control-Allow-Origin': 'https://yourschedule.onrender.com',
         'Access-Control-Allow-Headers': 'Origin, X-RequestedWith, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'PATCH'
     })
     next()
   })
