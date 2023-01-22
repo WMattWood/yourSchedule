@@ -19,7 +19,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const dbUpdateEditModeFalse = () => {
     console.log("This is what we're updating, should be false", updatedEntry)
     let target = {...updatedEntry, editMode: false } 
-    fetch(`/callList/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -30,7 +30,10 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
         }
     })
       .then(res => res.json())
-      .then(res => setEvent(res.data))
+      .then(res => {
+        console.log("BANNABA RESPONSE", res)
+        setEvent(res.data)
+      })
   }
 
   // HANDLER #2
@@ -39,7 +42,8 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const dbUpdateEditModeTrue = () => {
     // console.log("This is what we're updating, should be true", updatedEntry)
     let target = {...updatedEntry, editMode: true } 
-    fetch(`/callList/${event._id}`, {
+    console.log(target)
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -58,7 +62,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
     let target = {...updatedEntry, [fieldName]: updatedValue }
     // console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
-    fetch(`/callList/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,

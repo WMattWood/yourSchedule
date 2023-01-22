@@ -19,7 +19,7 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
 
   // Submits data to the database
   const saveClickHandler = () => {
-    fetch(`/calendar/${event._id}`, {
+    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${event._id}`, {
         "method": "PATCH",
         "body": JSON.stringify({
           "data": { ...event, [fieldProperty]: updatedProperty }

@@ -29,7 +29,7 @@ const Navbar = () => {
     // if no events exist yet, we will navigate to a page with no events.
     let defaultEventId = "uneventful"
 
-    const availableEvents = await fetch(`/calendar/allevents`)
+    const availableEvents = await fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allevents`)
         .then(res => res.json() )
         .then(res => res.data)
       

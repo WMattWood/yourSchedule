@@ -6,9 +6,15 @@ const RosterPage = () => {
   const [ roster, setRoster ] = useState(null)
 
   useEffect( () => {
-    fetch('/members/allmembers')
-      .then( res => res.json() )
-      .then( res => setRoster(res.data))
+    fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
+      .then( res => {
+        console.log("line 11:", res)
+        return res.json() 
+      })
+      .then( res => {
+        console.log("line 15:", res)
+        setRoster(res.data)
+      })
   }, [] )
 
   return (

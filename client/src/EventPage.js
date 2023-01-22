@@ -16,19 +16,19 @@ const EventPage = () => {
   const navigate = useNavigate()
 
   useEffect( () => {
-    fetch(`/calendar/${eventId}`)
+    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${eventId}`)
       .then( res => res.json() )
       .then( res => setEvent(res.data))
   }, [eventId] )
 
   useEffect( () => {
-    fetch(`/calendar/allEvents`)
+    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
       .then( res => res.json() )
       .then( res => setEventListing(res.data))
   }, [eventId] )
 
   useEffect( () => { 
-    fetch(`/members/allmembers`)
+    fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
       .then(res => res.json() )
       .then(res => {
         setMemberList(res.data)

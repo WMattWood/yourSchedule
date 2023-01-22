@@ -15,7 +15,7 @@ const DATABASE_NAME = "yourSchedule"
 
 const updateCallListByEvent = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options)
-
+  console.log("BANNABA REQ", req.body)
   try {
     // Connect Client
     await client.connect()
