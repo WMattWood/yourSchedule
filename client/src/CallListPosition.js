@@ -13,13 +13,19 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   // JOB CATEGORIES                       
   const jobs = ["tech", "chef", "lx", "head-lx", "audio", "head-audio", "video"]
 
+  // URL_BASE
+  const URL_BASE = process.env.REACT_APP_URL_BASE
+
   // HANDLER #1 
   // sets database, modifies EVENT STATE
   // sets EDITMODE => false
   const dbUpdateEditModeFalse = () => {
-    console.log("This is what we're updating, should be false", updatedEntry)
+
+    // console.log("This is what we're updating, should be false", updatedEntry)
+    // iirc there was something to do with this needing to be sent to the 'next'
+    // state to avoid a stale state situation... not 100% sure
     let target = {...updatedEntry, editMode: false } 
-    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
+    fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -30,20 +36,20 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
         }
     })
       .then(res => res.json())
-      .then(res => {
-        console.log("BANNABA RESPONSE", res)
-        setEvent(res.data)
-      })
+      .then(res => setEvent(res.data))
   }
 
   // HANDLER #2
   // sets database, does not modify EVENT STATE
   // sets EDITMODE => true
   const dbUpdateEditModeTrue = () => {
+    
     // console.log("This is what we're updating, should be true", updatedEntry)
+    // iirc there was something to do with this needing to be sent to the 'next'
+    // state to avoid a stale state situation... not 100% sure
     let target = {...updatedEntry, editMode: true } 
     console.log(target)
-    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
+    fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -60,9 +66,10 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   // HANDLER #3 
   // sets database, does not modify EVENT STATE
   const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
-    let target = {...updatedEntry, [fieldName]: updatedValue }
+
     // console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
-    fetch(`${process.env.REACT_APP_URL_BASE}/callList/${event._id}`, {
+    let target = {...updatedEntry, [fieldName]: updatedValue }
+    fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
         "index": idx,
@@ -80,14 +87,14 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
     selectForDeleteHandler(`${updatedEntry.position}: ${updatedEntry.name}`, idx)
   }
 
-  // Does stuff when you click on it.
+  // Turns on editMode for this CallListPosition
   const clickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: true })
     dbUpdateEditModeTrue()
     setShowEditor(true)
   }
 
-  // Does stuff when you click save button.
+  // Saves the values chosen for this CallListPosition
   const saveClickHandler = () => {
     setUpdatedEntry( {...updatedEntry, editMode: false })
     dbUpdateEditModeFalse()
@@ -95,6 +102,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   }
 
   // Does stuff whenever you change a field.
+  // ...what it does is 
   const handleChange = (ev, fieldName) => {
     let updatedValue = ev.currentTarget.value
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue } )
@@ -143,7 +151,9 @@ const Container = styled.div`
   margin: 5px 0px;
 `
 
-// WRAPPER - CAN WE JUST MAKE ONE OF THESE INSTEAD OF TWO?
+// WRAPPER
+// TODO: Inside of the JSX return, move the CallListPositionWrapper outside of
+// the conditional return, and within the <Container> elements
 const CallListPositionWrapper = styled.li`
   display: flex;
   justify-content: start;
