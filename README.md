@@ -1,6 +1,10 @@
 # yourSchedule
 A simple and intuitive scheduling app
 
+LIVE DEMO HERE: https://yourschedule.onrender.com/
+[Please note it may take up to 30 seconds for the 
+server to spin up due to hosting limitations.]
+
 After logging in, users are met with the Calendar...
 
 ![Calendar Page](images/img_calendar.png)
