@@ -4,32 +4,53 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyle = createGlobalStyle`
   :root {
     font-family: 'Inter', sans-serif;
-    background: #95C171;
+    background: var(--background);
 
     ///////   LIME THEME
-    // --background: #95C171;
-    // --text-primary: black;
-    // --text-secondary: #42493A;
-    // --highlight: goldenrod;
-    // --blankspace: white;
-    // --modal: #F5FBEF
-    // --modal-secondary: #d3d3d3
-    // --buttons:
-    // --borders???
-    // --calllist: #395980;
-    // --calllist-hover: #B0BDCC;
-    // --daycell-border: #59CBE8;
-    // --daycell-fill: #D0EBF1;
-    // --bright-color1: #5c0067 //(blue from call list)
-    // --bright-color2: 00d4ff#//(magenta from call list)
-    // --red: #FF0000;
-    // --green: #1bde23;
-    // --day-completed: #9CC09E;
-    // --day-incomplete: #C09CBE;
+    --background: #95C171;
+    --text-primary: black;
+    --text-secondary: #42493A;
+    --highlight: goldenrod;
+    --blankspace: white;
+    --border-blank: white;
+    --border-dim: #dfdfdf;
+    --modal: #F5FBEF;
+    --modal-secondary: #d3d3d3;
+    --borders: black;
+    --calllist: #395980;
+    --calllist-hover: #B0BDCC;
+    --calllist-hover-text: white;
+    --daycell-border: #59CBE8;
+    --daycell-fill: #D0EBF1;
+    --bright-color1: #5c0067; //(blue from call list)
+    --bright-color2: #00d4ff; //(magenta from call list)
+    --red: #FF0000;
+    --green: #1bde23;
+    --day-incomplete: #C09CBE;
+    --day-completed: #9CC09E;
 
     ///////   FOREST THEME
-    // --background #354D22
-
+    /* --background: #354D22;
+    --text-primary: black;
+    --text-secondary: #9e9e9e;
+    --highlight: goldenrod;
+    --blankspace: white;
+    --border-blank: white;
+    --border-dim: #dfdfdf;
+    --modal: #F5FBEF;
+    --modal-secondary: #d3d3d3;
+    --borders: black;
+    --calllist: #395980;
+    --calllist-hover: #B0BDCC;
+    --calllist-hover-text: white;
+    --daycell-border: #59CBE8;
+    --daycell-fill: #D0EBF1;
+    --bright-color1: #5c0067; //(blue from call list)
+    --bright-color2: #00d4ff; //(magenta from call list)
+    --red: #FF0000;
+    --green: #1bde23;
+    --day-incomplete: #C09CBE;
+    --day-completed: #9CC09E; */
 
     --primary: cyan;
     --text: #506784;

@@ -128,7 +128,7 @@ const EventWrapper = styled.div`
   padding: 5px;
   height: 70vh;
   border-radius: 5px;
-  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+  background-image: radial-gradient(circle, var(--bright-color1) 0%, var(--bright-color2) 100%);
   border: 3px solid black;
 `
 
@@ -138,7 +138,7 @@ const CallListStatus = styled.div`
   align-items: center;
   white-space: nowrap;
   width: 99%;
-  background: white;
+  background: var(--blankspace);
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
   margin: 5px 0px;
@@ -155,7 +155,7 @@ const Full = styled.div`
   font-size: 20px;
   font-weight: 600;
   width: 300px;
-  color: #1bde23;
+  color: var(--green);
 `
 const NotFull = styled.div`
   text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
@@ -163,7 +163,7 @@ const NotFull = styled.div`
   font-size: 20px;
   font-weight: 600;
   width: 300px;
-  color: red;
+  color: var(--red);
 `
 // EVENT LISTINGS SIDE BAR
 const EventListings = styled.div`

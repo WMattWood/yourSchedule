@@ -230,7 +230,7 @@ const EventForm = styled.form`
     margin: 4px;
     border-radius: 5px;
   }
-  background-color: #F5FBEF;
+  background-color: var(--modal);
   box-sizing: border-box;
   border: 2px solid black;
   border-radius: 10px;
@@ -313,7 +313,7 @@ const ErrorDialog = styled.dialog`
   left: 25%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #d3d3d3;
+  background-color: var(--modal-secondary);
   border: 3px solid black;
   z-index: 2;
 `

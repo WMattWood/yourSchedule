@@ -115,12 +115,12 @@ const CallListTitle = styled.div`
 `
 const CallListWrapper = styled.div`
 margin: 0px;
-  background-color: white;
+  background-color: var(--blankspace);
   border-radius: 5px;
   height: 100%; 
   width: 400px;
   overflow: hidden;
-  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+  background-image: radial-gradient(circle, var(--bright-color1) 0%, var(--bright-color2) 100%);
   border: 3px solid black;
 `
 const CallListContainer = styled.ul`
@@ -158,7 +158,7 @@ const ConfirmDialog = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #d3d3d3;
+  background-color: var(--modal-secondary);
   border: 3px solid black;
   z-index: 3;
 `

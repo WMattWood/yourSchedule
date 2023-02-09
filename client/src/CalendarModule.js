@@ -157,7 +157,7 @@ const WeekDayTitle = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color: #42493A;
+  color: var(--text-secondary);
 `
 
 const HeaderWrapper = styled.div `
