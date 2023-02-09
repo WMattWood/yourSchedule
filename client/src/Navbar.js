@@ -42,12 +42,10 @@ const Navbar = () => {
 
   return (
     <>
-      <Title onClick={linkToHome}>yourSchedule</Title>
       <NavbarContainer>
-        <LeftSide>
-          <Link onClick={linkToCalendar}>Calendar</Link>
-        </LeftSide>
+        <Title onClick={linkToHome}>yourSchedule</Title>
         <RightSide>
+          <Link onClick={linkToCalendar}>Calendar</Link>
           <Link onClick={linkToRoster}>Roster</Link>
           <Link onClick={linkToEventDetails}>events</Link>
         </RightSide>
@@ -63,13 +61,18 @@ const Navbar = () => {
 const Title = styled.div`
   font-size: 48px;
   margin: 0px;
-
+  border-right: 200px;
+  position: relative;
+  right: 15px;
+  top: 7px;
   &:hover {
     cursor: pointer;
   }
 `
 
 const NavbarContainer = styled.div`
+  margin-left: 16px;
+  margin-right: 60px;
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -83,16 +86,17 @@ const NavbarContainer = styled.div`
 `
 
 const LeftSide = styled.div`
+  margin-left: 120px;  
   display: flex;
-  align-items: end;
+  align-items: start;
   width: 300px;
 `
 
 const RightSide = styled.div`
   display: flex;
   align-items: end;
-  justify-content: space-between;
-  width: 300px;
+  justify-content: space-around;
+  width: 80%;
 `
 
 const Link = styled.div`

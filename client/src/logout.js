@@ -13,9 +13,11 @@ const LogoutButton = () => {
 };
 
 const Button = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 945px;
+  margin-left: 40px;
+  position: relative;
+  top: -4px;
+  width: 80px;
+  height: 24px;
   border-radius: 5px;
 `
 export default LogoutButton;
