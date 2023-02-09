@@ -79,13 +79,24 @@ const NavbarContainer = styled.div`
   border-bottom: 4px solid black;
   width: 100%;
   height: 50px;
+  position: relative;
 
+  /* &:after {
+    content: "";
+    background: black;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 4px;
+    width: 406px;
+  } */
   * {
     margin: 2px 0px;
   }
 `
 
 const LinkContainer = styled.div`
+  /* margin-left: 60px; */
   display: flex;
   align-items: end;
   justify-content: space-around;
@@ -93,15 +104,20 @@ const LinkContainer = styled.div`
 `
 
 const Link = styled.div`
+  position: relative;
+  top: 8px;
+  padding-bottom: 0px;
   font-size: 24px;
-  border-bottom: 3px solid black;
-  transition: border-bottom 0.2s, color 0.2s;
-
+  border-bottom: 4px solid black;
+  border-color: rgba(0,0,0,0);
+  /* transition: border-bottom 0.2s, color 0.2s; */
+  transition: 0.1s ease-out;
   &:hover {
     cursor: pointer;
-    border-bottom: 3px solid goldenrod;
-    color: goldenrod;
-    transition: border-bottom 0.1s ;
+    /* border-bottom: 4px solid black; */
+    border-color: rgba(0,0,0,1);
+    /* text-shadow: 1px 1px black; */
+    /* transition: 0.3s; */
   }
 `
 

@@ -3,9 +3,18 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Inter', sans-serif;
-    background: #354D22;
+    background: #95C171;
   }
 `
+
+// background
+// text
+// blankspace 
+// button fill
+// hover color 
+// bright color
+
+
 // https://www.color-name.com/hot-pepper-green.color#color-palettes
 // #3E5A28
 

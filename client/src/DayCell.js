@@ -81,7 +81,7 @@ const Container = styled.div`
   }
 
   &.selected {
-    background-color: #F5D2D4 !important;
+    background-color: #D0EBF1 !important;
     transition: background-color 0.2s;
   }
 `

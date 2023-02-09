@@ -30,6 +30,7 @@ const PageLeftRight = styled.div`
 `
 // A button to show/hide the AddEventModal
 const AddEventButton = styled.button`
+  margin-top: 8px;
   height: 40px;
   width: 140px;
   font-size: 20px;

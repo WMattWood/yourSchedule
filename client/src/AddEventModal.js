@@ -230,7 +230,7 @@ const EventForm = styled.form`
     margin: 4px;
     border-radius: 5px;
   }
-  background-color: #ADADAD;
+  background-color: #F5FBEF;
   box-sizing: border-box;
   border: 2px solid black;
   border-radius: 10px;
