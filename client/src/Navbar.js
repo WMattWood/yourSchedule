@@ -44,11 +44,11 @@ const Navbar = () => {
     <>
       <NavbarContainer>
         <Title onClick={linkToHome}>yourSchedule</Title>
-        <RightSide>
+        <LinkContainer>
           <Link onClick={linkToCalendar}>Calendar</Link>
           <Link onClick={linkToRoster}>Roster</Link>
           <Link onClick={linkToEventDetails}>events</Link>
-        </RightSide>
+        </LinkContainer>
         { isAuthenticated 
           ? <LogoutButton/>
           : null
@@ -85,14 +85,7 @@ const NavbarContainer = styled.div`
   }
 `
 
-const LeftSide = styled.div`
-  margin-left: 120px;  
-  display: flex;
-  align-items: start;
-  width: 300px;
-`
-
-const RightSide = styled.div`
+const LinkContainer = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-around;
