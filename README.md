@@ -6,6 +6,7 @@ LIVE DEMO HERE: https://yourschedule.onrender.com/
 server to spin up due to hosting limitations.]
 
 Version 0.2
+
 After logging in, users are met with the Calendar.
 This update brings a new look - enhanced contrast to be more accessible/readable
 as well as cleaner spacing and a more unified design palette for buttons and 
@@ -27,7 +28,7 @@ Interacting with this page gives a clear indication as well that these events
 we are creating are intended to be populated with attendees - this leads the 
 user through to the Roster page where member details can be viewed.
 
-![Event Page - Editing](images/img_edit_events.png)
+![Event Page - Editing](images/img_edit_events_new.png)
 
 One of the principles for the interface design of this app is the concept of 
 interface redundancy. 
