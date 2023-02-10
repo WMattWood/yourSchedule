@@ -7,12 +7,12 @@ const GlobalStyle = createGlobalStyle`
     background: var(--background);
 
     ///////   LIME THEME
-    --background: #95C171;
-    --text-primary: black;
-    --text-secondary: #42493A;
-    --highlight: goldenrod;
-    --blankspace: white;
-    --border-blank: white;
+    --background: #95C171;        //(lime green)
+    --text-primary: black;        //(black)
+    --text-secondary: #42493A;    //(grey)
+    --highlight: goldenrod;       //(yellow)
+    --blankspace: white;          //(white)
+    --border-blank: white;        //(white)
     --border-dim: #dfdfdf;
     --modal: #F5FBEF;
     --modal-secondary: #d3d3d3;
@@ -22,12 +22,13 @@ const GlobalStyle = createGlobalStyle`
     --calllist-hover-text: white;
     --daycell-border: #59CBE8;
     --daycell-fill: #D0EBF1;
+    --day-incomplete: #C09CBE;
+    --day-completed: #9CC09E;
     --bright-color1: #5c0067; //(blue from call list)
     --bright-color2: #00d4ff; //(magenta from call list)
     --red: #FF0000;
     --green: #1bde23;
-    --day-incomplete: #C09CBE;
-    --day-completed: #9CC09E;
+
 
     ///////   FOREST THEME
     /* --background: #354D22;
@@ -45,12 +46,12 @@ const GlobalStyle = createGlobalStyle`
     --calllist-hover-text: white;
     --daycell-border: #59CBE8;
     --daycell-fill: #D0EBF1;
+    --day-incomplete: #C09CBE;
+    --day-completed: #9CC09E; 
     --bright-color1: #5c0067; //(blue from call list)
     --bright-color2: #00d4ff; //(magenta from call list)
     --red: #FF0000;
-    --green: #1bde23;
-    --day-incomplete: #C09CBE;
-    --day-completed: #9CC09E; */
+    --green: #1bde23; */
 
     --primary: cyan;
     --text: #506784;

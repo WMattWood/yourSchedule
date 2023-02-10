@@ -143,7 +143,7 @@ const CalendarGrid = styled.div `
   display: grid;
   width: 700px;
   grid-template-columns: repeat(7, 100px);
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid var(--border-dim);
 ` 
 const TodayButton = styled.button`
 `
