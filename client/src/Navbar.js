@@ -43,10 +43,10 @@ const Navbar = () => {
   return (
     <>
       <NavbarContainer>
-        <Title onClick={linkToHome}>yourSchedule</Title>
+        <Title onClick={linkToCalendar}>yourSchedule</Title>
         <LinkContainer>
-          <Link onClick={linkToCalendar}>Calendar</Link>
-          <Link onClick={linkToRoster}>Roster</Link>
+          <Link onClick={linkToCalendar}>calendar</Link>
+          <Link onClick={linkToRoster}>roster</Link>
           <Link onClick={linkToEventDetails}>events</Link>
         </LinkContainer>
         { isAuthenticated 
@@ -67,12 +67,15 @@ const Title = styled.div`
   top: 7px;
   &:hover {
     cursor: pointer;
+    text-shadow: 2px 2px goldenrod;
+    transition: color 0.1s ;
   }
 `
 
 const NavbarContainer = styled.div`
   margin-left: 16px;
   margin-right: 60px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -87,6 +90,7 @@ const NavbarContainer = styled.div`
 `
 
 const LinkContainer = styled.div`
+  margin-left: 180px;
   display: flex;
   align-items: end;
   justify-content: space-around;
@@ -97,7 +101,7 @@ const Link = styled.div`
   position: relative;
   top: 8px;
   padding-bottom: 0px;
-  font-size: 24px;
+  font-size: 22px;
   border-bottom: 4px solid black;
   border-color: rgba(0,0,0,0);
   /* transition: border-bottom 0.2s, color 0.2s; */
@@ -108,6 +112,8 @@ const Link = styled.div`
     border-color: rgba(0,0,0,1);
     /* text-shadow: 1px 1px black; */
     /* transition: 0.3s; */
+    text-shadow: 2px 2px goldenrod;
+    transition: 0.3s ;
   }
 `
 

@@ -146,6 +146,9 @@ const CalendarGrid = styled.div `
   border-top: 1px solid var(--calendar-outline);
 ` 
 const TodayButton = styled.button`
+  position: relative;
+  left: -3px;
+  top: -3px;
   font-size: 16px;
   width: 60px;
   height: 24px;

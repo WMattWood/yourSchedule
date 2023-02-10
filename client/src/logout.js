@@ -13,10 +13,11 @@ const LogoutButton = () => {
 };
 
 const Button = styled.button`
-  margin-left: 40px;
+  /* margin-left: 60px; */
   position: relative;
   top: -2px;
-  width: 80px;
+  right: 2px;
+  width: 100px;
   height: 24px;
   border-radius: 3px;
   /* border: none; */
