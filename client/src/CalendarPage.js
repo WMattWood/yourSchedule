@@ -30,11 +30,19 @@ const PageLeftRight = styled.div`
 `
 // A button to show/hide the AddEventModal
 const AddEventButton = styled.button`
+  margin-top: 8px;
   height: 40px;
   width: 140px;
   font-size: 20px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 3px;
+  /* border: none; */
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+  }
 `
 
 export default CalendarPage

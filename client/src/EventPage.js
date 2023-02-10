@@ -37,7 +37,7 @@ const EventPage = () => {
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
-    navigate(0)
+    // navigate(0) // i am not sure why this was here but i'm going to leave it for now.
   }
 
   const isCallListFull = () => {
@@ -50,7 +50,7 @@ const EventPage = () => {
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>
             { !event
-              ? <h1>Loading events...</h1>
+              ? <EventTitle>Loading events...</EventTitle>
               : <LeftWrapper>
                 <EventTitle>{event.name}</EventTitle>
                 <EventWrapper>
@@ -118,7 +118,8 @@ const LeftWrapper = styled.div`
   flex-direction: column;
 `
 const EventTitle = styled.h1`
-  border-bottom: 3px solid black;
+  /* border-bottom: 3px solid black; */
+  margin-top: 0px;
   padding-bottom: 2px;
 `
 const EventWrapper = styled.div`
@@ -128,7 +129,7 @@ const EventWrapper = styled.div`
   padding: 5px;
   height: 70vh;
   border-radius: 5px;
-  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+  background-image: radial-gradient(circle, var(--bright-color1) 0%, var(--bright-color2) 100%);
   border: 3px solid black;
 `
 
@@ -138,7 +139,7 @@ const CallListStatus = styled.div`
   align-items: center;
   white-space: nowrap;
   width: 99%;
-  background: white;
+  background: var(--blankspace);
   border-radius: 5px;
   box-shadow: 1px 1px 2px 1px black;
   margin: 5px 0px;
@@ -155,7 +156,7 @@ const Full = styled.div`
   font-size: 20px;
   font-weight: 600;
   width: 300px;
-  color: #1bde23;
+  color: var(--green);
 `
 const NotFull = styled.div`
   text-shadow: 0 0 2px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
@@ -163,7 +164,7 @@ const NotFull = styled.div`
   font-size: 20px;
   font-weight: 600;
   width: 300px;
-  color: red;
+  color: var(--red);
 `
 // EVENT LISTINGS SIDE BAR
 const EventListings = styled.div`
@@ -180,7 +181,7 @@ const QuickLinkWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
-    color: goldenrod;
+    text-shadow: 2px 2px goldenrod;
     transition: color 0.1s ;
   }
 `

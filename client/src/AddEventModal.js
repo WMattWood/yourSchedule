@@ -230,10 +230,14 @@ const EventForm = styled.form`
     margin: 4px;
     border-radius: 5px;
   }
-  background-color: #ADADAD;
+  background-color: var(--modal);
   box-sizing: border-box;
   border: 2px solid black;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+
+  border-radius: 3px;
+  /* border: none; */
+  /* box-shadow: 4px 4px; */
 `
 
 // FORM FIELDS
@@ -304,6 +308,14 @@ const EventDataSubmit = styled.button`
   height: 60px;
   margin-top: 20px;
   cursor: pointer;
+  border-radius: 3px;
+  /* border: none; */
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+  }
 `
 
 // ERROR POPUP 
@@ -313,7 +325,7 @@ const ErrorDialog = styled.dialog`
   left: 25%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #d3d3d3;
+  background-color: var(--modal-secondary);
   border: 3px solid black;
   z-index: 2;
 `

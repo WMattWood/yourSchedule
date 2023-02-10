@@ -70,18 +70,18 @@ const Container = styled.div`
   height: 100px;
   width: 100px;
   box-sizing: border-box;
-  border: 2px solid white;
-  background-color: white;
+  border: 2px solid var(--border-blank);
+  background-color: var(--blankspace);
   transition: border 1.6s ease-out, background-color 1.6s ease-out;
 
   &:hover {
-  border: 2px solid #59CBE8;
-  background-color: #D0EBF1;
+  border: 2px solid var(--daycell-border);
+  background-color: var(--daycell-fill);
   transition: border 0.2s, background-color 0.2s;
   }
 
   &.selected {
-    background-color: #F5D2D4 !important;
+    background-color: var(--daycell-fill) !important;
     transition: background-color 0.2s;
   }
 `
@@ -92,8 +92,8 @@ const DayCellWrapper = styled.div`
   box-sizing: content-box;
   height: 96px;
   width: 96px;
-  border-right: 1px solid #dfdfdf;
-  border-bottom: 1px solid #dfdfdf;
+  border-right: 1px solid var(--calendar-outline);
+  border-bottom: 1px solid var(--calendar-outline);
 `
 
 const NumCircle = styled.div`
@@ -137,12 +137,12 @@ const EventBand = styled.div`
   }
   transition: visibility 1s linear;
   &.eventPending {
-    background-color: #C09CBE;
+    background-color: var(--day-incomplete);
     transition: background-color 1s linear;
   }
 
   &.eventFull {
-    background-color: #9CC09E;
+    background-color: var(--day-completed);
     transition: background-color 1s linear;
   }
 

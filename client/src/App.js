@@ -40,6 +40,7 @@ function App() {
 
 const PageWindow = styled.div`
   width: 1000px;
+  margin: 20px 30px;
 `
 
 export default App;

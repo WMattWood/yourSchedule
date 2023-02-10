@@ -42,15 +42,13 @@ const Navbar = () => {
 
   return (
     <>
-      <Title onClick={linkToHome}>yourSchedule</Title>
       <NavbarContainer>
-        <LeftSide>
-          <Link onClick={linkToCalendar}>Calendar</Link>
-        </LeftSide>
-        <RightSide>
-          <Link onClick={linkToRoster}>Roster</Link>
+        <Title onClick={linkToCalendar}>yourSchedule</Title>
+        <LinkContainer>
+          <Link onClick={linkToCalendar}>calendar</Link>
+          <Link onClick={linkToRoster}>roster</Link>
           <Link onClick={linkToEventDetails}>events</Link>
-        </RightSide>
+        </LinkContainer>
         { isAuthenticated 
           ? <LogoutButton/>
           : null
@@ -63,48 +61,59 @@ const Navbar = () => {
 const Title = styled.div`
   font-size: 48px;
   margin: 0px;
-
+  border-right: 200px;
+  position: relative;
+  right: 15px;
+  top: 7px;
   &:hover {
     cursor: pointer;
+    text-shadow: 2px 2px goldenrod;
+    transition: color 0.1s ;
   }
 `
 
 const NavbarContainer = styled.div`
+  margin-left: 16px;
+  margin-right: 60px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: end;
   border-bottom: 4px solid black;
   width: 100%;
   height: 50px;
+  position: relative;
 
   * {
     margin: 2px 0px;
   }
 `
 
-const LeftSide = styled.div`
+const LinkContainer = styled.div`
+  margin-left: 180px;
   display: flex;
   align-items: end;
-  width: 300px;
-`
-
-const RightSide = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  width: 300px;
+  justify-content: space-around;
+  width: 80%;
 `
 
 const Link = styled.div`
-  font-size: 24px;
-  border-bottom: 3px solid black;
-  transition: border-bottom 0.2s, color 0.2s;
-
+  position: relative;
+  top: 8px;
+  padding-bottom: 0px;
+  font-size: 22px;
+  border-bottom: 4px solid black;
+  border-color: rgba(0,0,0,0);
+  /* transition: border-bottom 0.2s, color 0.2s; */
+  transition: 0.1s ease-out;
   &:hover {
     cursor: pointer;
-    border-bottom: 3px solid goldenrod;
-    color: goldenrod;
-    transition: border-bottom 0.1s ;
+    /* border-bottom: 4px solid black; */
+    border-color: rgba(0,0,0,1);
+    /* text-shadow: 1px 1px black; */
+    /* transition: 0.3s; */
+    text-shadow: 2px 2px goldenrod;
+    transition: 0.3s ;
   }
 `
 

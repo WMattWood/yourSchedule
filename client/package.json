@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "proxy": "http://localhost:8000",
   "dependencies": {
     "@auth0/auth0-react": "^1.12.0",

@@ -143,9 +143,23 @@ const CalendarGrid = styled.div `
   display: grid;
   width: 700px;
   grid-template-columns: repeat(7, 100px);
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid var(--calendar-outline);
 ` 
 const TodayButton = styled.button`
+  position: relative;
+  left: -3px;
+  top: -3px;
+  font-size: 16px;
+  width: 60px;
+  height: 24px;
+  border-radius: 3px;
+  /* border: none; */
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+  }
 `
 
 const WeekDayTitle = styled.div`
@@ -157,7 +171,7 @@ const WeekDayTitle = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color: #9e9e9e;
+  color: var(--text-secondary);
 `
 
 const HeaderWrapper = styled.div `
@@ -167,16 +181,20 @@ const HeaderWrapper = styled.div `
 `
 const MonthTitle = styled.h2 `
   width: 220px;
-  margin-left: 24px;
+  margin-left: 16px;
   font-size: 24px;
 `
 const NavWrapper = styled.div`
+  margin-left: 12px;
   display: flex;
 `
 const NavIcon = styled.div`
   width: 20px;
   height: 20px;
   padding: 8px;
+  position: relative;
+  font-size: 18px;
+  top: 2px;
   cursor: pointer;
 
   &:hover {
@@ -187,14 +205,25 @@ const NavIcon = styled.div`
 const JumpSectionForm = styled.form`
 `
 const JumpLabel = styled.label`
+  position: relative;
+  font-size: 18px;
+  top: 2px;
 `
 const MonthSelect = styled.select`
   margin-left: 10px;
+  font-size: 16px;
+  width: 60px;
+  height: 22px;
+  border-radius: 5px;
 `
 const MonthOption = styled.option`
 `
 const YearSelect = styled.select`
   margin-left: 10px;
+  font-size: 16px;
+  width: 60px;
+  height: 22px;
+  border-radius: 5px;
 `
 const YearOption = styled.option`
 ` 

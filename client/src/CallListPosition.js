@@ -161,13 +161,13 @@ const CallListPositionWrapper = styled.li`
   height: 30px;
   width: 290px;
   list-style: none;
-  background-color: #395980;
+  background-color: var(--calllist);
   border-radius: 10px;
 
   &:hover{
     cursor: pointer;
-    background-color: #B0BDCC;
-    color: white;
+    background-color: var(--calllist-hover);
+    color: var(--calllist-hover-text);
   }
 `
 const InnerText = styled.div`
