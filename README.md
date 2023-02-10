@@ -13,7 +13,6 @@ as well as cleaner spacing and a more unified design palette for buttons and
 headers.  Additionally the CSS now refers to global variables to allow for more
 easily changing settings at the GlobalStyles.js file.
 
-The updated version is on the left, old version on the right
 New Design                             | Older Design
 :-------------------------------------:|:----------------------------:
 ![New Design](images/img_calendar_new.png) | ![Calendar Page](images/img_calendar_older.png)
