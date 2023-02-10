@@ -18,6 +18,13 @@ const Button = styled.button`
   top: -2px;
   width: 80px;
   height: 24px;
-  border-radius: 5px;
+  border-radius: 3px;
+  /* border: none; */
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+  }
 `
 export default LogoutButton;

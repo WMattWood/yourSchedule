@@ -92,8 +92,8 @@ const DayCellWrapper = styled.div`
   box-sizing: content-box;
   height: 96px;
   width: 96px;
-  border-right: 1px solid var(--border-dim);
-  border-bottom: 1px solid var(--border-dim);
+  border-right: 1px solid var(--calendar-outline);
+  border-bottom: 1px solid var(--calendar-outline);
 `
 
 const NumCircle = styled.div`

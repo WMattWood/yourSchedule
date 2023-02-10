@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     --highlight: goldenrod;       //(yellow)
     --blankspace: white;          //(white)
     --border-blank: white;        //(white)
-    --border-dim: #dfdfdf;
+    --calendar-outline: #dfdfdf;
     --modal: #F5FBEF;
     --modal-secondary: #d3d3d3;
     --borders: black;
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
     --highlight: goldenrod;
     --blankspace: white;
     --border-blank: white;
-    --border-dim: #dfdfdf;
+    --calendar-outline: #dfdfdf;
     --modal: #F5FBEF;
     --modal-secondary: #d3d3d3;
     --borders: black;
