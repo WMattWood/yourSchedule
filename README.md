@@ -5,9 +5,17 @@ LIVE DEMO HERE: https://yourschedule.onrender.com/
 [Please note it may take up to 30 seconds for the 
 server to spin up due to hosting limitations.]
 
-After logging in, users are met with the Calendar...
+Version 0.2
+After logging in, users are met with the Calendar.
+This update brings a new look - enhanced contrast to be more accessible/readable
+as well as cleaner spacing and a more unified design palette for buttons and 
+headers.  Additionally the CSS now refers to global variables to allow for more
+easily changing settings at the GlobalStyles.js file.
 
-![Calendar Page](images/img_calendar.png)
+The updated version is on the left, old version on the right
+New Design                             | Older Design
+:-------------------------------------:|:----------------------------:
+![New Design](images/img_calendar_new.png) | ![Calendar Page](images/img_calendar_older.png)
 
 Easily discovering the ability to add events, a user can then navigate to the
 events page either by clicking on a newly generated event, or using the navbar.
@@ -24,7 +32,7 @@ user through to the Roster page where member details can be viewed.
 One of the principles for the interface design of this app is the concept of 
 interface redundancy. 
 
-https://www.sciencedirect.com/science/article/abs/pii/S1071581918306190#:~:text=Redundancy%20in%20interface%20design,et%20al.%2C%202004).
+https://www.sciencedirect.com/science/article/abs/pii/S1071581918306190#:~:text=Redundancy%20in%20interface%20design,et%20al.%2C%202004
 
 There are many state values within the app which can be modified/set from 
 multiple different places within the application. This is by design, allowing 
