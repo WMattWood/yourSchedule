@@ -37,7 +37,7 @@ const EventPage = () => {
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
-    navigate(0)
+    // navigate(0) // i am not sure why this was here but i'm going to leave it for now.
   }
 
   const isCallListFull = () => {
@@ -50,7 +50,7 @@ const EventPage = () => {
         ? <h1>No events listed yet.</h1>
         : <PageLeftRight>
             { !event
-              ? <h1>Loading events...</h1>
+              ? <EventTitle>Loading events...</EventTitle>
               : <LeftWrapper>
                 <EventTitle>{event.name}</EventTitle>
                 <EventWrapper>
@@ -118,7 +118,8 @@ const LeftWrapper = styled.div`
   flex-direction: column;
 `
 const EventTitle = styled.h1`
-  border-bottom: 3px solid black;
+  /* border-bottom: 3px solid black; */
+  margin-top: 0px;
   padding-bottom: 2px;
 `
 const EventWrapper = styled.div`
@@ -180,7 +181,7 @@ const QuickLinkWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
-    color: goldenrod;
+    text-shadow: 2px 2px goldenrod;
     transition: color 0.1s ;
   }
 `
