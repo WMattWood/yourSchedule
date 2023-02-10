@@ -81,22 +81,12 @@ const NavbarContainer = styled.div`
   height: 50px;
   position: relative;
 
-  /* &:after {
-    content: "";
-    background: black;
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 4px;
-    width: 406px;
-  } */
   * {
     margin: 2px 0px;
   }
 `
 
 const LinkContainer = styled.div`
-  /* margin-left: 60px; */
   display: flex;
   align-items: end;
   justify-content: space-around;
