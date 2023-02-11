@@ -19,7 +19,7 @@ const Homepage = () => {
         free tier, and might take 30 seconds for the back end server to spin up.  
         This means that it might take a moment for the events to become visible.  
         <p>Feel free to look around, and if you have any questions you can contact 
-        me through my Github or LinkedIn!</p> 
+        me through my Github or LinkedIn @<a href="https://github.com/WMattWood"><b>WMattWood</b></a></p> 
       </DemoBanner>
     </>
   )
