@@ -33,9 +33,9 @@ const DemoBanner = styled.div`
   box-shadow: 4px 4px black;
   width: 400px;
   height: 200px;
-  position: relative;
-  top: 60px;
-  left: 60px;
+  position: absolute;
+  top: 160px;
+  left: 100px;
   background:var(--modal);
 `
 
