@@ -16,14 +16,14 @@ const AddEventModal = () => {
   } = useContext(CalendarContext)
 
   // DAYS
-  let days = []
-  let daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
+  const days = []
+  const daysInCurrentMonth = 32 - (new Date(formData.dateYear, formData.dateMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
     days.push(i)
   }
   
   // YEARS
-  let years = []
+  const years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
@@ -32,15 +32,14 @@ const AddEventModal = () => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
   // STAFF NUMBERS
-  var staffArray = [];
+  const staffArray = [];
   for ( let i = 0; i <= 16; i++) {
     staffArray.push(i);
   }
 
+  // error popup
   const [ errorWindow, setErrorWindow ] = useState(false)
-
   const closeModal = () => { setModalVisibility(false) }
-
   const errorPopup = () => {
     setErrorWindow(!errorWindow)
   }
@@ -54,7 +53,7 @@ const AddEventModal = () => {
       return;
     }
 
-    let newCalendarEvent = await fetch(`${process.env.REACT_APP_URL_BASE}/calendar/insert`, {
+    const newCalendarEvent = await fetch(`${process.env.REACT_APP_URL_BASE}/calendar/insert`, {
       "method": "POST",
       "body": JSON.stringify({
         data: formData
@@ -81,7 +80,7 @@ const AddEventModal = () => {
                 })
 
     // force the calendar to re-render after adding a new event
-    let newMonthlyEventListings = [...monthlyEventListings, newCalendarEvent]
+    const newMonthlyEventListings = [...monthlyEventListings, newCalendarEvent]
     setMonthlyEventListings(newMonthlyEventListings)
   }
 
@@ -94,9 +93,9 @@ const AddEventModal = () => {
   // selectDay,Year,Month draw their values from the current element value of 
   // each select input "dropdown"
   // THIS CAN PROBABLY BE REFINED TO REMOVE THE USE OF GETELEMENTBYID
-  let selectDay = document.getElementById("modalDay")
-  let selectYear = document.getElementById("modalYear")
-  let selectMonth = document.getElementById("modalMonth")
+  const selectDay = document.getElementById("modalDay")
+  const selectYear = document.getElementById("modalYear")
+  const selectMonth = document.getElementById("modalMonth")
   const dateHandler = (ev, field) => {
     setFormData({...formData, [field]: ev.currentTarget.value })
     setActiveDate(new Date(selectYear.value, selectMonth.value, selectDay.value))
@@ -104,9 +103,9 @@ const AddEventModal = () => {
 
   // This handler generates a list of empty "position" items
   const callListHandler = (ev) => {
-    let number = ev.currentTarget.value
+    const number = ev.currentTarget.value
+    const newCallList = []
     let x = 0
-    let newCallList = []
     while (x < number) {
       newCallList.push({ name: "unfilled", position: "tech", editMode: false })
       x++;
