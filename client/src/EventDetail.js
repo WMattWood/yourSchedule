@@ -42,13 +42,13 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
     <FieldWrapper>
       { ! showEditor 
         ? <>
-            <DisplayedField>{`${fieldName}: ${updatedProperty}`}</DisplayedField>
+            <DisplayedField>{`${fieldName}: ${event[fieldProperty]}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
             <DisplayedField>{`${fieldName}:`}</DisplayedField>
             <EditMenuWrapper>
-              <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
+              <TextInput value={event[fieldProperty]} onChange={ (ev) => handleChange (ev) }></TextInput>
               <EditButtonsWrapper>
                 <SaveButton onClick={saveClickHandler}>Save</SaveButton>
                 <CloseButton onClick={toggleEditor}>Close</CloseButton>
