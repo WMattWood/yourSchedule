@@ -9,6 +9,20 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
   const { setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
   const navigate = useNavigate()
 
+  const formattedEventName = ( eventName ) => {
+    // You can modify how many chars are displayed with the splitPoint variable
+    const splitPoint = 12
+    return eventName.length > splitPoint 
+    ? eventName.slice(0, splitPoint) + "..." 
+    : eventName
+  }
+
+  const determineEventStatus = ( callList ) => {
+    return callList.every(el => el.name !== 'unfilled' ) 
+    ? "eventFull"  
+    : "eventPending"
+  }
+
   const clickHandler = () => {
     // onClick - make modal visible and set the modal's date to match the currently displayed calendar date
     // but only do this if you click on a box that actually has a numberMarker.
@@ -31,27 +45,13 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
         <EventsBox>
           { // map through eventArray which is any events that were found on the current day
             // display an EventBand for each event in the array (up to 3) and set the event
-            // status to either Full or Pending
+            // status to either "eventFull" or "eventPending"
             ! eventArray
             ? null
             : eventArray.map( event => {
-                // You can modify how many chars are displayed with the splitPoint variable
-                const splitPoint = 12
-                // Set a 12 character name to be displayed on the EventBand
-                let parsedName = event.name 
-                if (parsedName.length > splitPoint ) {
-                  parsedName = parsedName.slice(0, splitPoint) + "..."
-                }
-
-                // set full/pending status for each eventBand
-                let eventStatus = "eventPending"
-                if (event.callList.every(el => el.name !== 'unfilled' )){
-                  eventStatus = "eventFull"
-                } 
-
                 return (
-                  <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)} key={uuidv4()}>
-                    <BandSpan>{parsedName}</BandSpan>
+                  <EventBand className={determineEventStatus(event.callList)} onClick={ (ev) => handleNav(ev, event)} key={uuidv4()}>
+                    <BandSpan>{formattedEventName(event.name)}</BandSpan>
                   </EventBand>
                 )
               }) 
