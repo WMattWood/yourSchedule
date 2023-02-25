@@ -90,7 +90,7 @@ const CalendarModule = () => {
     fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
       .then( res => setMonthlyEventListings(res.data) )
-  }, [activeDate] )
+  }, [activeDate, setMonthlyEventListings] )
 
   /// JSX RETURN
   return (
