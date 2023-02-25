@@ -9,14 +9,16 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
   const { setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext)
   const navigate = useNavigate()
 
+  // This formats event names which are too long to display properly.
+  // You can modify how many chars are displayed with the splitPoint variable.
   const formattedEventName = ( eventName ) => {
-    // You can modify how many chars are displayed with the splitPoint variable
     const splitPoint = 12
     return eventName.length > splitPoint 
     ? eventName.slice(0, splitPoint) + "..." 
     : eventName
   }
 
+  // This determines whether a given event is full or not. 
   const determineEventStatus = ( callList ) => {
     return callList.every(el => el.name !== 'unfilled' ) 
     ? "eventFull"  
