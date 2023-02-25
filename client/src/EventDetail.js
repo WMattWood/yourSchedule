@@ -34,8 +34,7 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
 
   // Updates the updatedProperty state whenever the field is changed.
   const handleChange = (ev) => {
-    let text = ev.currentTarget.value
-    setUpdatedProperty(text)
+    setUpdatedProperty(ev.currentTarget.value)
   }
   
   return (
