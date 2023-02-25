@@ -20,9 +20,9 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
 
   // This determines whether a given event is full or not. 
   const determineEventStatus = ( callList ) => {
-    return callList.every(el => el.name !== 'unfilled' ) 
-    ? "eventFull"  
-    : "eventPending"
+    return callList.some(el => el.name === 'unfilled' ) 
+    ? "eventPending"
+    : "eventFull"
   }
 
   const clickHandler = () => {
