@@ -21,7 +21,7 @@ const CalendarModule = () => {
   // DAYS/MONTHS/YEARS
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  let years = []
+  const years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
@@ -29,13 +29,15 @@ const CalendarModule = () => {
   // CALENDAR LOGIC
   const getCalendar = (year, month) => {
     // set first day of month and days in current month
-    let firstDayOfTheMonth = (new Date(year, month)).getDay()
-    let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
+    const firstDayOfTheMonth = (new Date(year, month)).getDay()
+    const daysInMonth = 32 - (new Date(year, month, 32)).getDate()
+    const arrayOfWeeks = []
+
     // initialize "currentDate" count
     let currentDate = 1
-    let arrayOfWeeks = []
+
     for (let weekRow = 0; weekRow < 6; weekRow++) {
-      let week = []
+      const week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         // __________________________
         // if there are events on the currentDate, an array of those events is
@@ -70,8 +72,8 @@ const CalendarModule = () => {
 
   // Jump To Specific Month
   const jump = () => {
-    let selectYear = document.getElementById("year")
-    let selectMonth = document.getElementById("month")
+    const selectYear = document.getElementById("year")
+    const selectMonth = document.getElementById("month")
     setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
 
