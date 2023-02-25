@@ -24,7 +24,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
     // console.log("This is what we're updating, should be false", updatedEntry)
     // iirc there was something to do with this needing to be sent to the 'next'
     // state to avoid a stale state situation... not 100% sure
-    let target = {...updatedEntry, editMode: false } 
+    const target = {...updatedEntry, editMode: false } 
     fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
@@ -47,7 +47,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
     // console.log("This is what we're updating, should be true", updatedEntry)
     // iirc there was something to do with this needing to be sent to the 'next'
     // state to avoid a stale state situation... not 100% sure
-    let target = {...updatedEntry, editMode: true } 
+    const target = {...updatedEntry, editMode: true } 
     console.log(target)
     fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
@@ -68,7 +68,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   const setStateHookShouldSupportCALLBACKS = (updatedValue, fieldName) => {
 
     // console.log("This is what we're updating, setStateHookShouldSupportCALLBACKS", target)
-    let target = {...updatedEntry, [fieldName]: updatedValue }
+    const target = {...updatedEntry, [fieldName]: updatedValue }
     fetch(`${URL_BASE}/callList/${event._id}`, {
       "method": "PATCH",
       "body": JSON.stringify({
@@ -104,7 +104,7 @@ const CallListPosition = ({event, memberList, setEvent, idx, showDeleteButton, s
   // Does stuff whenever you change a field.
   // ...what it does is 
   const handleChange = (ev, fieldName) => {
-    let updatedValue = ev.currentTarget.value
+    const updatedValue = ev.currentTarget.value
     setUpdatedEntry( {...updatedEntry, [fieldName]: updatedValue } )
     setStateHookShouldSupportCALLBACKS( updatedValue, fieldName )
   }
