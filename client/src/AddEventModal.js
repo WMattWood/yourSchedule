@@ -232,11 +232,7 @@ const EventForm = styled.form`
   background-color: var(--modal);
   box-sizing: border-box;
   border: 2px solid black;
-  /* border-radius: 10px; */
-
   border-radius: 3px;
-  /* border: none; */
-  /* box-shadow: 4px 4px; */
 `
 
 // FORM FIELDS
@@ -308,7 +304,6 @@ const EventDataSubmit = styled.button`
   margin-top: 20px;
   cursor: pointer;
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
   &:active{
