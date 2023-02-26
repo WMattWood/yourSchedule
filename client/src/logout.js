@@ -13,16 +13,15 @@ const LogoutButton = () => {
 };
 
 const Button = styled.button`
-  /* margin-left: 60px; */
   position: relative;
   top: -2px;
   right: 2px;
   width: 100px;
   height: 24px;
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
+  
   &:active{
     box-shadow: 0px 0px;
     transition: 0.1s;

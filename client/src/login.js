@@ -14,12 +14,10 @@ const Button = styled.button`
   position: relative;
   top: -20px;
   left: 16px;
-  /* width: 100px; */
-  /* font-weight: 600; */
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
+  
   &:active{
     box-shadow: 0px 0px;
     transition: 0.1s;
