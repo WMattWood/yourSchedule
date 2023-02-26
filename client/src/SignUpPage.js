@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react"
 
-const Signup = () => {
+const SignUpPage = () => {
 
 //   const [ formData, setFormData ] = useState({})
 
@@ -40,4 +40,4 @@ const Signup = () => {
 }
 
 
-export default Signup;
+export default SignUpPage;
