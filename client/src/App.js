@@ -12,6 +12,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 function App() {
 
   // Authentication is managed by Auth0
+  // This is not actually needed it seems like!  Looks like the 
+  // Auth0 provider automatically makes this object available.
   const { isAuthenticated } = useAuth0()
 
   return (
