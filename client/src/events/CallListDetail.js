@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState, useRef } from 'react'
-import CallListPosition from '../CallListPosition'
+import CallListPosition from './CallListPosition'
 import { v4 as uuidv4 } from 'uuid'
 
 const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}) => {
