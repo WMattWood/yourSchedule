@@ -16,7 +16,6 @@ const CallListDetail = ({event, memberList, setEvent, globalEdit, setGlobalEdit}
   // ...and I think because there can only be one pop up window?  But there are
   // lots of CallListPositions vs. AddEventModal where we just had the one.
   const selectForDeleteHandler = (phrase, index) => {
-    console.log("beep")
     setShowDeleteModal(true)
     thePhrase.current = phrase
     theIndex.current = index
