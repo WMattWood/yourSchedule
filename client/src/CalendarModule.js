@@ -21,7 +21,7 @@ const CalendarModule = () => {
   // DAYS/MONTHS/YEARS
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  let years = []
+  const years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
@@ -29,13 +29,15 @@ const CalendarModule = () => {
   // CALENDAR LOGIC
   const getCalendar = (year, month) => {
     // set first day of month and days in current month
-    let firstDayOfTheMonth = (new Date(year, month)).getDay()
-    let daysInMonth = 32 - (new Date(year, month, 32)).getDate()
+    const firstDayOfTheMonth = (new Date(year, month)).getDay()
+    const daysInMonth = 32 - (new Date(year, month, 32)).getDate()
+    const arrayOfWeeks = []
+
     // initialize "currentDate" count
     let currentDate = 1
-    let arrayOfWeeks = []
+
     for (let weekRow = 0; weekRow < 6; weekRow++) {
-      let week = []
+      const week = []
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         // __________________________
         // if there are events on the currentDate, an array of those events is
@@ -70,8 +72,8 @@ const CalendarModule = () => {
 
   // Jump To Specific Month
   const jump = () => {
-    let selectYear = document.getElementById("year")
-    let selectMonth = document.getElementById("month")
+    const selectYear = document.getElementById("year")
+    const selectMonth = document.getElementById("month")
     setActiveDate(new Date(selectYear.value, selectMonth.value))
   }
 
@@ -88,12 +90,12 @@ const CalendarModule = () => {
     fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${activeDate.getFullYear()}/${activeDate.getMonth()}`)
       .then( res => res.json() )
       .then( res => setMonthlyEventListings(res.data) )
-  }, [activeDate] )
+  }, [activeDate, setMonthlyEventListings] )
 
   /// JSX RETURN
   return (
     <section>
-      
+
       {/* Render Calendar Header */}
       <HeaderWrapper>
         <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
@@ -106,25 +108,24 @@ const CalendarModule = () => {
           </NavIcon>
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
-
         <JumpSectionForm>
-            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
-            <MonthSelect
-                name="month"
-                id="month"
-                value={activeDate.getMonth()} 
-                onChange={ () => jump() } > 
-                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
-            </MonthSelect>
-            <label htmlFor="year" />
-            <YearSelect
-                name="year"
-                id="year"
-                value={activeDate.getFullYear()} 
-                onChange={ () => jump() } > 
-                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
-            </YearSelect>
-          </JumpSectionForm>
+          <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
+          <MonthSelect
+              name="month"
+              id="month"
+              value={activeDate.getMonth()} 
+              onChange={ () => jump() } > 
+              {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
+          </MonthSelect>
+          <label htmlFor="year" />
+          <YearSelect
+              name="year"
+              id="year"
+              value={activeDate.getFullYear()} 
+              onChange={ () => jump() } > 
+              {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
+          </YearSelect>
+        </JumpSectionForm>
       </HeaderWrapper>
       
       {/* Render Days of the Week */}
@@ -153,7 +154,6 @@ const TodayButton = styled.button`
   width: 60px;
   height: 24px;
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
   &:active{

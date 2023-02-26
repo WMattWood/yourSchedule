@@ -74,7 +74,6 @@ const GlobalStyle = createGlobalStyle`
     --f4: 1.25rem;
     --f5: 1.5rem;
     --f6: 2rem;
-    /* add more variables to fill our your system */
   }
 
 `

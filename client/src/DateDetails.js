@@ -16,14 +16,14 @@ const DateDetails = ({event}) => {
   const [ updatedYear, setUpdatedYear ] = useState(event.dateYear)
 
   // DAYS
-  let days = []
-  let daysInCurrentMonth = 32 - (new Date(updatedYear, updatedMonth, 32)).getDate()
+  const days = []
+  const daysInCurrentMonth = 32 - (new Date(updatedYear, updatedMonth, 32)).getDate()
   for ( let i = 1; i <= daysInCurrentMonth; i++ ) {
     days.push(i)
   }
 
   // YEARS
-  let years = []
+  const years = []
   for ( let i = 2000; i <= 2038; i++ ) {
     years.push(i)
   }
@@ -32,7 +32,7 @@ const DateDetails = ({event}) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
   // STAFF NUMBERS
-  var staffArray = [];
+  const staffArray = [];
   for ( let i = 1; i <= 16; i++) {
     staffArray.push(i);
   }
@@ -62,17 +62,17 @@ const DateDetails = ({event}) => {
 
   // Updates the date STATE whenever the field is changed.
   const handleDayChange = (ev) => {
-    let date = ev.currentTarget.value
+    const date = ev.currentTarget.value
     setUpdatedDay(date)
   }
 
   const handleMonthChange = (ev) => {
-    let date = ev.currentTarget.value
+    const date = ev.currentTarget.value
     setUpdatedMonth(date)
   }
 
   const handleYearChange = (ev) => {
-    let date = ev.currentTarget.value
+    const date = ev.currentTarget.value
     setUpdatedYear(date)
   }
 

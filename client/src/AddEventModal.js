@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
 import { v4 as uuidv4 } from 'uuid'

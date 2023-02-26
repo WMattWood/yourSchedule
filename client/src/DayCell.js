@@ -1,13 +1,29 @@
 import styled from "styled-components"
 import { useContext } from "react";
 import { CalendarContext } from "./CalendarContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid'
 
 const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
 
-  const { setModalVisibility, activeDate, setActiveDate, formData, setFormData  } = useContext(CalendarContext)
+  const { setModalVisibility, activeDate, setActiveDate } = useContext(CalendarContext)
   const navigate = useNavigate()
+
+  // This formats event names which are too long to display properly.
+  // You can modify how many chars are displayed with the splitPoint variable.
+  const formattedEventName = ( eventName ) => {
+    const splitPoint = 12
+    return eventName.length > splitPoint 
+    ? eventName.slice(0, splitPoint) + "..." 
+    : eventName
+  }
+
+  // This determines whether a given event is full or not. 
+  const determineEventStatus = ( callList ) => {
+    return callList.some(el => el.name === 'unfilled' ) 
+    ? "eventPending"
+    : "eventFull"
+  }
 
   const clickHandler = () => {
     // onClick - make modal visible and set the modal's date to match the currently displayed calendar date
@@ -31,27 +47,13 @@ const DayCell = ({numberMarker, selectedStatus, eventArray}) => {
         <EventsBox>
           { // map through eventArray which is any events that were found on the current day
             // display an EventBand for each event in the array (up to 3) and set the event
-            // status to either Full or Pending
+            // status to either "eventFull" or "eventPending"
             ! eventArray
             ? null
             : eventArray.map( event => {
-                // You can modify how many chars are displayed with the splitPoint variable
-                const splitPoint = 12
-                // Set a 12 character name to be displayed on the EventBand
-                let parsedName = event.name 
-                if (parsedName.length > splitPoint ) {
-                  parsedName = parsedName.slice(0, splitPoint) + "..."
-                }
-
-                // set full/pending status for each eventBand
-                let eventStatus = "eventPending"
-                if (event.callList.every(el => el.name !== 'unfilled' )){
-                  eventStatus = "eventFull"
-                } 
-
                 return (
-                  <EventBand className={eventStatus} onClick={ (ev) => handleNav(ev, event)} key={uuidv4()}>
-                    <BandSpan>{parsedName}</BandSpan>
+                  <EventBand className={determineEventStatus(event.callList)} onClick={ (ev) => handleNav(ev, event)} key={uuidv4()}>
+                    <BandSpan>{formattedEventName(event.name)}</BandSpan>
                   </EventBand>
                 )
               }) 

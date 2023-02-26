@@ -7,14 +7,8 @@ const RosterPage = () => {
 
   useEffect( () => {
     fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
-      .then( res => {
-        console.log("line 11:", res)
-        return res.json() 
-      })
-      .then( res => {
-        console.log("line 15:", res)
-        setRoster(res.data)
-      })
+      .then( res => res.json() )
+      .then( res => setRoster(res.data) )
   }, [] )
 
   return (

@@ -1,17 +1,13 @@
 import styled from "styled-components";
-import LoginButton from "./login"
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Homepage = () => {
-  const { isAuthenticated } = useAuth0()
-
-  // The homepage is literally just a login button!  
-  // Users should only be routed here if they have not yet logged in.
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   return(
     <>
       { !isAuthenticated
-        ? <LoginButton/>
+        ? <LoginButton onClick={() => loginWithRedirect()}>Log In</LoginButton>
         : null
       }
       <DemoBanner>
@@ -37,6 +33,22 @@ const DemoBanner = styled.div`
   top: 160px;
   left: 100px;
   background:var(--modal);
+`
+
+const LoginButton = styled.button`
+  margin-top: 20px;
+  height: 24px;
+  position: relative;
+  top: -20px;
+  left: 16px;
+  border-radius: 3px;
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+  }
 `
 
 export default Homepage

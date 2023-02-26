@@ -4,7 +4,7 @@ import Homepage from "./Homepage"
 import CalendarPage from "./CalendarPage"
 import RosterPage from "./RosterPage";
 import EventPage from "./EventPage";
-import Signup from "./Signup";
+import SignUpPage from "./signup/SignUpPage";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -19,20 +19,17 @@ function App() {
     <GlobalStyle />
       <PageWindow>
         <Navbar />
-        
-        {/* Prior to user authentication - all paths route to the Homepage which provides a login option */}
-        { !isAuthenticated
-          ? <Routes>
-              <Route path="*" element={<Homepage />} />
-            </Routes>
-          : <Routes>
+        <Routes>
+          !isAuthenticated
+          ? <Route path="*" element={<Homepage />} />
+          : <>
               <Route path="/" element={<Homepage />} />
               <Route path="/calendar" element={<CalendarPage/>} />
               <Route path="/event/:eventId" element={<EventPage/>} />
               <Route path="/roster" element={<RosterPage/>} />
-              <Route path="/signup" element={<Signup/>} />
-            </Routes>
-        }
+              <Route path="/signup" element={<SignUpPage/>} />
+            </>
+        </Routes>
       </PageWindow>
     </BrowserRouter>
   );

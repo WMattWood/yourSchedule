@@ -15,18 +15,21 @@ const EventPage = () => {
   // const [ globalEdit, setGlobalEdit ] = useState(false)
   const navigate = useNavigate()
 
+  // Set the current event
   useEffect( () => {
     fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${eventId}`)
       .then( res => res.json() )
       .then( res => setEvent(res.data))
   }, [eventId] )
 
+  // Set the event listing on the right hand side of the page
   useEffect( () => {
     fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
       .then( res => res.json() )
       .then( res => setEventListing(res.data))
   }, [eventId] )
 
+  // Set the members list which will display as options for each CallListPosition
   useEffect( () => { 
     fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
       .then(res => res.json() )
@@ -37,7 +40,6 @@ const EventPage = () => {
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
-    // navigate(0) // i am not sure why this was here but i'm going to leave it for now.
   }
 
   const isCallListFull = () => {
