@@ -40,7 +40,6 @@ const EventPage = () => {
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
-    // navigate(0) // i am not sure why this was here but i'm going to leave it for now.
   }
 
   const isCallListFull = () => {
