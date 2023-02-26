@@ -37,6 +37,9 @@ const SignUpPage = () => {
 //       <SubmitButton></SubmitButton>
 //     </Signupform>
 //   )
+return (
+  <h1> this will be a signup page</h1>
+)
 }
 
 
