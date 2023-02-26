@@ -1,14 +1,9 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import LogoutButton from './logout';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useContext } from 'react';
-import { CalendarContext } from './CalendarContext';
 
 const Navbar = () => {
-
-
-  const { isAuthenticated } = useAuth0()
+  const { isAuthenticated, logout } = useAuth0()
   const navigate = useNavigate();
 
   // LINK TO CALENDAR
@@ -18,10 +13,6 @@ const Navbar = () => {
   // LINK TO ROSTER
   const linkToRoster = () => {
     navigate("/roster");
-  };
-  // LINK TO HOME
-  const linkToHome = () => {
-    navigate("/");
   };
   // LINK TO EVENT PAGE
   const linkToEventDetails = async () => {
@@ -50,7 +41,9 @@ const Navbar = () => {
           <Link onClick={linkToEventDetails}>events</Link>
         </LinkContainer>
         { isAuthenticated 
-          ? <LogoutButton/>
+          ? <LogoutButton onClick={() => logout({ returnTo: window.location.origin })}>
+              Log Out
+            </LogoutButton>
           : null
         }
       </NavbarContainer>
@@ -114,6 +107,22 @@ const Link = styled.div`
     /* transition: 0.3s; */
     text-shadow: 2px 2px goldenrod;
     transition: 0.3s ;
+  }
+`
+
+const LogoutButton = styled.button`
+  position: relative;
+  top: -2px;
+  right: 2px;
+  width: 100px;
+  height: 24px;
+  border-radius: 3px;
+  box-shadow: 2px 2px;
+  transition: 0.1s;
+  
+  &:active{
+    box-shadow: 0px 0px;
+    transition: 0.1s;
   }
 `
 
