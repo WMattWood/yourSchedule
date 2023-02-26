@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from 'styled-components'
 import Homepage from "./Homepage"
-import CalendarPage from "./CalendarPage"
+import CalendarPage from "./calendar/CalendarPage"
 import RosterPage from "./RosterPage";
-import EventPage from "./EventPage";
+import EventPage from "./events/EventPage";
 import SignUpPage from "./signup/SignUpPage";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";

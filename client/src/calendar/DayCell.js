@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useContext } from "react";
-import { CalendarContext } from "./CalendarContext";
+import { CalendarContext } from "../CalendarContext";
 import { useNavigate} from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid'
 
