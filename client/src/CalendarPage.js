@@ -35,7 +35,6 @@ const AddEventButton = styled.button`
   font-size: 20px;
   font-weight: 600;
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
   &:active{

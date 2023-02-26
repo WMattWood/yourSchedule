@@ -97,14 +97,11 @@ const Link = styled.div`
   font-size: 22px;
   border-bottom: 4px solid black;
   border-color: rgba(0,0,0,0);
-  /* transition: border-bottom 0.2s, color 0.2s; */
   transition: 0.1s ease-out;
+  
   &:hover {
     cursor: pointer;
-    /* border-bottom: 4px solid black; */
     border-color: rgba(0,0,0,1);
-    /* text-shadow: 1px 1px black; */
-    /* transition: 0.3s; */
     text-shadow: 2px 2px goldenrod;
     transition: 0.3s ;
   }

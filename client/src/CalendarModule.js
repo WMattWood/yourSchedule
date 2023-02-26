@@ -155,7 +155,6 @@ const TodayButton = styled.button`
   width: 60px;
   height: 24px;
   border-radius: 3px;
-  /* border: none; */
   box-shadow: 2px 2px;
   transition: 0.1s;
   &:active{
