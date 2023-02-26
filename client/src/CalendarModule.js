@@ -95,7 +95,7 @@ const CalendarModule = () => {
   /// JSX RETURN
   return (
     <section>
-      
+
       {/* Render Calendar Header */}
       <HeaderWrapper>
         <TodayButton onClick={ () => jumpToday() }>Today</TodayButton>
@@ -108,25 +108,24 @@ const CalendarModule = () => {
           </NavIcon>
         </NavWrapper>
         <MonthTitle> {format(activeDate, "MMMM yyyy")} </MonthTitle>
-
         <JumpSectionForm>
-            <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
-            <MonthSelect
-                name="month"
-                id="month"
-                value={activeDate.getMonth()} 
-                onChange={ () => jump() } > 
-                {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
-            </MonthSelect>
-            <label htmlFor="year" />
-            <YearSelect
-                name="year"
-                id="year"
-                value={activeDate.getFullYear()} 
-                onChange={ () => jump() } > 
-                {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
-            </YearSelect>
-          </JumpSectionForm>
+          <JumpLabel htmlFor="month"> Jump To:{" "} </JumpLabel>
+          <MonthSelect
+              name="month"
+              id="month"
+              value={activeDate.getMonth()} 
+              onChange={ () => jump() } > 
+              {months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}
+          </MonthSelect>
+          <label htmlFor="year" />
+          <YearSelect
+              name="year"
+              id="year"
+              value={activeDate.getFullYear()} 
+              onChange={ () => jump() } > 
+              {years.map( (year) => <YearOption value={year} key={uuidv4()}>{year}</YearOption>)}
+          </YearSelect>
+        </JumpSectionForm>
       </HeaderWrapper>
       
       {/* Render Days of the Week */}
