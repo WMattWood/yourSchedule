@@ -34,20 +34,23 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
 
   // Updates the updatedProperty state whenever the field is changed.
   const handleChange = (ev) => {
-    setUpdatedProperty(ev.currentTarget.value)
+    let text = ev.currentTarget.value
+    setUpdatedProperty(text)
   }
   
   return (
     <FieldWrapper>
       { ! showEditor 
         ? <>
-            <DisplayedField>{`${fieldName}: ${event[fieldProperty]}`}</DisplayedField>
+            {console.log("event[fieldProperty]", event[fieldProperty])}
+            {/* {console.log("updatedProperty", updatedProperty)} */}
+            <DisplayedField>{`${fieldName}: ${updatedProperty}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
             <DisplayedField>{`${fieldName}:`}</DisplayedField>
             <EditMenuWrapper>
-              <TextInput value={event[fieldProperty]} onChange={ (ev) => handleChange (ev) }></TextInput>
+              <TextInput value={updatedProperty} onChange={ (ev) => handleChange (ev) }></TextInput>
               <EditButtonsWrapper>
                 <SaveButton onClick={saveClickHandler}>Save</SaveButton>
                 <CloseButton onClick={toggleEditor}>Close</CloseButton>

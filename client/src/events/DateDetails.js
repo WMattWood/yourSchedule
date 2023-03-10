@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 // A DISPLAY/EDIT FIELD FOR the DATE
@@ -14,6 +14,12 @@ const DateDetails = ({event}) => {
   const [ updatedDay, setUpdatedDay ] = useState(event.dateDay)
   const [ updatedMonth, setUpdatedMonth ] = useState(event.dateMonth)
   const [ updatedYear, setUpdatedYear ] = useState(event.dateYear)
+
+  useEffect( () => {
+    setUpdatedDay(event.dateDay)
+    setUpdatedMonth(event.dateMonth)
+    setUpdatedYear(event.dateYear)
+  }, [event])
 
   // DAYS
   const days = []
@@ -62,17 +68,17 @@ const DateDetails = ({event}) => {
 
   // Updates the date STATE whenever the field is changed.
   const handleDayChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedDay(date)
   }
 
   const handleMonthChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedMonth(date)
   }
 
   const handleYearChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedYear(date)
   }
 
@@ -80,18 +86,20 @@ const DateDetails = ({event}) => {
     <FieldWrapper>
       { ! showEditor 
         ? <>
-            <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
+            {/* {console.log("DateDetails updatedMonth", updatedMonth)} */}
+            {/* {console.log("DateDetails event.dateMonth", event.dateMonth)} */}
+            <DisplayedField>Date: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
-            <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
+            <DisplayedField>Date: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField>
             <DropdownMenus>
               <DropDown>
                 <label forhtml="month">month</label>
                 <EventDateSelect  type="select" 
                                   name="month"
                                   id="modalMonth"  
-                                  value={updatedMonth} 
+                                  defaultvalue={updatedMonth} 
                                   onChange={ (ev) => handleMonthChange(ev) } 
                                   required 
                                   >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
