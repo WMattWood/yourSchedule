@@ -88,18 +88,18 @@ const DateDetails = ({event}) => {
         ? <>
             {/* {console.log("DateDetails updatedMonth", updatedMonth)} */}
             {/* {console.log("DateDetails event.dateMonth", event.dateMonth)} */}
-            <DisplayedField>Date: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField>
+            <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
         : <>
-            <DisplayedField>Date: {`${months[event.dateMonth]} ${event.dateDay}, ${event.dateYear}`}</DisplayedField>
+            <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
             <DropdownMenus>
               <DropDown>
                 <label forhtml="month">month</label>
                 <EventDateSelect  type="select" 
                                   name="month"
                                   id="modalMonth"  
-                                  defaultvalue={updatedMonth} 
+                                  value={updatedMonth} 
                                   onChange={ (ev) => handleMonthChange(ev) } 
                                   required 
                                   >{months.map( (month, idx) => <MonthOption value={idx} key={uuidv4()}>{month}</MonthOption>)}</EventDateSelect>
