@@ -15,31 +15,26 @@ const EventPage = () => {
   // const [ globalEdit, setGlobalEdit ] = useState(false)
   const navigate = useNavigate()
 
-  // Set the current event
-  useEffect( () => {
 
+  useEffect( () => {
+  
+  // Get the current event
     const promise1 = fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${eventId}`)
       .then( res => res.json() )
-      .then( res => {
-        return res.data
-        // setEvent(res.data)
-      })
-
+      .then( res => res.data )
+  
+  // Get the event listing on the right hand side of the page
     const promise2 = fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
       .then( res => res.json() )
-      .then( res => {
-        return res.data
-        // setEventListing(res.data)
-      })
-
+      .then( res => res.data )
+  
+  // Get the members list which will display as options for each CallListPosition
     const promise3 = fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
       .then(res => res.json() )
-      .then(res => {
-        return res.data
-        // setMemberList(res.data)
-      })
-
-      Promise.all([promise1, promise2, promise3]).then((values) => {
+      .then(res => res.data )
+  
+  // Set all three fetches
+    Promise.all([promise1, promise2, promise3]).then((values) => {
         setEvent(values[0])
         setEventListing(values[1])
         setMemberList(values[2])

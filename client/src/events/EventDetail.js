@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // A GENERIC DISPLAY/EDIT FIELD FOR EVENT DETAILS (NAME, LOCATION, COMPANY)
 const EventDetail = ({fieldName, fieldProperty, event}) => {
@@ -16,6 +16,10 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
   const toggleEditor = () => {
     setShowEditor(!showEditor)
   }
+
+  useEffect( () => {
+    setUpdatedProperty(event[fieldProperty])
+  }, [event])
 
   // Submits data to the database
   const saveClickHandler = () => {
@@ -43,7 +47,7 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
       { ! showEditor 
         ? <>
             {console.log("event[fieldProperty]", event[fieldProperty])}
-            {/* {console.log("updatedProperty", updatedProperty)} */}
+            {console.log("updatedProperty", updatedProperty)}
             <DisplayedField>{`${fieldName}: ${updatedProperty}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
