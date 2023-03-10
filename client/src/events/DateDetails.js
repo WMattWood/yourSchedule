@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 // A DISPLAY/EDIT FIELD FOR the DATE
@@ -14,6 +14,12 @@ const DateDetails = ({event}) => {
   const [ updatedDay, setUpdatedDay ] = useState(event.dateDay)
   const [ updatedMonth, setUpdatedMonth ] = useState(event.dateMonth)
   const [ updatedYear, setUpdatedYear ] = useState(event.dateYear)
+
+  useEffect( () => {
+    setUpdatedDay(event.dateDay)
+    setUpdatedMonth(event.dateMonth)
+    setUpdatedYear(event.dateYear)
+  }, [event])
 
   // DAYS
   const days = []
@@ -62,17 +68,17 @@ const DateDetails = ({event}) => {
 
   // Updates the date STATE whenever the field is changed.
   const handleDayChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedDay(date)
   }
 
   const handleMonthChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedMonth(date)
   }
 
   const handleYearChange = (ev) => {
-    const date = ev.currentTarget.value
+    let date = ev.currentTarget.value
     setUpdatedYear(date)
   }
 
@@ -80,6 +86,8 @@ const DateDetails = ({event}) => {
     <FieldWrapper>
       { ! showEditor 
         ? <>
+            {/* {console.log("DateDetails updatedMonth", updatedMonth)} */}
+            {/* {console.log("DateDetails event.dateMonth", event.dateMonth)} */}
             <DisplayedField>Date: {`${months[updatedMonth]} ${updatedDay}, ${updatedYear}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>

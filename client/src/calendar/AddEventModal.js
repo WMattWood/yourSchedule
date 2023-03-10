@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { useContext } from "react";
-import { CalendarContext } from "./CalendarContext";
+import { CalendarContext } from "../CalendarContext";
 import { v4 as uuidv4 } from 'uuid'
 
 const AddEventModal = () => {

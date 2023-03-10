@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 import { useEffect } from "react";
 import { useContext } from "react";
-import { CalendarContext } from "./CalendarContext";
+import { CalendarContext } from "../CalendarContext";
 import { format, subMonths, addMonths } from "date-fns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import DayCell from './DayCell'

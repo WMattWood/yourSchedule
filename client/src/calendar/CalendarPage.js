@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useContext } from "react";
-import { CalendarContext } from "./CalendarContext";
+import { CalendarContext } from "../CalendarContext";
 import CalendarModule from "./CalendarModule";
 import AddEventModal from "./AddEventModal";
 

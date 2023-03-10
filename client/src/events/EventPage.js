@@ -15,31 +15,52 @@ const EventPage = () => {
   // const [ globalEdit, setGlobalEdit ] = useState(false)
   const navigate = useNavigate()
 
-  // Set the current event
-  useEffect( () => {
-    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${eventId}`)
-      .then( res => res.json() )
-      .then( res => setEvent(res.data))
-  }, [eventId] )
 
-  // Set the event listing on the right hand side of the page
   useEffect( () => {
-    fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
+  
+  // Get the current event
+    const promise1 = fetch(`${process.env.REACT_APP_URL_BASE}/calendar/${eventId}`)
       .then( res => res.json() )
-      .then( res => setEventListing(res.data))
-  }, [eventId] )
-
-  // Set the members list which will display as options for each CallListPosition
-  useEffect( () => { 
-    fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
+      .then( res => res.data )
+  
+  // Get the event listing on the right hand side of the page
+    const promise2 = fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
+      .then( res => res.json() )
+      .then( res => res.data )
+  
+  // Get the members list which will display as options for each CallListPosition
+    const promise3 = fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
       .then(res => res.json() )
-      .then(res => {
-        setMemberList(res.data)
-      })
+      .then(res => res.data )
+  
+  // Set all three fetches
+    Promise.all([promise1, promise2, promise3]).then((values) => {
+        setEvent(values[0])
+        setEventListing(values[1])
+        setMemberList(values[2])
+      });
+
   }, [eventId] )
+
+  // // Set the event listing on the right hand side of the page
+  // useEffect( () => {
+  //   fetch(`${process.env.REACT_APP_URL_BASE}/calendar/allEvents`)
+  //     .then( res => res.json() )
+  //     .then( res => setEventListing(res.data))
+  // }, [eventId] )
+
+  // // Set the members list which will display as options for each CallListPosition
+  // useEffect( () => { 
+  //   fetch(`${process.env.REACT_APP_URL_BASE}/members/allmembers`)
+  //     .then(res => res.json() )
+  //     .then(res => {
+  //       setMemberList(res.data)
+  //     })
+  // }, [eventId] )
 
   const handleIdNav = (id) => {
     navigate(`/event/${id}`)
+    // navigate(0)
   }
 
   const isCallListFull = () => {

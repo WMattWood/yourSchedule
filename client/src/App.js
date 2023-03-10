@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from 'styled-components'
-import Homepage from "./Homepage"
-import CalendarPage from "./CalendarPage"
-import RosterPage from "./RosterPage";
-import EventPage from "./EventPage";
+import Homepage from "./home/Homepage"
+import CalendarPage from "./calendar/CalendarPage"
+import RosterPage from "./roster/RosterPage";
+import EventPage from "./events/EventPage";
 import SignUpPage from "./signup/SignUpPage";
 import GlobalStyle from "./GlobalStyles";
 import Navbar from "./Navbar";
@@ -12,6 +12,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 function App() {
 
   // Authentication is managed by Auth0
+  // This is not actually needed it seems like!  Looks like the 
+  // Auth0 provider automatically makes this object available.
   const { isAuthenticated } = useAuth0()
 
   return (
