@@ -1,4 +1,4 @@
-# yourSchedule
+### yourSchedule
 A simple and intuitive scheduling app
 
 LIVE DEMO HERE: https://yourschedule.onrender.com/
