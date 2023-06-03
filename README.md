@@ -1,10 +1,18 @@
 # yourSchedule
-A simple and intuitive scheduling app
+A scheduling web app designed to assign teams to "tech gigs".  Features a fully functional calendar that is easy to navigate and displays any events created in the app, including their status as either "filled" or "unfilled", depending on whether all of the available positions for that specific gig have been assigned to a member.  The calendar logic is built in vanilla JS, with a react based frontend handling the UI.  Includes a back end server that has a CRUD API for creating and retrieving event information from the database, which is handled by MongoDB.  
 
 LIVE DEMO HERE: https://yourschedule.onrender.com/
 [Please note it may take up to 30 seconds for the 
 server to spin up due to hosting limitations.]
 
+Future feature list:
+  -Ability to message members via discord.
+  -Ability to message members via SMS using Twilio.
+  -Ability of members to respond to a gig request and have their position on the event fulfill automatically.
+  -CRUD API to allow creating and deletion of members in the database.
+  -Member access portal which allows members to see all events to which they have been assigned.
+
+#
 Version 0.2
 
 After logging in, users are met with the Calendar.
