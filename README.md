@@ -1,7 +1,7 @@
 # yourSchedule
 A scheduling web app designed to assign teams to "tech gigs".  Features a fully functional calendar that is easy to navigate and displays any events created in the app, including their status as either "filled" or "unfilled", depending on whether all of the available positions for that specific gig have been assigned to a member.  The calendar logic is built in vanilla JS, with a react based frontend handling the UI.  Includes a back end server that has a CRUD API for creating and retrieving event information from the database, which is handled by MongoDB.  
 
-LIVE DEMO HERE: https://yourschedule.onrender.com/
+LIVE DEMO HERE: [https://yourschedule.onrender.com/](https://yourschedule.onrender.com/)
 [Please note it may take up to 30 seconds for the 
 server to spin up due to hosting limitations.]
 
