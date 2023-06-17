@@ -46,8 +46,8 @@ const EventDetail = ({fieldName, fieldProperty, event}) => {
     <FieldWrapper>
       { ! showEditor 
         ? <>
-            {console.log("event[fieldProperty]", event[fieldProperty])}
-            {console.log("updatedProperty", updatedProperty)}
+            {/* {console.log("event[fieldProperty]", event[fieldProperty])} */}
+            {/* {console.log("updatedProperty", updatedProperty)} */}
             <DisplayedField>{`${fieldName}: ${updatedProperty}`}</DisplayedField>
             <EditButton onClick={toggleEditor}>Edit</EditButton>
           </>
