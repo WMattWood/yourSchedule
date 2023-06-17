@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid'
 import { useEffect, useState } from 'react'
 
 const RosterPage = () => {
@@ -18,7 +19,7 @@ const RosterPage = () => {
         : <RosterWrapper>
             <h1>Current Roster</h1>
             {roster.map( member => {
-              return  <MemberWrapper>
+              return  <MemberWrapper key={uuidv4()}>
                           <Name>{member.name} </Name>
                           <Phone>{member.phone} </Phone>
                           <Email>{member.email} </Email>
