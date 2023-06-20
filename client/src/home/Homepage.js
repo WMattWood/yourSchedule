@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import DatabaseStatus from "./DatabaseStatus";
 
 const Homepage = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
@@ -10,16 +11,25 @@ const Homepage = () => {
         ? <LoginButton onClick={() => loginWithRedirect()}>Log In</LoginButton>
         : null
       }
-      <DemoBanner>
-        Welcome to the demo of yourSchedule!  This app is currently hosted on a
-        free tier, and might take 30 seconds for the back end server to spin up.  
-        This means that it might take a moment for the events to become visible.  
-        <p>Feel free to look around, and if you have any questions you can contact 
-        me through my Github or LinkedIn @<a href="https://github.com/WMattWood"><b>WMattWood</b></a></p> 
-      </DemoBanner>
+      <HomePageItems>
+        <DemoBanner>
+          Welcome to the demo of yourSchedule!  This app is currently hosted on a
+          free tier, and might take 30 seconds for the back end server to spin up.  
+          This means that it might take a moment for the events to become visible.  
+          <p>Feel free to look around, and if you have any questions you can contact 
+          me through my Github or LinkedIn @<a href="https://github.com/WMattWood"><b>WMattWood</b></a></p> 
+        </DemoBanner>
+        <DatabaseStatus/>
+      </HomePageItems>
     </>
   )
 }
+
+const HomePageItems = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6em;
+`
 
 const DemoBanner = styled.div`
   font-family: var(--font-mono);
@@ -29,9 +39,9 @@ const DemoBanner = styled.div`
   box-shadow: 4px 4px black;
   width: 400px;
   height: 200px;
-  position: absolute;
-  top: 160px;
-  left: 100px;
+  /* position: absolute; */
+  /* top: 160px; */
+  /* left: 100px; */
   background:var(--modal);
 `
 
