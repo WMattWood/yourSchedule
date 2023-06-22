@@ -6,11 +6,13 @@ LIVE DEMO HERE: [https://yourschedule.onrender.com/](https://yourschedule.onrend
 server to spin up due to hosting limitations.]
 
 Future feature list:
-  -Ability to message members via discord.
-  -Ability to message members via SMS using Twilio.
-  -Ability of members to respond to a gig request and have their position on the event fulfill automatically.
-  -CRUD API to allow creating and deletion of members in the database.
-  -Member access portal which allows members to see all events to which they have been assigned.
+
+- Ability to message members via discord.
+- Ability to message members via SMS using Twilio.
+- Ability of members to respond to a gig request and have their position on the event fulfill automatically.
+- CRUD API to allow creating and deletion of members in the database.
+- Member access portal which allows members to see all events to which they have been assigned.
+- Responsive design for mobile
 
 #
 Version 0.2
